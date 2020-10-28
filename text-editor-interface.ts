@@ -53,7 +53,12 @@ export class ObsidianTextEditor {
     console.log(`insertLine was called at line ${row}`);
     console.log(`New line: ${line}`);
     const editor = this.view.sourceMode.cmEditor;
-    editor.replaceRange(line + '\n', { line: row, ch: 0 });
+
+    if (row > this.getLastRow()) {
+      editor.replaceRange('\n' + line, { line: row, ch: 0 });
+    } else {
+      editor.replaceRange(line + '\n', { line: row, ch: 0 });
+    }
   };
 
   deleteLine = (row: number): void => {

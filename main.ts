@@ -44,6 +44,20 @@ export default class TableEditorPlugin extends Plugin {
         this.previousCell();
       },
     });
+
+    this.addCommand({
+      id: 'next-row',
+      name: 'Navigate to Next Row',
+      hotkeys: [
+        {
+          modifiers: ['Mod'],
+          key: 'enter',
+        },
+      ],
+      callback: () => {
+        this.nextRow();
+      },
+    });
   }
 
   onunload() {
@@ -70,6 +84,18 @@ export default class TableEditorPlugin extends Plugin {
 
       if (te.cursorIsInTable(defaultOptions)) {
         te.previousCell(defaultOptions);
+      }
+    }
+  };
+
+  nextRow = () => {
+    const activeLeaf = this.app.workspace.activeLeaf;
+    if (activeLeaf.view instanceof MarkdownView) {
+      let ote = new ObsidianTextEditor(activeLeaf.view);
+      let te = new TableEditor(ote);
+
+      if (te.cursorIsInTable(defaultOptions)) {
+        te.nextRow(defaultOptions);
       }
     }
   };
