@@ -10,5 +10,9 @@ package-lock.json
 main.js
 *.js.map
 
+# release
+table-editor-obsidian/*
+table-editor-obsidian_*.zip
+
 # yarn
 yarn-error.log
