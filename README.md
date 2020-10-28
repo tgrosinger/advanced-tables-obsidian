@@ -1,22 +1,52 @@
-## Obsidian Sample Plugin
+# Obsidian Table Editor Plugin
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+Add improved navigation, formatting, and manipulation to markdown tables in Obsidian.
 
-This project uses Typescript to provide type checking and documentation.
-The repo contains the latest plugin API (obsidian.d.ts) in Typescript Definition format, which contains TSDoc comments describing what it does.
+Editing formatted tables looks best with a monospaced font. See [this forum
+post](https://forum.obsidian.md/t/monospace-font-in-the-editor/648/10) for
+steps on switching your editor to a monospaced font.
 
-**Note:** The Obsidian API is still in early alpha and is subject to change at any time!
+Leverages the excellent [mte-kernel](https://github.com/susisu/mte-kernel) to do the heavy lifting.
 
-### How to use
+**Note:** The Obsidian API is still in early alpha and this plugin may break at any time!
 
-- Clone this repo.
-- `npm i` or `yarn` to install dependencies
-- `npm run dev` to start compilation in watch mode.
+## How to use
 
-### How to install the plugin
+When a cursor is in a markdown table...
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `vault/.obsidian/plugins/plugin-id/`.
+| Hotkey                                              | Action        |
+| --------------------------------------------------- | ------------- |
+| <kbd>Ctrl</kbd> + <kbd>Tab</kbd>                    | Next Cell     |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Tab</kbd> | Previous Cell |
 
-### API Documentation
+Or use the command palette:
 
-See https://github.com/obsidianmd/obsidian-api
+- "Navigate to Next Cell"
+- "Navigate to Previous Cell"
+- "Format table at the cursor"
+
+More coming soon!
+
+## Compatibility
+
+Custom plugins are only available for Obsidian v0.9.7+.
+
+The current API of this repo targets Obsidian **v0.9.7**. 
+
+## How to install the plugin
+
+- Download the [Latest release](https://github.com/tgrosinger/table-editor-obsidian/releases/latest)
+- Extract the `table-editor-obsidian` folder from the zip to your vault's plugins folder: `<vault>/.obsidian/plugins/`  
+Note: On some machines the `.obsidian` folder may be hidden. On MacOS you should be able to press `Command+Shift+Dot` to show the folder in Finder.
+- Reload Obsidian
+- If prompted about Safe Mode, you can disable safe mode and enable the plugin.
+Otherwise head to Settings, third-party plugins, make sure safe mode is off and
+enable Table Editor from there.
+
+(Thanks to @deathau for the borrowed installation instructions.)
+
+## Notes
+
+This is very experimental and may features from the library are not yet
+implemented. It is possible that there are bugs which may delete data in the
+current note. Please make backups!

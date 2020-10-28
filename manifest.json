@@ -1,8 +1,7 @@
 {
-  "id": "obsidian-sample-plugin",
-  "name": "Sample Plugin",
-  "description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+  "id": "table-editor-obsidian",
+  "name": "Table Editor",
+  "description": "Improved table navigation, formatting, and manipulation",
   "isDesktopOnly": false,
-  "js": "main.js",
-  "css": "styles.css"
+  "js": "main.js"
 }
