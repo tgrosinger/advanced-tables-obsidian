@@ -21,14 +21,12 @@ const DEFAULT_OPTIONS = {
   smartCursor: false,
 };
 
-export const optionsWithDefaults = (options: Partial<Options>): Options => {
-  return {
+export const optionsWithDefaults = (options: Partial<Options>): Options => ({
     ...DEFAULT_OPTIONS,
     ...options,
     textWidthOptions: options.textWidthOptions
       ? { ...DEFAULT_TEXT_WIDTH_OPTIONS, ...options.textWidthOptions }
       : DEFAULT_TEXT_WIDTH_OPTIONS,
-  };
-};
+  });
 
 export const defaultOptions: Options = optionsWithDefaults({});
