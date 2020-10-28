@@ -51,7 +51,7 @@ export default class TableEditorPlugin extends Plugin {
   }
 
   nextCell = () => {
-    const activeLeaf = this.app.workspace.getMostRecentLeaf();
+    const activeLeaf = this.app.workspace.activeLeaf;
     if (activeLeaf.view instanceof MarkdownView) {
       let ote = new ObsidianTextEditor(activeLeaf.view);
       let te = new TableEditor(ote);
@@ -63,7 +63,7 @@ export default class TableEditorPlugin extends Plugin {
   };
 
   previousCell = () => {
-    const activeLeaf = this.app.workspace.getMostRecentLeaf();
+    const activeLeaf = this.app.workspace.activeLeaf;
     if (activeLeaf.view instanceof MarkdownView) {
       let ote = new ObsidianTextEditor(activeLeaf.view);
       let te = new TableEditor(ote);
@@ -75,8 +75,7 @@ export default class TableEditorPlugin extends Plugin {
   };
 
   formatTable = () => {
-    const activeLeaf = this.app.workspace.getMostRecentLeaf();
-
+    const activeLeaf = this.app.workspace.activeLeaf;
     if (activeLeaf.view instanceof MarkdownView) {
       let ote = new ObsidianTextEditor(activeLeaf.view);
       let te = new TableEditor(ote);
