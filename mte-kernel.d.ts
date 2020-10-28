@@ -3,19 +3,19 @@ declare module '@susisu/mte-kernel' {
    * Represents a point
    */
   export class Point {
-    column: number;
-    row: number;
+    public column: number;
+    public row: number;
 
     constructor(row: number, column: number);
-    equals(point: Point): boolean;
+    public equals(point: Point): boolean;
   }
 
   /**
    * Represents a range in the text editor.
    */
   export class Range {
-    start: Point;
-    end: Point;
+    public start: Point;
+    public end: Point;
 
     constructor(start: Point, end: Point);
   }
@@ -52,7 +52,7 @@ declare module '@susisu/mte-kernel' {
   /**
    * An object containing options.
    */
-  export class Options {
+  export interface Options {
     /**
      * A set of additional left margin characters
      * @public
@@ -98,64 +98,102 @@ declare module '@susisu/mte-kernel' {
 
   // Represents column alignment.
   enum Alignment {
-    // Use default alignment.
+    /**
+     * Use default alignment.
+     */
     NONE = 'none',
 
-    // Align left.
+    /**
+     * Align left.
+     */
     LEFT = 'left',
 
-    // Align right.
+    /**
+     * Align right.
+     */
     RIGHT = 'right',
 
-    // Align center.
+    /**
+     * Align center.
+     */
     CENTER = 'center',
   }
 
-  // Represents default column alignment.
+  /**
+   * Represents default column alignment.
+   */
   enum DefaultAlignment {
-    // Align left.
+    /**
+     * Align left.
+     */
     LEFT = 'left',
 
-    // Align right.
+    /**
+     * Align right.
+     */
     RIGHT = 'right',
 
-    // Align center.
+    /**
+     * Align center.
+     */
     CENTER = 'center',
   }
 
-  // Represents alignment of header cells.
+  /**
+   * Represents alignment of header cells.
+   */
   enum HeaderAlignment {
-    // Follow column's alignment.
+    /**
+     * Follow column's alignment.
+     */
     FOLLOW = 'follow',
 
-    // Align left.
+    /**
+     * Align left.
+     */
     LEFT = 'left',
 
-    // Align right.
+    /**
+     * Align right.
+     */
     RIGHT = 'right',
 
-    // Align center.
+    /**
+     * Align center.
+     */
     CENTER = 'center',
   }
 
-  // Represents table format type.
+  /**
+   * Represents table format type.
+   */
   enum FormatType {
-    // Formats table normally.
+    /**
+     * Formats table normally.
+     */
     NORMAL = 'normal',
 
-    // Formats table weakly, rows are formatted independently to each other,
-    // cell contents are just trimmed and not aligned.
+    /**
+     * Formats table weakly, rows are formatted independently to each other,
+     * cell contents are just trimmed and not aligned.
+     */
     WEAK = 'weak',
   }
 
   export interface ITextEditor {
-    // Gets the current cursor position.
+    /**
+     * Gets the current cursor position.
+     */
     getCursorPosition(): Point;
 
-    // Sets the cursor position to a specified one.
+    /**
+     * Sets the cursor position to a specified one.
+     */
     setCursorPosition(pos: Point): void;
 
-    // Sets the selection range.
+    /**
+     * Sets the selection range.
+     */
     setSelectionRange(range: Range): void;
 
     /**
@@ -163,81 +201,127 @@ declare module '@susisu/mte-kernel' {
      */
     getLastRow(): number;
 
-    // Checks if the editor accepts a table at a row to be edited.
+    /**
+     * Checks if the editor accepts a table at a row to be edited.
+     */
     acceptsTableEdit(row: number): boolean;
 
-    // Gets a line string at a row.
+    /**
+     * Gets a line string at a row.
+     */
     getLine(row: number): string;
 
-    // Inserts a line at a specified row.
+    /**
+     * Inserts a line at a specified row.
+     */
     insertLine(row: number, line: string): void;
 
-    // Deletes a line at the specified row.
+    /**
+     * Deletes a line at the specified row.
+     */
     deleteLine(row: number): void;
 
-    // Replace lines in a specified range.
+    /**
+     * Replace lines in a specified range.
+     */
     replaceLines(startRow: number, endRow: number, lines: string[]): void;
 
-    // Batches multiple operations as a single undo/redo step.
+    /**
+     * Batches multiple operations as a single undo/redo step.
+     */
     transact(func: Function): void;
   }
 
   export class TableEditor {
     constructor(textEditor: ITextEditor);
 
-    // Alters the alignment of the focused column.
-    alignColumn(alignment: Alignment, options: Options): undefined;
+    /**
+     * Alters the alignment of the focused column.
+     */
+    public alignColumn(alignment: Alignment, options: Options): undefined;
 
-    // Checks if the cursor is in a table row.
-    cursorIsInTable(options?: Options): boolean;
+    /**
+     * Checks if the cursor is in a table row.
+     */
+    public cursorIsInTable(options?: Options): boolean;
 
-    // Deletes a column at the current focus.
-    deleteColumn(options?: Options): undefined;
+    /**
+     * Deletes a column at the current focus.
+     */
+    public deleteColumn(options?: Options): undefined;
 
-    // Deletes a row at the current focus.
-    deleteRow(options?: Options): undefined;
+    /**
+     * Deletes a row at the current focus.
+     */
+    public deleteRow(options?: Options): undefined;
 
-    // Formats and escapes from the table.
-    escape(options?: Options): undefined;
+    /**
+     * Formats and escapes from the table.
+     */
+    public escape(options?: Options): undefined;
 
-    // Formats the table under the cursor.
-    format(options?: Options): undefined;
+    /**
+     * Formats the table under the cursor.
+     */
+    public format(options?: Options): undefined;
 
-    // Formats all the tables in the text editor.
-    formatAll(option: Options): undefined;
+    /**
+     * Formats all the tables in the text editor.
+     */
+    public formatAll(option: Options): undefined;
 
-    // Inserts an empty column at the current focus.
-    insertColumn(options?: Options): undefined;
+    /**
+     * Inserts an empty column at the current focus.
+     */
+    public insertColumn(options?: Options): undefined;
 
-    // Inserts an empty row at the current focus.
-    insertRow(options?: Options): undefined;
+    /**
+     * Inserts an empty row at the current focus.
+     */
+    public insertRow(options?: Options): undefined;
 
-    // Moves the focused column by the specified offset.
-    moveColumn(offset: number, options?: Options): undefined;
+    /**
+     * Moves the focused column by the specified offset.
+     */
+    public moveColumn(offset: number, options?: Options): undefined;
 
-    // Moves the focus to another cell.
-    moveFocus(
+    /**
+     * Moves the focus to another cell.
+     */
+    public moveFocus(
       rowOffset: number,
       columnOffset: number,
       options?: Options,
     ): undefined;
 
-    // Moves the focused row by the specified offset.
-    moveRow(offset: number, options?: Options): undefined;
+    /**
+     * Moves the focused row by the specified offset.
+     */
+    public moveRow(offset: number, options?: Options): undefined;
 
-    // Moves the focus to the next cell.
-    nextCell(option: Options): undefined;
+    /**
+     * Moves the focus to the next cell.
+     */
+    public nextCell(option: Options): undefined;
 
-    // Moves the focus to the next row.
-    nextRow(option: Options): undefined;
+    /**
+     * Moves the focus to the next row.
+     */
+    public nextRow(option: Options): undefined;
 
-    // Moves the focus to the previous cell.
-    previousCell(option: Options): undefined;
+    /**
+     * Moves the focus to the previous cell.
+     */
+    public previousCell(option: Options): undefined;
 
-    // Resets the smart cursor.
-    resetSmartCursor(): undefined;
+    /**
+     * Resets the smart cursor.
+     */
+    public resetSmartCursor(): undefined;
 
-    // Selects the focused cell content.
-    selectCell(options?: Options): undefined;
+    /**
+     * Selects the focused cell content.
+     */
+    public selectCell(options?: Options): undefined;
   }
 }

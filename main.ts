@@ -4,9 +4,9 @@ import { MarkdownView, Plugin } from 'obsidian';
 import { ObsidianTextEditor } from 'text-editor-interface';
 
 export default class TableEditorPlugin extends Plugin {
-  onInit() {}
+  public onInit(): void {}
 
-  onload() {
+  public onload(): void {
     console.log('loading markdown-table-editor plugin');
 
     this.addCommand({
@@ -60,11 +60,11 @@ export default class TableEditorPlugin extends Plugin {
     });
   }
 
-  onunload() {
+  public onunload(): void {
     console.log('unloading markdown-table-editor plugin');
   }
 
-  nextCell = () => {
+  private readonly nextCell = (): void => {
     const activeLeaf = this.app.workspace.activeLeaf;
     if (activeLeaf.view instanceof MarkdownView) {
       const ote = new ObsidianTextEditor(activeLeaf.view);
@@ -76,7 +76,7 @@ export default class TableEditorPlugin extends Plugin {
     }
   };
 
-  previousCell = () => {
+  private readonly previousCell = (): void => {
     const activeLeaf = this.app.workspace.activeLeaf;
     if (activeLeaf.view instanceof MarkdownView) {
       const ote = new ObsidianTextEditor(activeLeaf.view);
@@ -88,7 +88,7 @@ export default class TableEditorPlugin extends Plugin {
     }
   };
 
-  nextRow = () => {
+  private readonly nextRow = (): void => {
     const activeLeaf = this.app.workspace.activeLeaf;
     if (activeLeaf.view instanceof MarkdownView) {
       const ote = new ObsidianTextEditor(activeLeaf.view);
@@ -100,7 +100,7 @@ export default class TableEditorPlugin extends Plugin {
     }
   };
 
-  formatTable = () => {
+  private readonly formatTable = (): void => {
     const activeLeaf = this.app.workspace.activeLeaf;
     if (activeLeaf.view instanceof MarkdownView) {
       const ote = new ObsidianTextEditor(activeLeaf.view);
