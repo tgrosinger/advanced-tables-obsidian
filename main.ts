@@ -13,7 +13,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'format-table',
       name: 'Format table at the cursor',
       callback: () => {
-        this.formatTable();
+        this.inTableWrapper(this.formatTable);
       },
     });
 
@@ -27,7 +27,7 @@ export default class TableEditorPlugin extends Plugin {
         },
       ],
       callback: () => {
-        this.nextCell();
+        this.inTableWrapper(this.nextCell);
       },
     });
 
@@ -41,7 +41,7 @@ export default class TableEditorPlugin extends Plugin {
         },
       ],
       callback: () => {
-        this.previousCell();
+        this.inTableWrapper(this.previousCell);
       },
     });
 
@@ -55,7 +55,15 @@ export default class TableEditorPlugin extends Plugin {
         },
       ],
       callback: () => {
-        this.nextRow();
+        this.inTableWrapper(this.nextRow);
+      },
+    });
+
+    this.addCommand({
+      id: 'insert-column',
+      name: 'Insert column before current',
+      callback: () => {
+        this.inTableWrapper(this.insertColumn);
       },
     });
   }
@@ -64,51 +72,37 @@ export default class TableEditorPlugin extends Plugin {
     console.log('unloading markdown-table-editor plugin');
   }
 
-  private readonly nextCell = (): void => {
+  private readonly inTableWrapper = (
+    fn: (tableeditor: TableEditor) => void,
+  ): void => {
     const activeLeaf = this.app.workspace.activeLeaf;
     if (activeLeaf.view instanceof MarkdownView) {
       const ote = new ObsidianTextEditor(activeLeaf.view);
       const te = new TableEditor(ote);
 
       if (te.cursorIsInTable(defaultOptions)) {
-        te.nextCell(defaultOptions);
+        fn(te);
       }
     }
   };
 
-  private readonly previousCell = (): void => {
-    const activeLeaf = this.app.workspace.activeLeaf;
-    if (activeLeaf.view instanceof MarkdownView) {
-      const ote = new ObsidianTextEditor(activeLeaf.view);
-      const te = new TableEditor(ote);
-
-      if (te.cursorIsInTable(defaultOptions)) {
-        te.previousCell(defaultOptions);
-      }
-    }
+  private readonly nextCell = (te: TableEditor): void => {
+    te.nextCell(defaultOptions);
   };
 
-  private readonly nextRow = (): void => {
-    const activeLeaf = this.app.workspace.activeLeaf;
-    if (activeLeaf.view instanceof MarkdownView) {
-      const ote = new ObsidianTextEditor(activeLeaf.view);
-      const te = new TableEditor(ote);
-
-      if (te.cursorIsInTable(defaultOptions)) {
-        te.nextRow(defaultOptions);
-      }
-    }
+  private readonly previousCell = (te: TableEditor): void => {
+    te.previousCell(defaultOptions);
   };
 
-  private readonly formatTable = (): void => {
-    const activeLeaf = this.app.workspace.activeLeaf;
-    if (activeLeaf.view instanceof MarkdownView) {
-      const ote = new ObsidianTextEditor(activeLeaf.view);
-      const te = new TableEditor(ote);
+  private readonly nextRow = (te: TableEditor): void => {
+    te.nextRow(defaultOptions);
+  };
 
-      if (te.cursorIsInTable(defaultOptions)) {
-        te.format(defaultOptions);
-      }
-    }
+  private readonly formatTable = (te: TableEditor): void => {
+    te.format(defaultOptions);
+  };
+
+  private readonly insertColumn = (te: TableEditor): void => {
+    te.insertColumn(defaultOptions);
   };
 }
