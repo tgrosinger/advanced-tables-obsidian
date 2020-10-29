@@ -1,13 +1,22 @@
-import { defaultOptions } from './mte-options';
-import { Alignment, TableEditor } from '@susisu/mte-kernel';
-import { MarkdownView, Plugin } from 'obsidian';
+import { defaultOptions, optionsWithDefaults } from './mte-options';
+import {
+  Alignment,
+  FormatType,
+  Options,
+  TableEditor,
+} from '@susisu/mte-kernel';
+import { App, MarkdownView, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import { ObsidianTextEditor } from 'src/text-editor-interface';
 
 export default class TableEditorPlugin extends Plugin {
+  public settings: TableEditorPluginSettings;
+
   public onInit(): void {}
 
-  public onload(): void {
+  public async onload(): Promise<void> {
     console.log('loading markdown-table-editor plugin');
+
+    this.loadSettings();
 
     this.addCommand({
       id: 'format-table',
@@ -90,10 +99,26 @@ export default class TableEditorPlugin extends Plugin {
         this.inTableWrapper(this.rightAlignColumn);
       },
     });
+
+    this.addSettingTab(new TableEditorSettingsTab(this.app, this));
   }
 
   public onunload(): void {
     console.log('unloading markdown-table-editor plugin');
+  }
+
+  private async loadSettings(): Promise<void> {
+    this.settings = new TableEditorPluginSettings();
+    (async () => {
+      const loadedSettings = await this.loadData();
+      if (loadedSettings) {
+        console.log('Found existing settings file');
+        this.settings.formatType = loadedSettings.formatType;
+      } else {
+        console.log('No settings file found, saving...');
+        this.saveData(this.settings);
+      }
+    })();
   }
 
   private readonly inTableWrapper = (
@@ -111,34 +136,81 @@ export default class TableEditorPlugin extends Plugin {
   };
 
   private readonly nextCell = (te: TableEditor): void => {
-    te.nextCell(defaultOptions);
+    te.nextCell(this.settings.asOptions());
   };
 
   private readonly previousCell = (te: TableEditor): void => {
-    te.previousCell(defaultOptions);
+    te.previousCell(this.settings.asOptions());
   };
 
   private readonly nextRow = (te: TableEditor): void => {
-    te.nextRow(defaultOptions);
+    te.nextRow(this.settings.asOptions());
   };
 
   private readonly formatTable = (te: TableEditor): void => {
-    te.format(defaultOptions);
+    te.format(this.settings.asOptions());
   };
 
   private readonly insertColumn = (te: TableEditor): void => {
-    te.insertColumn(defaultOptions);
+    te.insertColumn(this.settings.asOptions());
   };
 
   private readonly leftAlignColumn = (te: TableEditor): void => {
-    te.alignColumn(Alignment.LEFT, defaultOptions);
+    te.alignColumn(Alignment.LEFT, this.settings.asOptions());
   };
 
   private readonly centerAlignColumn = (te: TableEditor): void => {
-    te.alignColumn(Alignment.CENTER, defaultOptions);
+    te.alignColumn(Alignment.CENTER, this.settings.asOptions());
   };
 
   private readonly rightAlignColumn = (te: TableEditor): void => {
-    te.alignColumn(Alignment.RIGHT, defaultOptions);
+    te.alignColumn(Alignment.RIGHT, this.settings.asOptions());
   };
+}
+
+class TableEditorPluginSettings {
+  public formatType: FormatType;
+
+  constructor() {
+    console.log('Constructing a new settings object');
+    this.formatType = FormatType.NORMAL;
+  }
+
+  public asOptions(): Options {
+    return optionsWithDefaults({ formatType: this.formatType });
+  }
+}
+
+class TableEditorSettingsTab extends PluginSettingTab {
+  private readonly plugin: TableEditorPlugin;
+
+  constructor(app: App, plugin: TableEditorPlugin) {
+    super(app, plugin);
+    this.plugin = plugin;
+  }
+
+  public display(): void {
+    const { containerEl } = this;
+    containerEl.empty();
+
+    containerEl.createEl('h2', { text: 'Table Plugin Editor - Settings' });
+
+    new Setting(containerEl)
+      .setName('Pad cell width using spaces')
+      .setDesc(
+        'If enabled, table cells will have spaces added to match the with of the ' +
+          'longest cell in the column. Only useful when using a monospace font during editing.',
+      )
+      .addToggle((toggle) =>
+        toggle
+          .setValue(this.plugin.settings.formatType === FormatType.NORMAL)
+          .onChange((value) => {
+            this.plugin.settings.formatType = value
+              ? FormatType.NORMAL
+              : FormatType.WEAK;
+            this.plugin.saveData(this.plugin.settings);
+            this.display();
+          }),
+      );
+  }
 }

@@ -4,9 +4,10 @@ Add improved navigation, formatting, and manipulation to markdown tables in Obsi
 
 ![basic functionality](resources/basic-functionality.gif)
 
-Editing formatted tables looks best with a monospaced font. See [this forum
-post](https://forum.obsidian.md/t/monospace-font-in-the-editor/648/10) for
-steps on switching your editor to a monospaced font.
+If you use a non-monospaced font while editing, it is recommended that you
+disable the "Pad cell width" setting under the plugin settings. See [this
+forum post](https://forum.obsidian.md/t/monospace-font-in-the-editor/648/10)
+for steps on switching your editor to a monospaced font.
 
 Leverages the excellent [mte-kernel](https://github.com/susisu/mte-kernel) to do the heavy lifting.
 
@@ -41,7 +42,7 @@ More coming soon!
 
 Custom plugins are only available for Obsidian v0.9.7+.
 
-The current API of this repo targets Obsidian **v0.9.7**. 
+The current API of this repo targets Obsidian **v0.9.7**.
 
 ## How to install the plugin
 
