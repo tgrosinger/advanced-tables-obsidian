@@ -1,5 +1,5 @@
 import { defaultOptions } from './mte-options';
-import { TableEditor } from '@susisu/mte-kernel';
+import { Alignment, TableEditor } from '@susisu/mte-kernel';
 import { MarkdownView, Plugin } from 'obsidian';
 import { ObsidianTextEditor } from 'src/text-editor-interface';
 
@@ -66,6 +66,30 @@ export default class TableEditorPlugin extends Plugin {
         this.inTableWrapper(this.insertColumn);
       },
     });
+
+    this.addCommand({
+      id: 'left-align-column',
+      name: 'Left align column',
+      callback: () => {
+        this.inTableWrapper(this.leftAlignColumn);
+      },
+    });
+
+    this.addCommand({
+      id: 'center-align-column',
+      name: 'Center align column',
+      callback: () => {
+        this.inTableWrapper(this.centerAlignColumn);
+      },
+    });
+
+    this.addCommand({
+      id: 'right-align-column',
+      name: 'Right align column',
+      callback: () => {
+        this.inTableWrapper(this.rightAlignColumn);
+      },
+    });
   }
 
   public onunload(): void {
@@ -104,5 +128,17 @@ export default class TableEditorPlugin extends Plugin {
 
   private readonly insertColumn = (te: TableEditor): void => {
     te.insertColumn(defaultOptions);
+  };
+
+  private readonly leftAlignColumn = (te: TableEditor): void => {
+    te.alignColumn(Alignment.LEFT, defaultOptions);
+  };
+
+  private readonly centerAlignColumn = (te: TableEditor): void => {
+    te.alignColumn(Alignment.CENTER, defaultOptions);
+  };
+
+  private readonly rightAlignColumn = (te: TableEditor): void => {
+    te.alignColumn(Alignment.RIGHT, defaultOptions);
   };
 }

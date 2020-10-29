@@ -29,6 +29,9 @@ Or use the command palette:
 - "Navigate to Next Row" - I recommend binding this to ctrl+enter and unbinding the conflicting "Toggle checklist status"
 - "Insert column before current"
 - "Format table at the cursor"
+- "Left align column"
+- "Center align column"
+- "Right align column"
 
 You may also use "Next Cell" (<kbd>Ctrl</kbd> + <kbd>Tab</kbd>) past the last column on a row to create another column at the end. Use the command again after typing your content to finish adding the column. Watch the demo above for an example.
 
