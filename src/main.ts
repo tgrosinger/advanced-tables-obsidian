@@ -1,7 +1,7 @@
+import { defaultOptions } from './mte-options';
 import { TableEditor } from '@susisu/mte-kernel';
-import { defaultOptions } from 'mte-options';
 import { MarkdownView, Plugin } from 'obsidian';
-import { ObsidianTextEditor } from 'text-editor-interface';
+import { ObsidianTextEditor } from 'src/text-editor-interface';
 
 export default class TableEditorPlugin extends Plugin {
   public onInit(): void {}
