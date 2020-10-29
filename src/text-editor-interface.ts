@@ -86,9 +86,9 @@ export class ObsidianTextEditor {
   };
 
   public transact = (func: Function): void => {
-    // TODO
     console.log('transact was called');
-    console.log(func);
-    func();
+    this.editor.operation(() => {
+      func();
+    });
   };
 }
