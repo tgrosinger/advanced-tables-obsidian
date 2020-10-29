@@ -2,30 +2,33 @@ import { Point, Range } from '@susisu/mte-kernel';
 import { MarkdownView } from 'obsidian';
 
 export class ObsidianTextEditor {
-  private readonly view: MarkdownView;
+  private readonly editor: CodeMirror.Editor;
 
-  constructor(view: MarkdownView) {
+  constructor(editor: CodeMirror.Editor);
+  constructor(view: MarkdownView);
+  constructor(obj: CodeMirror.Editor | MarkdownView) {
     console.log('constructor called');
-    this.view = view;
+    if ('sourceMode' in obj) {
+      this.editor = obj.sourceMode.cmEditor;
+    } else {
+      this.editor = obj;
+    }
   }
 
   public getCursorPosition = (): Point => {
     console.log('getCursorPosition was called');
-    const editor = this.view.sourceMode.cmEditor;
-    const position = editor.getCursor();
+    const position = this.editor.getCursor();
     return new Point(position.line, position.ch);
   };
 
   public setCursorPosition = (pos: Point): void => {
     console.log('setCursorPosition was called');
-    const editor = this.view.sourceMode.cmEditor;
-    editor.setCursor({ line: pos.row, ch: pos.column });
+    this.editor.setCursor({ line: pos.row, ch: pos.column });
   };
 
   public setSelectionRange = (range: Range): void => {
     console.log('setSelectionRange was called');
-    const editor = this.view.sourceMode.cmEditor;
-    editor.setSelection(
+    this.editor.setSelection(
       { line: range.start.row, ch: range.start.column },
       { line: range.end.row, ch: range.end.column },
     );
@@ -33,8 +36,7 @@ export class ObsidianTextEditor {
 
   public getLastRow = (): number => {
     console.log('getLastRow was called');
-    const editor = this.view.sourceMode.cmEditor;
-    return editor.lastLine();
+    return this.editor.lastLine();
   };
 
   public acceptsTableEdit = (row: number): boolean => {
@@ -45,26 +47,27 @@ export class ObsidianTextEditor {
 
   public getLine = (row: number): string => {
     console.log(`getLine was called on line ${row}`);
-    const editor = this.view.sourceMode.cmEditor;
-    return editor.getLine(row);
+    return this.editor.getLine(row);
   };
 
   public insertLine = (row: number, line: string): void => {
     console.log(`insertLine was called at line ${row}`);
     console.log(`New line: ${line}`);
-    const editor = this.view.sourceMode.cmEditor;
 
     if (row > this.getLastRow()) {
-      editor.replaceRange('\n' + line, { line: row, ch: 0 });
+      this.editor.replaceRange('\n' + line, { line: row, ch: 0 });
     } else {
-      editor.replaceRange(line + '\n', { line: row, ch: 0 });
+      this.editor.replaceRange(line + '\n', { line: row, ch: 0 });
     }
   };
 
   public deleteLine = (row: number): void => {
     console.log(`deleteLine was called on line ${row}`);
-    const editor = this.view.sourceMode.cmEditor;
-    editor.replaceRange('', { line: row, ch: 0 }, { line: row + 1, ch: 0 });
+    this.editor.replaceRange(
+      '',
+      { line: row, ch: 0 },
+      { line: row + 1, ch: 0 },
+    );
   };
 
   public replaceLines = (
@@ -75,8 +78,7 @@ export class ObsidianTextEditor {
     console.log('replaceLines was called');
     console.log(`start ${startRow}, end: ${endRow}`);
     console.log(lines);
-    const editor = this.view.sourceMode.cmEditor;
-    editor.replaceRange(
+    this.editor.replaceRange(
       lines,
       { line: startRow, ch: 0 },
       { line: endRow, ch: 0 }, // TODO: This might be off by one?
