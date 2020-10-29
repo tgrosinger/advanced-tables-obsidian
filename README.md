@@ -2,6 +2,8 @@
 
 Add improved navigation, formatting, and manipulation to markdown tables in Obsidian.
 
+![basic functionality](resources/basic-functionality.gif)
+
 Editing formatted tables looks best with a monospaced font. See [this forum
 post](https://forum.obsidian.md/t/monospace-font-in-the-editor/648/10) for
 steps on switching your editor to a monospaced font.
@@ -18,12 +20,17 @@ When a cursor is in a markdown table...
 | --------------------------------------------------- | ------------- |
 | <kbd>Ctrl</kbd> + <kbd>Tab</kbd>                    | Next Cell     |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Tab</kbd> | Previous Cell |
+| <kbd>Ctrl</kbd> + <kbd>Enter</kbd>                  | Next Row      |
 
 Or use the command palette:
 
 - "Navigate to Next Cell"
 - "Navigate to Previous Cell"
+- "Navigate to Next Row" - I recommend binding this to ctrl+enter and unbinding the conflicting "Toggle checklist status"
+- "Insert column before current"
 - "Format table at the cursor"
+
+You may also use "Next Cell" (<kbd>Ctrl</kbd> + <kbd>Tab</kbd>) past the last column on a row to create another column at the end. Use the command again after typing your content to finish adding the column. Watch the demo above for an example.
 
 More coming soon!
 
