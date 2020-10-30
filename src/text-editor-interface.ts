@@ -7,7 +7,6 @@ export class ObsidianTextEditor {
   constructor(editor: CodeMirror.Editor);
   constructor(view: MarkdownView);
   constructor(obj: CodeMirror.Editor | MarkdownView) {
-    console.log('constructor called');
     if ('sourceMode' in obj) {
       this.editor = obj.sourceMode.cmEditor;
     } else {
@@ -16,18 +15,18 @@ export class ObsidianTextEditor {
   }
 
   public getCursorPosition = (): Point => {
-    console.log('getCursorPosition was called');
+    console.debug('getCursorPosition was called');
     const position = this.editor.getCursor();
     return new Point(position.line, position.ch);
   };
 
   public setCursorPosition = (pos: Point): void => {
-    console.log('setCursorPosition was called');
+    console.debug('setCursorPosition was called');
     this.editor.setCursor({ line: pos.row, ch: pos.column });
   };
 
   public setSelectionRange = (range: Range): void => {
-    console.log('setSelectionRange was called');
+    console.debug('setSelectionRange was called');
     this.editor.setSelection(
       { line: range.start.row, ch: range.start.column },
       { line: range.end.row, ch: range.end.column },
@@ -35,24 +34,24 @@ export class ObsidianTextEditor {
   };
 
   public getLastRow = (): number => {
-    console.log('getLastRow was called');
+    console.debug('getLastRow was called');
     return this.editor.lastLine();
   };
 
   public acceptsTableEdit = (row: number): boolean => {
-    console.log(`acceptsTableEdit was called on row ${row}`);
+    console.debug(`acceptsTableEdit was called on row ${row}`);
     // TODO: What does this function want?
     return true;
   };
 
   public getLine = (row: number): string => {
-    console.log(`getLine was called on line ${row}`);
+    console.debug(`getLine was called on line ${row}`);
     return this.editor.getLine(row);
   };
 
   public insertLine = (row: number, line: string): void => {
-    console.log(`insertLine was called at line ${row}`);
-    console.log(`New line: ${line}`);
+    console.debug(`insertLine was called at line ${row}`);
+    console.debug(`New line: ${line}`);
 
     if (row > this.getLastRow()) {
       this.editor.replaceRange('\n' + line, { line: row, ch: 0 });
@@ -62,7 +61,7 @@ export class ObsidianTextEditor {
   };
 
   public deleteLine = (row: number): void => {
-    console.log(`deleteLine was called on line ${row}`);
+    console.debug(`deleteLine was called on line ${row}`);
     this.editor.replaceRange(
       '',
       { line: row, ch: 0 },
@@ -75,9 +74,9 @@ export class ObsidianTextEditor {
     endRow: number,
     lines: string[],
   ): void => {
-    console.log('replaceLines was called');
-    console.log(`start ${startRow}, end: ${endRow}`);
-    console.log(lines);
+    console.debug('replaceLines was called');
+    console.debug(`start ${startRow}, end: ${endRow}`);
+    console.debug(lines);
 
     // Take one off the endRow and instead go to the end of that line
     const realEndRow = endRow - 1;
@@ -92,7 +91,7 @@ export class ObsidianTextEditor {
   };
 
   public transact = (func: Function): void => {
-    console.log('transact was called');
+    console.debug('transact was called');
     this.editor.operation(() => {
       func();
     });

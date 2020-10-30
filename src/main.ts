@@ -172,7 +172,6 @@ class TableEditorPluginSettings {
   public formatType: FormatType;
 
   constructor() {
-    console.log('Constructing a new settings object');
     this.formatType = FormatType.NORMAL;
   }
 
