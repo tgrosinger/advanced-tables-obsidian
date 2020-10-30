@@ -78,10 +78,16 @@ export class ObsidianTextEditor {
     console.log('replaceLines was called');
     console.log(`start ${startRow}, end: ${endRow}`);
     console.log(lines);
+
+    // Take one off the endRow and instead go to the end of that line
+    const realEndRow = endRow - 1;
+    const endRowContents = this.editor.getLine(realEndRow);
+    const endRowFinalIndex = endRowContents.length;
+
     this.editor.replaceRange(
       lines,
       { line: startRow, ch: 0 },
-      { line: endRow, ch: 0 }, // TODO: This might be off by one?
+      { line: realEndRow, ch: endRowFinalIndex },
     );
   };
 
