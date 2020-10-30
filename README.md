@@ -17,26 +17,24 @@ Leverages the excellent [mte-kernel](https://github.com/susisu/mte-kernel) to do
 
 When a cursor is in a markdown table...
 
-| Hotkey                                              | Action        |
-| --------------------------------------------------- | ------------- |
-| <kbd>Ctrl</kbd> + <kbd>Tab</kbd>                    | Next Cell     |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Tab</kbd> | Previous Cell |
-| <kbd>Ctrl</kbd> + <kbd>Enter</kbd>                  | Next Row      |
+| Hotkey                            | Action        |
+| --------------------------------- | ------------- |
+| <kbd>Tab</kbd>                    | Next Cell     |
+| <kbd>Shift</kbd> + <kbd>Tab</kbd> | Previous Cell |
+| <kbd>Enter</kbd>                  | Next Row      |
 
 Or use the command palette:
 
 - "Navigate to Next Cell"
 - "Navigate to Previous Cell"
-- "Navigate to Next Row" - I recommend binding this to ctrl+enter and unbinding the conflicting "Toggle checklist status"
+- "Navigate to Next Row"
 - "Insert column before current"
 - "Format table at the cursor"
 - "Left align column"
 - "Center align column"
 - "Right align column"
 
-You may also use "Next Cell" (<kbd>Ctrl</kbd> + <kbd>Tab</kbd>) past the last column on a row to create another column at the end. Use the command again after typing your content to finish adding the column. Watch the demo above for an example.
-
-More coming soon!
+You may also use "Next Cell" (<kbd>Tab</kbd>) past the last column on a row to create another column at the end. Use the command again after typing your content to finish adding the column. Watch the demo above for an example.
 
 ## Compatibility
 
@@ -45,6 +43,23 @@ Custom plugins are only available for Obsidian v0.9.7+.
 The current API of this repo targets Obsidian **v0.9.7**.
 
 ## How to install the plugin
+
+### From within Obsidian
+
+From Obsidian v0.9.8, you can activate this plugin within Obsidian by doing the following:
+
+- Open Settings > Third-party plugin
+- Make sure Safe mode is **off**
+- Click Browse community plugins
+- Search for "Table Editor"
+- Click Install
+- Once installed, close the community plugins window and activate the newly installed plugin
+
+#### Updates
+
+You can follow the same procedure to update the plugin
+
+### From GitHub
 
 - Download the [Latest release](https://github.com/tgrosinger/table-editor-obsidian/releases/latest)
 - Extract the `table-editor-obsidian` folder from the zip to your vault's plugins folder: `<vault>/.obsidian/plugins/`  

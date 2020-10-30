@@ -11,12 +11,21 @@ import { ObsidianTextEditor } from 'src/text-editor-interface';
 export default class TableEditorPlugin extends Plugin {
   public settings: TableEditorPluginSettings;
 
+  // shiftPressed tracks whether a shift key is down to allow us to inverse operations.
+  private shiftPressed: boolean;
+
+  // cmEditors is used during unload to remove our event handlers.
+  private cmEditors: CodeMirror.Editor[];
+
   public onInit(): void {}
 
   public async onload(): Promise<void> {
     console.log('loading markdown-table-editor plugin');
 
     this.loadSettings();
+
+    this.cmEditors = [];
+    this.app.on('codemirror', this.registerNewEditorHandlers);
 
     this.addCommand({
       id: 'format-table',
@@ -29,12 +38,6 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'next-cell',
       name: 'Navigate to Next Cell',
-      hotkeys: [
-        {
-          modifiers: ['Mod'],
-          key: 'tab',
-        },
-      ],
       callback: () => {
         this.inTableWrapper(this.nextCell);
       },
@@ -43,12 +46,6 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'previous-cell',
       name: 'Navigate to Previous Cell',
-      hotkeys: [
-        {
-          modifiers: ['Mod', 'Shift'],
-          key: 'tab',
-        },
-      ],
       callback: () => {
         this.inTableWrapper(this.previousCell);
       },
@@ -57,12 +54,6 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'next-row',
       name: 'Navigate to Next Row',
-      hotkeys: [
-        {
-          modifiers: ['Mod'],
-          key: 'enter',
-        },
-      ],
       callback: () => {
         this.inTableWrapper(this.nextRow);
       },
@@ -105,7 +96,60 @@ export default class TableEditorPlugin extends Plugin {
 
   public onunload(): void {
     console.log('unloading markdown-table-editor plugin');
+
+    this.app.off('codemirror', this.registerNewEditorHandlers);
+    this.cmEditors.forEach((cm) => {
+      cm.off('keydown', this.handleKeyDown);
+      cm.off('keyup', this.handleKeyUp);
+    });
   }
+
+  private readonly registerNewEditorHandlers = (cm: CodeMirror.Editor) => {
+    console.log('Got a new codemirror editor');
+    this.cmEditors.push(cm);
+    cm.on('keydown', this.handleKeyDown);
+    cm.on('keyup', this.handleKeyUp);
+  };
+
+  private readonly handleKeyDown = (
+    cm: CodeMirror.Editor,
+    event: KeyboardEvent,
+  ): void => {
+    if (event.key === 'Shift') {
+      this.shiftPressed = true;
+      return;
+    }
+    if (['Tab', 'Enter'].contains(event.key)) {
+      const ote = new ObsidianTextEditor(cm);
+      const te = new TableEditor(ote);
+
+      if (te.cursorIsInTable(defaultOptions)) {
+        switch (event.key) {
+          case 'Tab':
+            if (this.shiftPressed) {
+              this.previousCell(te);
+            } else {
+              this.nextCell(te);
+            }
+            break;
+          case 'Enter':
+            this.nextRow(te);
+            break;
+        }
+        event.preventDefault();
+      }
+    }
+  };
+
+  private readonly handleKeyUp = (
+    cm: CodeMirror.Editor,
+    event: KeyboardEvent,
+  ): void => {
+    if (event.key === 'Shift') {
+      this.shiftPressed = false;
+      return;
+    }
+  };
 
   private async loadSettings(): Promise<void> {
     this.settings = new TableEditorPluginSettings();
