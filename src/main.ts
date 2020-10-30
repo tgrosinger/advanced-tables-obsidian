@@ -25,7 +25,13 @@ export default class TableEditorPlugin extends Plugin {
     this.loadSettings();
 
     this.cmEditors = [];
-    this.app.on('codemirror', this.registerNewEditorHandlers);
+    this.registerEvent(
+      this.app.on('codemirror', (cm: CodeMirror.Editor) => {
+        this.cmEditors.push(cm);
+        cm.on('keydown', this.handleKeyDown);
+        cm.on('keyup', this.handleKeyUp);
+      }),
+    );
 
     this.addCommand({
       id: 'format-table',
@@ -97,19 +103,11 @@ export default class TableEditorPlugin extends Plugin {
   public onunload(): void {
     console.log('unloading markdown-table-editor plugin');
 
-    this.app.off('codemirror', this.registerNewEditorHandlers);
     this.cmEditors.forEach((cm) => {
       cm.off('keydown', this.handleKeyDown);
       cm.off('keyup', this.handleKeyUp);
     });
   }
-
-  private readonly registerNewEditorHandlers = (cm: CodeMirror.Editor) => {
-    console.log('Got a new codemirror editor');
-    this.cmEditors.push(cm);
-    cm.on('keydown', this.handleKeyDown);
-    cm.on('keyup', this.handleKeyUp);
-  };
 
   private readonly handleKeyDown = (
     cm: CodeMirror.Editor,
