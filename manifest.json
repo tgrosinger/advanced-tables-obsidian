@@ -3,7 +3,7 @@
   "name": "Table Editor",
   "description": "Improved table navigation, formatting, and manipulation",
   "isDesktopOnly": false,
-  "version": "0.2.1",
+  "version": "0.3.0",
   "js": "main.js"
 }
 
