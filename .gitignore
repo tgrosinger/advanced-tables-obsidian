@@ -16,3 +16,7 @@ table-editor-obsidian_*.zip
 
 # yarn
 yarn-error.log
+
+# Obsidian
+
+data.json

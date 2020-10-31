@@ -1,6 +1,11 @@
 import { Point, Range } from '@susisu/mte-kernel';
 import { MarkdownView } from 'obsidian';
 
+/**
+ * ObsidianTextEditor is an implementation of the ITextEditor interface from
+ * the mte-kernel library. It teaches the table editor library how to interface
+ * with Obsidian and the underlying CodeMirror interface.
+ */
 export class ObsidianTextEditor {
   private readonly editor: CodeMirror.Editor;
 
@@ -15,13 +20,17 @@ export class ObsidianTextEditor {
   }
 
   public getCursorPosition = (): Point => {
-    console.debug('getCursorPosition was called');
     const position = this.editor.getCursor();
+    console.debug(
+      `getCursorPosition was called: line ${position.line}, ch ${position.ch}`,
+    );
     return new Point(position.line, position.ch);
   };
 
   public setCursorPosition = (pos: Point): void => {
-    console.debug('setCursorPosition was called');
+    console.debug(
+      `setCursorPosition was called: line ${pos.row}, ch ${pos.column}`,
+    );
     this.editor.setCursor({ line: pos.row, ch: pos.column });
   };
 

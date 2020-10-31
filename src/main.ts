@@ -1,13 +1,9 @@
 import { defaultOptions, optionsWithDefaults } from './mte-options';
-import {
-  Alignment,
-  FormatType,
-  Options,
-  TableEditor,
-} from '@susisu/mte-kernel';
-import { App, MarkdownView, Plugin, PluginSettingTab, Setting } from 'obsidian';
-import { ObsidianTextEditor } from 'src/text-editor-interface';
+import { TableEditorPluginSettings } from './settings';
 import { TableControls } from './table-controls';
+import { TableEditor } from './table-editor';
+import { FormatType, Options } from '@susisu/mte-kernel';
+import { App, MarkdownView, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
 export default class TableEditorPlugin extends Plugin {
   public settings: TableEditorPluginSettings;
@@ -39,73 +35,73 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'format-table',
       name: 'Format table at the cursor',
-      callback: () => {
-        this.performTableAction(true, this.formatTable);
-      },
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.formatTable();
+      }),
     });
 
     this.addCommand({
       id: 'next-cell',
       name: 'Navigate to Next Cell',
-      callback: () => {
-        this.performTableAction(true, this.nextCell);
-      },
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.nextCell();
+      }),
     });
 
     this.addCommand({
       id: 'previous-cell',
       name: 'Navigate to Previous Cell',
-      callback: () => {
-        this.performTableAction(true, this.previousCell);
-      },
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.previousCell();
+      }),
     });
 
     this.addCommand({
       id: 'next-row',
       name: 'Navigate to Next Row',
-      callback: () => {
-        this.performTableAction(true, this.nextRow);
-      },
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.nextRow();
+      }),
     });
 
     this.addCommand({
       id: 'insert-column',
       name: 'Insert column before current',
-      callback: () => {
-        this.performTableAction(true, this.insertColumn);
-      },
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.insertColumn();
+      }),
     });
 
     this.addCommand({
       id: 'left-align-column',
       name: 'Left align column',
-      callback: () => {
-        this.performTableAction(true, this.leftAlignColumn);
-      },
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.leftAlignColumn();
+      }),
     });
 
     this.addCommand({
       id: 'center-align-column',
       name: 'Center align column',
-      callback: () => {
-        this.performTableAction(true, this.centerAlignColumn);
-      },
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.centerAlignColumn();
+      }),
     });
 
     this.addCommand({
       id: 'right-align-column',
       name: 'Right align column',
-      callback: () => {
-        this.performTableAction(true, this.rightAlignColumn);
-      },
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.rightAlignColumn();
+      }),
     });
 
     this.addCommand({
       id: 'table-control-bar',
       name: 'Open table controls menu',
-      callback: () => {
-        this.performEditorAction(true, this.openTableControls);
-      },
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.openTableControls();
+      }),
     });
 
     this.addSettingTab(new TableEditorSettingsTab(this.app, this));
@@ -125,6 +121,31 @@ export default class TableEditorPlugin extends Plugin {
     });
   }
 
+  private readonly newPerformTableAction = (
+    fn: (te: TableEditor) => void,
+  ) => (): void => {
+    // Any action will trigger hiding the table controls
+    if (this.tableControls) {
+      this.tableControls.clear();
+      this.tableControls = null;
+    }
+
+    const activeLeaf = this.app.workspace.activeLeaf;
+    if (activeLeaf.view instanceof MarkdownView) {
+      const te = new TableEditor(
+        activeLeaf.view.sourceMode.cmEditor,
+        this.settings,
+      );
+
+      if (!te.cursorIsInTable()) {
+        // TODO: Show modal if not in table
+        return;
+      }
+
+      fn(te);
+    }
+  };
+
   private readonly handleKeyDown = (
     cm: CodeMirror.Editor,
     event: KeyboardEvent,
@@ -135,22 +156,21 @@ export default class TableEditorPlugin extends Plugin {
       return;
     }
     if (['Tab', 'Enter'].contains(event.key)) {
-      // True means only do this if in a table
-      this.performTableAction(true, (te: TableEditor) => {
+      this.newPerformTableAction((te: TableEditor) => {
         switch (event.key) {
           case 'Tab':
             if (this.shiftPressed) {
-              this.previousCell(te);
+              te.previousCell();
             } else {
-              this.nextCell(te);
+              te.nextCell();
             }
             break;
           case 'Enter':
-            this.nextRow(te);
+            te.nextRow();
             break;
         }
         event.preventDefault();
-      });
+      })();
     }
   };
 
@@ -177,103 +197,6 @@ export default class TableEditorPlugin extends Plugin {
         this.saveData(this.settings);
       }
     })();
-  }
-
-  private readonly performTableAction = (
-    inTableOnly: boolean,
-    fn: (tableeditor: TableEditor) => void,
-  ): void => {
-    // Any action will trigger hiding the table controls
-    if (this.tableControls) {
-      this.tableControls.clear();
-      this.tableControls = null;
-    }
-
-    const activeLeaf = this.app.workspace.activeLeaf;
-    if (activeLeaf.view instanceof MarkdownView) {
-      const ote = new ObsidianTextEditor(activeLeaf.view);
-      const te = new TableEditor(ote);
-
-      if (!te.cursorIsInTable(defaultOptions)) {
-        // TODO: Show modal if not in table
-        return;
-      }
-
-      fn(te);
-    }
-  };
-
-  private readonly performEditorAction = (
-    inTableOnly: boolean,
-    fn: (cm: CodeMirror.Editor) => void,
-  ): void => {
-    // Any action will trigger hiding the table controls
-    if (this.tableControls) {
-      this.tableControls.clear();
-      this.tableControls = null;
-    }
-
-    const activeLeaf = this.app.workspace.activeLeaf;
-    if (activeLeaf.view instanceof MarkdownView) {
-      const ote = new ObsidianTextEditor(activeLeaf.view);
-      const te = new TableEditor(ote);
-
-      if (!te.cursorIsInTable(defaultOptions)) {
-        // TODO: Show modal if not in table
-        return;
-      }
-
-      fn(activeLeaf.view.sourceMode.cmEditor);
-    }
-  };
-
-  private readonly nextCell = (te: TableEditor): void => {
-    te.nextCell(this.settings.asOptions());
-  };
-
-  private readonly previousCell = (te: TableEditor): void => {
-    te.previousCell(this.settings.asOptions());
-  };
-
-  private readonly nextRow = (te: TableEditor): void => {
-    te.nextRow(this.settings.asOptions());
-  };
-
-  private readonly formatTable = (te: TableEditor): void => {
-    te.format(this.settings.asOptions());
-  };
-
-  private readonly insertColumn = (te: TableEditor): void => {
-    te.insertColumn(this.settings.asOptions());
-  };
-
-  private readonly leftAlignColumn = (te: TableEditor): void => {
-    te.alignColumn(Alignment.LEFT, this.settings.asOptions());
-  };
-
-  private readonly centerAlignColumn = (te: TableEditor): void => {
-    te.alignColumn(Alignment.CENTER, this.settings.asOptions());
-  };
-
-  private readonly rightAlignColumn = (te: TableEditor): void => {
-    te.alignColumn(Alignment.RIGHT, this.settings.asOptions());
-  };
-
-  private readonly openTableControls = (cm: CodeMirror.Editor): void => {
-    this.tableControls = new TableControls(cm);
-    this.tableControls.display();
-  };
-}
-
-class TableEditorPluginSettings {
-  public formatType: FormatType;
-
-  constructor() {
-    this.formatType = FormatType.NORMAL;
-  }
-
-  public asOptions(): Options {
-    return optionsWithDefaults({ formatType: this.formatType });
   }
 }
 
