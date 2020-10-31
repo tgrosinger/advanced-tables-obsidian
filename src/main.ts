@@ -7,6 +7,7 @@ import {
 } from '@susisu/mte-kernel';
 import { App, MarkdownView, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import { ObsidianTextEditor } from 'src/text-editor-interface';
+import { TableControls } from './table-controls';
 
 export default class TableEditorPlugin extends Plugin {
   public settings: TableEditorPluginSettings;
@@ -16,6 +17,8 @@ export default class TableEditorPlugin extends Plugin {
 
   // cmEditors is used during unload to remove our event handlers.
   private cmEditors: CodeMirror.Editor[];
+
+  private tableControls: TableControls;
 
   public onInit(): void {}
 
@@ -37,7 +40,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'format-table',
       name: 'Format table at the cursor',
       callback: () => {
-        this.inTableWrapper(this.formatTable);
+        this.performTableAction(true, this.formatTable);
       },
     });
 
@@ -45,7 +48,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'next-cell',
       name: 'Navigate to Next Cell',
       callback: () => {
-        this.inTableWrapper(this.nextCell);
+        this.performTableAction(true, this.nextCell);
       },
     });
 
@@ -53,7 +56,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'previous-cell',
       name: 'Navigate to Previous Cell',
       callback: () => {
-        this.inTableWrapper(this.previousCell);
+        this.performTableAction(true, this.previousCell);
       },
     });
 
@@ -61,7 +64,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'next-row',
       name: 'Navigate to Next Row',
       callback: () => {
-        this.inTableWrapper(this.nextRow);
+        this.performTableAction(true, this.nextRow);
       },
     });
 
@@ -69,7 +72,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'insert-column',
       name: 'Insert column before current',
       callback: () => {
-        this.inTableWrapper(this.insertColumn);
+        this.performTableAction(true, this.insertColumn);
       },
     });
 
@@ -77,7 +80,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'left-align-column',
       name: 'Left align column',
       callback: () => {
-        this.inTableWrapper(this.leftAlignColumn);
+        this.performTableAction(true, this.leftAlignColumn);
       },
     });
 
@@ -85,7 +88,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'center-align-column',
       name: 'Center align column',
       callback: () => {
-        this.inTableWrapper(this.centerAlignColumn);
+        this.performTableAction(true, this.centerAlignColumn);
       },
     });
 
@@ -93,7 +96,15 @@ export default class TableEditorPlugin extends Plugin {
       id: 'right-align-column',
       name: 'Right align column',
       callback: () => {
-        this.inTableWrapper(this.rightAlignColumn);
+        this.performTableAction(true, this.rightAlignColumn);
+      },
+    });
+
+    this.addCommand({
+      id: 'table-control-bar',
+      name: 'Open table controls menu',
+      callback: () => {
+        this.performEditorAction(true, this.openTableControls);
       },
     });
 
@@ -102,6 +113,11 @@ export default class TableEditorPlugin extends Plugin {
 
   public onunload(): void {
     console.log('unloading markdown-table-editor plugin');
+
+    if (this.tableControls) {
+      this.tableControls.clear();
+      this.tableControls = null;
+    }
 
     this.cmEditors.forEach((cm) => {
       cm.off('keydown', this.handleKeyDown);
@@ -114,14 +130,13 @@ export default class TableEditorPlugin extends Plugin {
     event: KeyboardEvent,
   ): void => {
     if (event.key === 'Shift') {
+      console.debug('Shift is pressed');
       this.shiftPressed = true;
       return;
     }
     if (['Tab', 'Enter'].contains(event.key)) {
-      const ote = new ObsidianTextEditor(cm);
-      const te = new TableEditor(ote);
-
-      if (te.cursorIsInTable(defaultOptions)) {
+      // True means only do this if in a table
+      this.performTableAction(true, (te: TableEditor) => {
         switch (event.key) {
           case 'Tab':
             if (this.shiftPressed) {
@@ -135,7 +150,7 @@ export default class TableEditorPlugin extends Plugin {
             break;
         }
         event.preventDefault();
-      }
+      });
     }
   };
 
@@ -144,6 +159,7 @@ export default class TableEditorPlugin extends Plugin {
     event: KeyboardEvent,
   ): void => {
     if (event.key === 'Shift') {
+      console.debug('Shift is not pressed');
       this.shiftPressed = false;
       return;
     }
@@ -163,17 +179,51 @@ export default class TableEditorPlugin extends Plugin {
     })();
   }
 
-  private readonly inTableWrapper = (
+  private readonly performTableAction = (
+    inTableOnly: boolean,
     fn: (tableeditor: TableEditor) => void,
   ): void => {
+    // Any action will trigger hiding the table controls
+    if (this.tableControls) {
+      this.tableControls.clear();
+      this.tableControls = null;
+    }
+
     const activeLeaf = this.app.workspace.activeLeaf;
     if (activeLeaf.view instanceof MarkdownView) {
       const ote = new ObsidianTextEditor(activeLeaf.view);
       const te = new TableEditor(ote);
 
-      if (te.cursorIsInTable(defaultOptions)) {
-        fn(te);
+      if (!te.cursorIsInTable(defaultOptions)) {
+        // TODO: Show modal if not in table
+        return;
       }
+
+      fn(te);
+    }
+  };
+
+  private readonly performEditorAction = (
+    inTableOnly: boolean,
+    fn: (cm: CodeMirror.Editor) => void,
+  ): void => {
+    // Any action will trigger hiding the table controls
+    if (this.tableControls) {
+      this.tableControls.clear();
+      this.tableControls = null;
+    }
+
+    const activeLeaf = this.app.workspace.activeLeaf;
+    if (activeLeaf.view instanceof MarkdownView) {
+      const ote = new ObsidianTextEditor(activeLeaf.view);
+      const te = new TableEditor(ote);
+
+      if (!te.cursorIsInTable(defaultOptions)) {
+        // TODO: Show modal if not in table
+        return;
+      }
+
+      fn(activeLeaf.view.sourceMode.cmEditor);
     }
   };
 
@@ -207,6 +257,11 @@ export default class TableEditorPlugin extends Plugin {
 
   private readonly rightAlignColumn = (te: TableEditor): void => {
     te.alignColumn(Alignment.RIGHT, this.settings.asOptions());
+  };
+
+  private readonly openTableControls = (cm: CodeMirror.Editor): void => {
+    this.tableControls = new TableControls(cm);
+    this.tableControls.display();
   };
 }
 
