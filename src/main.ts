@@ -97,6 +97,54 @@ export default class TableEditorPlugin extends Plugin {
     });
 
     this.addCommand({
+      id: 'move-column-left',
+      name: 'Move column left',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.moveColumnLeft();
+      }),
+    });
+
+    this.addCommand({
+      id: 'move-column-right',
+      name: 'Move column right',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.moveColumnRight();
+      }),
+    });
+
+    this.addCommand({
+      id: 'move-row-up',
+      name: 'Move row up',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.moveRowUp();
+      }),
+    });
+
+    this.addCommand({
+      id: 'move-row-down',
+      name: 'Move row down',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.moveRowDown();
+      }),
+    });
+
+    this.addCommand({
+      id: 'delete-column',
+      name: 'Delete column',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.deleteColumn();
+      }),
+    });
+
+    this.addCommand({
+      id: 'delete-row',
+      name: 'Delete row',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.deleteRow();
+      }),
+    });
+
+    this.addCommand({
       id: 'table-control-bar',
       name: 'Open table controls menu',
       callback: this.newPerformTableAction((te: TableEditor) => {

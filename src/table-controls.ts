@@ -77,7 +77,49 @@ export class TableControls {
     );
 
     node.appendChild(
-      this.createButton('Close', () => {
+      this.createButton('⇇', () => {
+        this.cm.setCursor(this.cursorPos);
+        this.te.moveColumnLeft();
+      }),
+    );
+
+    node.appendChild(
+      this.createButton('⇉', () => {
+        this.cm.setCursor(this.cursorPos);
+        this.te.moveColumnRight();
+      }),
+    );
+
+    node.appendChild(
+      this.createButton('↥', () => {
+        this.cm.setCursor(this.cursorPos);
+        this.te.moveRowUp();
+      }),
+    );
+
+    node.appendChild(
+      this.createButton('↧', () => {
+        this.cm.setCursor(this.cursorPos);
+        this.te.moveRowDown();
+      }),
+    );
+
+    node.appendChild(
+      this.createButton('del col', () => {
+        this.cm.setCursor(this.cursorPos);
+        this.te.deleteColumn();
+      }),
+    );
+
+    node.appendChild(
+      this.createButton('del row', () => {
+        this.cm.setCursor(this.cursorPos);
+        this.te.deleteRow();
+      }),
+    );
+
+    node.appendChild(
+      this.createButton('⨯', () => {
         this.cm.setCursor(this.cursorPos);
         this.clear();
       }),

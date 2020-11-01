@@ -51,6 +51,30 @@ export class TableEditor {
     this.mte.alignColumn(Alignment.RIGHT, this.settings.asOptions());
   };
 
+  public readonly moveColumnLeft = (): void => {
+    this.mte.moveColumn(-1, this.settings.asOptions());
+  };
+
+  public readonly moveColumnRight = (): void => {
+    this.mte.moveColumn(1, this.settings.asOptions());
+  };
+
+  public readonly moveRowUp = (): void => {
+    this.mte.moveRow(-1, this.settings.asOptions());
+  };
+
+  public readonly moveRowDown = (): void => {
+    this.mte.moveRow(1, this.settings.asOptions());
+  };
+
+  public readonly deleteColumn = (): void => {
+    this.mte.deleteColumn(this.settings.asOptions());
+  };
+
+  public readonly deleteRow = (): void => {
+    this.mte.deleteRow(this.settings.asOptions());
+  };
+
   public readonly openTableControls = (): TableControls => {
     const controls = new TableControls(this.editor, this);
     controls.display();
