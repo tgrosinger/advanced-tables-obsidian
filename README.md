@@ -2,7 +2,7 @@
 
 Add improved navigation, formatting, and manipulation to markdown tables in Obsidian.
 
-![basic functionality](resources/basic-functionality.gif)
+![basic functionality](resources/screenshots/basic-functionality.gif)
 
 If you use a non-monospaced font while editing, it is recommended that you
 disable the "Pad cell width" setting under the plugin settings. See [this
@@ -17,14 +17,17 @@ Leverages the excellent [mte-kernel](https://github.com/susisu/mte-kernel) to do
 
 When a cursor is in a markdown table...
 
-| Hotkey                            | Action        |
-| --------------------------------- | ------------- |
-| <kbd>Tab</kbd>                    | Next Cell     |
-| <kbd>Shift</kbd> + <kbd>Tab</kbd> | Previous Cell |
-| <kbd>Enter</kbd>                  | Next Row      |
+| Hotkey                                             | Action                      |
+| -------------------------------------------------- | --------------------------- |
+| <kbd>Tab</kbd>                                     | Next Cell                   |
+| <kbd>Shift</kbd> + <kbd>Tab</kbd>                  | Previous Cell               |
+| <kbd>Enter</kbd>                                   | Next Row                    |
+| <kbd>Shift</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | Open table controls toolbar |
+
 
 Or use the command palette:
 
+- "Open table controls toolbar"
 - "Navigate to Next Cell"
 - "Navigate to Previous Cell"
 - "Navigate to Next Row"

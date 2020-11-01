@@ -146,7 +146,13 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'table-control-bar',
-      name: 'Open table controls menu',
+      name: 'Open table controls toolbar',
+      hotkeys: [
+        {
+          modifiers: ['Mod', 'Shift'],
+          key: 'd',
+        },
+      ],
       callback: this.newPerformTableAction((te: TableEditor) => {
         te.openTableControls();
       }),
