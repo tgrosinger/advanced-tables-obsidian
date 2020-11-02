@@ -17,12 +17,12 @@ Leverages the excellent [mte-kernel](https://github.com/susisu/mte-kernel) to do
 
 When a cursor is in a markdown table...
 
-| Hotkey                                             | Action                      |
-| -------------------------------------------------- | --------------------------- |
-| <kbd>Tab</kbd>                                     | Next Cell                   |
-| <kbd>Shift</kbd> + <kbd>Tab</kbd>                  | Previous Cell               |
-| <kbd>Enter</kbd>                                   | Next Row                    |
-| <kbd>Shift</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | Open table controls toolbar |
+| Hotkey                                            | Action                      |
+| ------------------------------------------------- | --------------------------- |
+| <kbd>Tab</kbd>                                    | Next Cell                   |
+| <kbd>Shift</kbd> + <kbd>Tab</kbd>                 | Previous Cell               |
+| <kbd>Enter</kbd>                                  | Next Row                    |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | Open table controls toolbar |
 
 
 Or use the command palette:
