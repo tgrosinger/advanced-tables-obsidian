@@ -1,6 +1,20 @@
 # Obsidian Table Editor Plugin
 
-Add improved navigation, formatting, and manipulation to markdown tables in Obsidian.
+Add improved navigation, formatting, and manipulation to markdown tables in Obsidian:
+
+- [x] Excel-like table navigation (tab/enter between cells and rows)
+- [x] Add and remove columns and rows
+- [x] Auto formatting
+- [x] Move columns left and right
+- [x] Move rows up and down
+- [x] Set column alignment (left, center, right)
+- [ ] [Sort rows by a specified column](https://github.com/tgrosinger/advanced-tables-obsidian/issues/11)
+- [ ] [Simple arithmetic formulas](https://github.com/tgrosinger/advanced-tables-obsidian/issues/14)
+- [ ] [Your feature here?](https://github.com/tgrosinger/advanced-tables-obsidian/issues/new?assignees=&labels=enhancement%2C+needs-review&template=feature_request.md&title=)
+
+Vote on the features you are interested in with the links above!
+
+## Demo
 
 ![basic functionality](resources/screenshots/basic-functionality.gif)
 
@@ -24,7 +38,6 @@ When a cursor is in a markdown table...
 | <kbd>Enter</kbd>                                  | Next Row                    |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | Open table controls toolbar |
 
-
 Or use the command palette:
 
 - "Open table controls toolbar"
@@ -36,8 +49,6 @@ Or use the command palette:
 - "Left align column"
 - "Center align column"
 - "Right align column"
-
-You may also use "Next Cell" (<kbd>Tab</kbd>) past the last column on a row to create another column at the end. Use the command again after typing your content to finish adding the column. Watch the demo above for an example.
 
 ## Compatibility
 
@@ -61,16 +72,6 @@ From Obsidian v0.9.8, you can activate this plugin within Obsidian by doing the 
 #### Updates
 
 You can follow the same procedure to update the plugin
-
-### From GitHub
-
-- Download the [Latest release](https://github.com/tgrosinger/table-editor-obsidian/releases/latest)
-- Extract the `table-editor-obsidian` folder from the zip to your vault's plugins folder: `<vault>/.obsidian/plugins/`  
-Note: On some machines the `.obsidian` folder may be hidden. On MacOS you should be able to press `Command+Shift+Dot` to show the folder in Finder.
-- Reload Obsidian
-- If prompted about Safe Mode, you can disable safe mode and enable the plugin.
-Otherwise head to Settings, third-party plugins, make sure safe mode is off and
-enable Table Editor from there.
 
 (Thanks to @deathau for the borrowed installation instructions.)
 
