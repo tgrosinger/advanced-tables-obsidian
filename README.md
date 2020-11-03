@@ -23,8 +23,6 @@ disable the "Pad cell width" setting under the plugin settings. See [this
 forum post](https://forum.obsidian.md/t/monospace-font-in-the-editor/648/10)
 for steps on switching your editor to a monospaced font.
 
-Leverages the excellent [mte-kernel](https://github.com/susisu/mte-kernel) to do the heavy lifting.
-
 **Note:** The Obsidian API is still in early alpha and this plugin may break at any time!
 
 ## How to use
