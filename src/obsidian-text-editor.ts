@@ -1,4 +1,4 @@
-import { Point, Range } from '@susisu/mte-kernel';
+import { Point, Range } from '@tgrosinger/md-advanced-tables';
 import { MarkdownView } from 'obsidian';
 
 /**

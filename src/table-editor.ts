@@ -1,7 +1,10 @@
 import { ObsidianTextEditor } from './obsidian-text-editor';
 import { TableEditorPluginSettings } from './settings';
 import { TableControls } from './table-controls';
-import { Alignment, TableEditor as MTEEditor } from '@susisu/mte-kernel';
+import {
+  Alignment,
+  TableEditor as MTEEditor,
+} from '@tgrosinger/md-advanced-tables';
 
 export class TableEditor {
   private readonly settings: TableEditorPluginSettings;

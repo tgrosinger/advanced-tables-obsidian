@@ -1,5 +1,8 @@
-import { optionsWithDefaults } from './mte-options';
-import { FormatType, Options } from '@susisu/mte-kernel';
+import {
+  FormatType,
+  Options,
+  optionsWithDefaults,
+} from '@tgrosinger/md-advanced-tables';
 
 export class TableEditorPluginSettings {
   public formatType: FormatType;

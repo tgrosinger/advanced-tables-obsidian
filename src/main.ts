@@ -1,8 +1,7 @@
-import { defaultOptions, optionsWithDefaults } from './mte-options';
 import { TableEditorPluginSettings } from './settings';
 import { TableControls } from './table-controls';
 import { TableEditor } from './table-editor';
-import { FormatType, Options } from '@susisu/mte-kernel';
+import { FormatType } from '@tgrosinger/md-advanced-tables';
 import { App, MarkdownView, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
 export default class TableEditorPlugin extends Plugin {
