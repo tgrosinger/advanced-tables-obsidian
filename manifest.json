@@ -1,9 +1,9 @@
 {
   "id": "table-editor-obsidian",
-  "name": "Table Editor",
+  "name": "Advanced Tables",
   "description": "Improved table navigation, formatting, and manipulation",
   "isDesktopOnly": false,
-  "version": "0.4.0",
+  "version": "0.4.1",
   "js": "main.js"
 }
 
