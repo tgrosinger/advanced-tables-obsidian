@@ -8,7 +8,7 @@ Add improved navigation, formatting, and manipulation to markdown tables in Obsi
 - [x] Move columns left and right
 - [x] Move rows up and down
 - [x] Set column alignment (left, center, right)
-- [ ] [Sort rows by a specified column](https://github.com/tgrosinger/advanced-tables-obsidian/issues/11)
+- [x] Sort rows by a specified column
 - [ ] [Simple arithmetic formulas](https://github.com/tgrosinger/advanced-tables-obsidian/issues/14)
 - [ ] [Your feature here?](https://github.com/tgrosinger/advanced-tables-obsidian/issues/new?assignees=&labels=enhancement%2C+needs-review&template=feature_request.md&title=)
 

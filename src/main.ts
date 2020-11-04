@@ -120,6 +120,22 @@ export default class TableEditorPlugin extends Plugin {
     });
 
     this.addCommand({
+      id: 'sort-rows-ascending',
+      name: 'Sort rows ascending',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.sortRowsAsc();
+      }),
+    });
+
+    this.addCommand({
+      id: 'sort-rows-descending',
+      name: 'Sort rows descending',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.sortRowsDesc();
+      }),
+    });
+
+    this.addCommand({
       id: 'table-control-bar',
       name: 'Open table controls toolbar',
       hotkeys: [

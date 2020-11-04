@@ -3,6 +3,7 @@ import { TableEditorPluginSettings } from './settings';
 import { TableControls } from './table-controls';
 import {
   Alignment,
+  SortOrder,
   TableEditor as MTEEditor,
 } from '@tgrosinger/md-advanced-tables';
 
@@ -80,6 +81,14 @@ export class TableEditor {
 
   public readonly deleteRow = (): void => {
     this.mte.deleteRow(this.settings.asOptions());
+  };
+
+  public readonly sortRowsAsc = (): void => {
+    this.mte.sortRows(SortOrder.Ascending, this.settings.asOptions());
+  };
+
+  public readonly sortRowsDesc = (): void => {
+    this.mte.sortRows(SortOrder.Descending, this.settings.asOptions());
   };
 
   public readonly openTableControls = (): TableControls => {

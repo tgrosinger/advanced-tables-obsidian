@@ -102,10 +102,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@tgrosinger/md-advanced-tables@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.0.0.tgz#edfac1b6d38add8ed75924edf78c2bd2560c4063"
-  integrity sha512-v1ddC13iLks/2zPheggYFUxPwH2UL68jbLV+7jVqY/rGMaYa/0SpfpBU9xwBBdQnZgOTMbInu0gVFkaexihveQ==
+"@tgrosinger/md-advanced-tables@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.1.0.tgz#18a25c3bcf280eb71493dd6c8b3d3858ace97f62"
+  integrity sha512-iLQuJMm2iQ6DzMRy9FTcLi1ZtlOzxJnclQhVJn/FXcIIGL09rsv7Bg2qjjdEckArl3Z0Lyk9HLiwORWMsQ0iDA==
   dependencies:
     meaw "^4.3.0"
 
