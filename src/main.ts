@@ -2,7 +2,14 @@ import { TableEditorPluginSettings } from './settings';
 import { TableControls } from './table-controls';
 import { TableEditor } from './table-editor';
 import { FormatType } from '@tgrosinger/md-advanced-tables';
-import { App, MarkdownView, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import {
+  App,
+  MarkdownView,
+  Notice,
+  Plugin,
+  PluginSettingTab,
+  Setting,
+} from 'obsidian';
 
 export default class TableEditorPlugin extends Plugin {
   public settings: TableEditorPluginSettings;
@@ -163,6 +170,7 @@ export default class TableEditorPlugin extends Plugin {
 
   private readonly newPerformTableAction = (
     fn: (te: TableEditor) => void,
+    alertOnNoTable = true,
   ) => (): void => {
     // Any action will trigger hiding the table controls
     if (this.tableControls) {
@@ -178,7 +186,11 @@ export default class TableEditorPlugin extends Plugin {
       );
 
       if (!te.cursorIsInTable()) {
-        // TODO: Show modal if not in table
+        if (alertOnNoTable) {
+          new Notice(
+            'Advanced Tables: Table command executed, but table not detected at cursor.',
+          );
+        }
         return;
       }
 
@@ -205,7 +217,7 @@ export default class TableEditorPlugin extends Plugin {
             break;
         }
         event.preventDefault();
-      })();
+      }, false)();
     }
   };
 
