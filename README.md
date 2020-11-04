@@ -2,15 +2,15 @@
 
 Add improved navigation, formatting, and manipulation to markdown tables in Obsidian:
 
-- [x] Excel-like table navigation (tab/enter between cells and rows)
-- [x] Add and remove columns and rows
-- [x] Auto formatting
-- [x] Move columns left and right
-- [x] Move rows up and down
-- [x] Set column alignment (left, center, right)
-- [x] Sort rows by a specified column
-- [ ] [Simple arithmetic formulas](https://github.com/tgrosinger/advanced-tables-obsidian/issues/14)
-- [ ] [Your feature here?](https://github.com/tgrosinger/advanced-tables-obsidian/issues/new?assignees=&labels=enhancement%2C+needs-review&template=feature_request.md&title=)
+- ☑ Excel-like table navigation (tab/enter between cells and rows)
+- ☑ Add and remove columns and rows
+- ☑ Auto formatting
+- ☑ Move columns left and right
+- ☑ Move rows up and down
+- ☑ Set column alignment (left, center, right)
+- ☑ Sort rows by a specified column
+- ☐ [Simple arithmetic formulas](https://github.com/tgrosinger/advanced-tables-obsidian/issues/14)
+- ☐ [Your feature here?](https://github.com/tgrosinger/advanced-tables-obsidian/issues/new?assignees=&labels=enhancement%2C+needs-review&template=feature_request.md&title=)
 
 Vote on the features you are interested in with the links above!
 
