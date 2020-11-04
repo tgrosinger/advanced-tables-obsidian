@@ -3,7 +3,7 @@
   "name": "Advanced Tables",
   "description": "Improved table navigation, formatting, and manipulation",
   "isDesktopOnly": false,
-  "version": "0.4.2",
+  "version": "0.5.0",
   "js": "main.js"
 }
 
