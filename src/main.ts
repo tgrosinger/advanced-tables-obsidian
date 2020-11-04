@@ -196,9 +196,7 @@ export default class TableEditorPlugin extends Plugin {
 
       if (!te.cursorIsInTable()) {
         if (alertOnNoTable) {
-          new Notice(
-            'Advanced Tables: Table command executed, but table not detected at cursor.',
-          );
+          new Notice('Advanced Tables: Cursor must be in a table.');
         }
         return;
       }
