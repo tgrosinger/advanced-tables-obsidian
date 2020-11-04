@@ -7,9 +7,6 @@ import { App, MarkdownView, Plugin, PluginSettingTab, Setting } from 'obsidian';
 export default class TableEditorPlugin extends Plugin {
   public settings: TableEditorPluginSettings;
 
-  // shiftPressed tracks whether a shift key is down to allow us to inverse operations.
-  private shiftPressed: boolean;
-
   // cmEditors is used during unload to remove our event handlers.
   private cmEditors: CodeMirror.Editor[];
 
@@ -27,7 +24,6 @@ export default class TableEditorPlugin extends Plugin {
       this.app.on('codemirror', (cm: CodeMirror.Editor) => {
         this.cmEditors.push(cm);
         cm.on('keydown', this.handleKeyDown);
-        cm.on('keyup', this.handleKeyUp);
       }),
     );
 
@@ -162,7 +158,6 @@ export default class TableEditorPlugin extends Plugin {
 
     this.cmEditors.forEach((cm) => {
       cm.off('keydown', this.handleKeyDown);
-      cm.off('keyup', this.handleKeyUp);
     });
   }
 
@@ -195,16 +190,11 @@ export default class TableEditorPlugin extends Plugin {
     cm: CodeMirror.Editor,
     event: KeyboardEvent,
   ): void => {
-    if (event.key === 'Shift') {
-      console.debug('Shift is pressed');
-      this.shiftPressed = true;
-      return;
-    }
     if (['Tab', 'Enter'].contains(event.key)) {
       this.newPerformTableAction((te: TableEditor) => {
         switch (event.key) {
           case 'Tab':
-            if (this.shiftPressed) {
+            if (event.shiftKey) {
               te.previousCell();
             } else {
               te.nextCell();
@@ -216,17 +206,6 @@ export default class TableEditorPlugin extends Plugin {
         }
         event.preventDefault();
       })();
-    }
-  };
-
-  private readonly handleKeyUp = (
-    cm: CodeMirror.Editor,
-    event: KeyboardEvent,
-  ): void => {
-    if (event.key === 'Shift') {
-      console.debug('Shift is not pressed');
-      this.shiftPressed = false;
-      return;
     }
   };
 
