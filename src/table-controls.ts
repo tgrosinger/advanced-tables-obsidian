@@ -35,6 +35,8 @@ export class TableControls {
       this.createTableControls(),
       { coverGutter: true, handleMouseEvents: true },
     );
+
+    this.cm.on('keydown', this.handleEscapeKey);
   };
 
   /**
@@ -48,7 +50,7 @@ export class TableControls {
       console.debug('Table control widget cleared');
     }
 
-    // TODO: Do the DOM mouse listeners need to be removed?
+    this.cm.off('keydown', this.handleEscapeKey);
   };
 
   private readonly createTableControls = (): HTMLElement => {
@@ -170,6 +172,15 @@ export class TableControls {
       this.clear();
     });
     return button;
+  };
+
+  private readonly handleEscapeKey = (
+    cm: CodeMirror.Editor,
+    event: KeyboardEvent,
+  ): void => {
+    if (event.key === 'Escape') {
+      this.clear();
+    }
   };
 }
 
