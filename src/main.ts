@@ -40,30 +40,6 @@ export default class TableEditorPlugin extends Plugin {
     });
 
     this.addCommand({
-      id: 'next-cell',
-      name: 'Navigate to Next Cell',
-      callback: this.newPerformTableAction((te: TableEditor) => {
-        te.nextCell();
-      }),
-    });
-
-    this.addCommand({
-      id: 'previous-cell',
-      name: 'Navigate to Previous Cell',
-      callback: this.newPerformTableAction((te: TableEditor) => {
-        te.previousCell();
-      }),
-    });
-
-    this.addCommand({
-      id: 'next-row',
-      name: 'Navigate to Next Row',
-      callback: this.newPerformTableAction((te: TableEditor) => {
-        te.nextRow();
-      }),
-    });
-
-    this.addCommand({
       id: 'insert-column',
       name: 'Insert column before current',
       callback: this.newPerformTableAction((te: TableEditor) => {
