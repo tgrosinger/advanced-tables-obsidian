@@ -155,7 +155,6 @@ export default class TableEditorPlugin extends Plugin {
 
     addIcon('spreadsheet', tableControlsIcon);
     this.addRibbonIcon('spreadsheet', 'Advanced Tables Toolbar', () => {
-      console.log('Got here 1');
       this.newPerformTableAction((te: TableEditor) => {
         te.openTableControls();
       })();
