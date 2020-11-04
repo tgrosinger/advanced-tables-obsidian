@@ -1172,7 +1172,7 @@ object.values@^1.1.1:
 
 "obsidian@https://github.com/obsidianmd/obsidian-api/tarball/master":
   version "0.9.11"
-  resolved "https://github.com/obsidianmd/obsidian-api/tarball/master#f8785a5f0a9d438b99bf646855f5ca5c1d5a95bf"
+  resolved "https://github.com/obsidianmd/obsidian-api/tarball/master#34d808fad2a3ceb2e9d379da8965a73937bfe2d5"
   dependencies:
     "@types/codemirror" "0.0.98"
 
