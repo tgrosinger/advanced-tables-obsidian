@@ -149,14 +149,14 @@ export default class TableEditorPlugin extends Plugin {
         },
       ],
       callback: this.newPerformTableAction((te: TableEditor) => {
-        te.openTableControls();
+        this.tableControls = te.openTableControls();
       }),
     });
 
     addIcon('spreadsheet', tableControlsIcon);
     this.addRibbonIcon('spreadsheet', 'Advanced Tables Toolbar', () => {
       this.newPerformTableAction((te: TableEditor) => {
-        te.openTableControls();
+        this.tableControls = te.openTableControls();
       })();
     });
 
