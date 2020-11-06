@@ -153,13 +153,6 @@ export default class TableEditorPlugin extends Plugin {
       }),
     });
 
-    addIcon('spreadsheet', tableControlsIcon);
-    this.addRibbonIcon('spreadsheet', 'Advanced Tables Toolbar', () => {
-      this.newPerformTableAction((te: TableEditor) => {
-        this.tableControls = te.openTableControls();
-      })();
-    });
-
     this.addSettingTab(new TableEditorSettingsTab(this.app, this));
   }
 
@@ -234,12 +227,38 @@ export default class TableEditorPlugin extends Plugin {
       if (loadedSettings) {
         console.log('Found existing settings file');
         this.settings.formatType = loadedSettings.formatType;
+
+        if ('showRibbonIcon' in loadedSettings) {
+          this.settings.showRibbonIcon = loadedSettings.showRibbonIcon;
+        } else {
+          this.settings.showRibbonIcon = true;
+          console.log('Old version of settings file found, updating...');
+          this.saveData(this.settings);
+        }
       } else {
         console.log('No settings file found, saving...');
         this.saveData(this.settings);
       }
+
+      this.initAfterSettings();
     })();
   }
+
+  /**
+   * This function can be used to initialize state which depends on values
+   * loaded from the settings. It will not be called until loading settings is
+   * complete.
+   */
+  private readonly initAfterSettings = (): void => {
+    if (this.settings.showRibbonIcon) {
+      addIcon('spreadsheet', tableControlsIcon);
+      this.addRibbonIcon('spreadsheet', 'Advanced Tables Toolbar', () => {
+        this.newPerformTableAction((te: TableEditor) => {
+          this.tableControls = te.openTableControls();
+        })();
+      });
+    }
+  };
 }
 
 class TableEditorSettingsTab extends PluginSettingTab {
@@ -269,6 +288,22 @@ class TableEditorSettingsTab extends PluginSettingTab {
             this.plugin.settings.formatType = value
               ? FormatType.NORMAL
               : FormatType.WEAK;
+            this.plugin.saveData(this.plugin.settings);
+            this.display();
+          }),
+      );
+
+    new Setting(containerEl)
+      .setName('Show icon in sidebar')
+      .setDesc(
+        'If enabled, a button which opens the table controls toolbar will be added to the Obsidian sidebar. ' +
+          'The toolbar can also be opened with a Hotkey. Changes only take effect on reload.',
+      )
+      .addToggle((toggle) =>
+        toggle
+          .setValue(this.plugin.settings.showRibbonIcon)
+          .onChange((value) => {
+            this.plugin.settings.showRibbonIcon = value;
             this.plugin.saveData(this.plugin.settings);
             this.display();
           }),
