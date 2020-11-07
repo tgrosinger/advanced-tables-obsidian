@@ -33,7 +33,11 @@ export class TableControls {
     this.widget = this.cm.addLineWidget(
       this.cm.getCursor().line,
       this.createTableControls(),
-      { coverGutter: true, handleMouseEvents: true },
+      {
+        coverGutter: true,
+        handleMouseEvents: false, // Editor does not handle mouse events, browser does
+        noHScroll: true, // Don't move the toolbar if editor is horiz. scrolled
+      },
     );
 
     this.cm.on('keydown', this.handleEscapeKey);
