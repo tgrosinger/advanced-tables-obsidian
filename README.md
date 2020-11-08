@@ -18,11 +18,6 @@ Vote on the features you are interested in with the links above!
 
 ![basic functionality](https://raw.githubusercontent.com/tgrosinger/advanced-tables-obsidian/main/resources/screenshots/basic-functionality.gif)
 
-If you use a non-monospaced font while editing, it is recommended that you
-disable the "Pad cell width" setting under the plugin settings. See [this
-forum post](https://forum.obsidian.md/t/monospace-font-in-the-editor/648/10)
-for steps on switching your editor to a monospaced font.
-
 **Note:** The Obsidian API is still in early alpha and this plugin may break at any time!
 
 ## How to use

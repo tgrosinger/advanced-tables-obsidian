@@ -10,6 +10,7 @@
 #    ./yarn.sh i -E "react"      # Install the react package as a dep
 
 docker run --rm \
+    -it \
     -v "$(pwd)":/code \
     -w /code \
     --entrypoint yarn \
