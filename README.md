@@ -9,6 +9,7 @@ Add improved navigation, formatting, and manipulation to markdown tables in Obsi
 - ☑ Move rows up and down
 - ☑ Set column alignment (left, center, right)
 - ☑ Sort rows by a specified column
+- ☑ Automatically use monospace font when editing tables
 - ☐ [Simple arithmetic formulas](https://github.com/tgrosinger/advanced-tables-obsidian/issues/14)
 - ☐ [Your feature here?](https://github.com/tgrosinger/advanced-tables-obsidian/issues/new?assignees=&labels=enhancement%2C+needs-review&template=feature_request.md&title=)
 
