@@ -3,7 +3,7 @@ on:
   push:
     tags: ["*"]
 env:
-  PLUGIN_NAME: table-editor-obisidan
+  PLUGIN_NAME: table-editor-obsidian
 jobs:
   build:
     runs-on: ubuntu-latest
