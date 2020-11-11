@@ -36,6 +36,48 @@ export default class TableEditorPlugin extends Plugin {
     );
 
     this.addCommand({
+      id: 'next-row',
+      name: 'Go to next row',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        if (this.settings.bindEnter) {
+          new Notice(
+            'Advanced Tables: Next row also bound to enter. ' +
+              'Possibly producing double actions. See Advanced Tables settings.',
+          );
+        }
+        te.nextRow();
+      }),
+    });
+
+    this.addCommand({
+      id: 'next-cell',
+      name: 'Go to next cell',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        if (this.settings.bindEnter) {
+          new Notice(
+            'Advanced Tables: Next cell also bound to tab. ' +
+              'Possibly producing double actions. See Advanced Tables settings.',
+          );
+        }
+        te.nextCell();
+      }),
+    });
+
+    this.addCommand({
+      id: 'previous-cell',
+      name: 'Go to previous cell',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        if (this.settings.bindEnter) {
+          new Notice(
+            'Advanced Tables: Previous cell also bound to shift+tab. ' +
+              'Possibly producing double actions. See Advanced Tables settings.',
+          );
+        }
+        te.previousCell();
+      }),
+    });
+
+    this.addCommand({
       id: 'format-table',
       name: 'Format table at the cursor',
       callback: this.newPerformTableAction((te: TableEditor) => {
@@ -170,7 +212,7 @@ export default class TableEditorPlugin extends Plugin {
   }
 
   public enableMonospaceFont(): void {
-    console.log(
+    console.debug(
       'Advanced Tables: Adding css class to enable monospace font in tables',
     );
 
@@ -244,6 +286,10 @@ export default class TableEditorPlugin extends Plugin {
       this.newPerformTableAction((te: TableEditor) => {
         switch (event.key) {
           case 'Tab':
+            if (!this.settings.bindTab) {
+              return;
+            }
+
             if (event.shiftKey) {
               te.previousCell();
             } else {
@@ -251,6 +297,10 @@ export default class TableEditorPlugin extends Plugin {
             }
             break;
           case 'Enter':
+            if (!this.settings.bindEnter) {
+              return;
+            }
+
             te.nextRow();
             break;
         }
@@ -265,27 +315,34 @@ export default class TableEditorPlugin extends Plugin {
       const loadedSettings = await this.loadData();
       if (loadedSettings) {
         console.log('Found existing settings file');
-        this.settings.formatType = loadedSettings.formatType;
+
+        if ('formatType' in loadedSettings) {
+          this.settings.formatType = loadedSettings.formatType;
+        }
 
         if ('showRibbonIcon' in loadedSettings) {
           this.settings.showRibbonIcon = loadedSettings.showRibbonIcon;
-        } else {
-          this.settings.showRibbonIcon = true;
-          console.log('Old version of settings file found, updating...');
-          this.saveData(this.settings);
         }
 
         if ('useMonospaceFont' in loadedSettings) {
           this.settings.useMonospaceFont = loadedSettings.useMonospaceFont;
-        } else {
-          this.settings.useMonospaceFont = true;
-          console.log('Old version of settings file found, updating...');
-          this.saveData(this.settings);
         }
+
         if ('preferredMonospaceFont' in loadedSettings) {
           this.settings.preferredMonospaceFont =
             loadedSettings.preferredMonospaceFont;
         }
+
+        if ('bindEnter' in loadedSettings) {
+          this.settings.bindEnter = loadedSettings.bindEnter;
+        }
+
+        if ('bindTab' in loadedSettings) {
+          this.settings.bindTab = loadedSettings.bindTab;
+        }
+
+        console.log('Saving settings to ensure consistency');
+        this.saveData(this.settings);
       } else {
         console.log('No settings file found, saving...');
         this.saveData(this.settings);
@@ -328,6 +385,36 @@ class TableEditorSettingsTab extends PluginSettingTab {
     containerEl.empty();
 
     containerEl.createEl('h2', { text: 'Table Plugin Editor - Settings' });
+
+    new Setting(containerEl)
+      .setName('Bind enter to table navigation')
+      .setDesc(
+        'If enabled, when the cursor is in a table, enter advances to the next ' +
+          'row. Disabling this can help avoid conflicting with tag or CJK ' +
+          'autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
+      )
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.bindEnter).onChange((value) => {
+          this.plugin.settings.bindEnter = value;
+          this.plugin.saveData(this.plugin.settings);
+          this.display();
+        }),
+      );
+
+    new Setting(containerEl)
+      .setName('Bind tab to table navigation')
+      .setDesc(
+        'If enabled, when the cursor is in a table, tab/shift+tab navigate ' +
+          'between cells. Disabling this can help avoid conflicting with tag ' +
+          'or CJK autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
+      )
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.bindTab).onChange((value) => {
+          this.plugin.settings.bindTab = value;
+          this.plugin.saveData(this.plugin.settings);
+          this.display();
+        }),
+      );
 
     new Setting(containerEl)
       .setName('Pad cell width using spaces')
