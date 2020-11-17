@@ -102,11 +102,13 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@tgrosinger/md-advanced-tables@3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.1.0.tgz#18a25c3bcf280eb71493dd6c8b3d3858ace97f62"
-  integrity sha512-iLQuJMm2iQ6DzMRy9FTcLi1ZtlOzxJnclQhVJn/FXcIIGL09rsv7Bg2qjjdEckArl3Z0Lyk9HLiwORWMsQ0iDA==
+"@tgrosinger/md-advanced-tables@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.2.0.tgz#82e81ec12a72d2dccceeb2a2db6445f9807e8ec4"
+  integrity sha512-n48XYSrLPQ6dndcGJgdqY8m4CdYkShqzi3Nn8xUxD4A9SPOZh+e2oCw7gu+wBhD30htLdSMVql68g7s7HaSDGQ==
   dependencies:
+    ebnf "1.9.0"
+    lodash "4.17.20"
     meaw "^4.3.0"
 
 "@types/codemirror@0.0.98":
@@ -460,6 +462,11 @@ doctrine@^3.0.0:
   integrity sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
   dependencies:
     esutils "^2.0.2"
+
+ebnf@1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/ebnf/-/ebnf-1.9.0.tgz#9c2dd6052f3ed43a69c1f0b07b15bd03cefda764"
+  integrity sha512-LKK899+j758AgPq00ms+y90mo+2P86fMKUWD28sH0zLKUj7aL6iIH2wy4jejAMM9I2BawJ+2kp6C3mMXj+Ii5g==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -1066,7 +1073,7 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
-lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20:
+lodash@4.17.20, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20:
   version "4.17.20"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
