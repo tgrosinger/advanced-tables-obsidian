@@ -1,19 +1,14 @@
-# Obsidian Table Editor Plugin
+# Advanced Tables for Obsidian
 
 Add improved navigation, formatting, and manipulation to markdown tables in Obsidian:
 
-- ☑ Excel-like table navigation (tab/enter between cells and rows)
-- ☑ Add and remove columns and rows
-- ☑ Auto formatting
-- ☑ Move columns left and right
-- ☑ Move rows up and down
-- ☑ Set column alignment (left, center, right)
-- ☑ Sort rows by a specified column
-- ☑ Automatically use monospace font when editing tables
-- ☐ [Simple arithmetic formulas](https://github.com/tgrosinger/advanced-tables-obsidian/issues/14)
-- ☐ [Your feature here?](https://github.com/tgrosinger/advanced-tables-obsidian/issues/new?assignees=&labels=enhancement%2C+needs-review&template=feature_request.md&title=)
-
-Vote on the features you are interested in with the links above!
+- Auto formatting
+- Excel-like table navigation (tab/enter between cells and rows)
+- [Spreadsheet formulas!](https://github.com/tgrosinger/md-advanced-tables/blob/main/docs/formulas.md)
+- Add, remove, and move columns and rows
+- Set column alignment (left, center, right)
+- Sort rows by a specified column
+- Automatically use monospace font when editing tables
 
 ## Demo
 
@@ -32,34 +27,19 @@ When a cursor is in a markdown table...
 | <kbd>Enter</kbd>                                  | Next Row                    |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | Open table controls toolbar |
 
-Or use the command palette:
+Or use the command palette and search "Advanced Tables". There are many
+commands available, don't forget to scroll!
 
-- "Open table controls toolbar"
-- "Navigate to Next Cell"
-- "Navigate to Previous Cell"
-- "Navigate to Next Row"
-- "Insert column before current"
-- "Format table at the cursor"
-- "Left align column"
-- "Center align column"
-- "Right align column"
-
-## Compatibility
-
-Custom plugins are only available for Obsidian v0.9.7+.
-
-The current API of this repo targets Obsidian **v0.9.7**.
-
-## How to install the plugin
+## How to Install
 
 ### From within Obsidian
 
-From Obsidian v0.9.8, you can activate this plugin within Obsidian by doing the following:
+From Obsidian v0.9.8+, you can activate this plugin within Obsidian by doing the following:
 
 - Open Settings > Third-party plugin
 - Make sure Safe mode is **off**
 - Click Browse community plugins
-- Search for "Table Editor"
+- Search for "Advanced Tables"
 - Click Install
 - Once installed, close the community plugins window and activate the newly installed plugin
 
@@ -69,8 +49,17 @@ You can follow the same procedure to update the plugin
 
 (Thanks to @deathau for the borrowed installation instructions.)
 
+## Pricing
+
+This plugin is provided to everyone for free, however if you would like to
+say thanks or help support continued development, feel free to send a little
+my way through one of the following methods:
+
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/tgrosinger?style=social)](https://github.com/sponsors/tgrosinger)
+[![Paypal](https://img.shields.io/badge/paypal-tgrosinger-yellow?style=social&logo=paypal)](https://paypal.me/tgrosinger)
+[<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="BuyMeACoffee" width="100">](https://www.buymeacoffee.com/tgrosinger)
+
 ## Notes
 
-This is very experimental and may features from the library are not yet
-implemented. It is possible that there are bugs which may delete data in the
-current note. Please make backups!
+This is experimental and may have instability. It is possible that there are
+bugs which may delete data in the current note. Please make backups!
