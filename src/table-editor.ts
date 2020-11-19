@@ -6,6 +6,7 @@ import {
   SortOrder,
   TableEditor as MTEEditor,
 } from '@tgrosinger/md-advanced-tables';
+import { Notice } from 'obsidian';
 
 export class TableEditor {
   private readonly settings: TableEditorPluginSettings;
@@ -89,6 +90,13 @@ export class TableEditor {
 
   public readonly sortRowsDesc = (): void => {
     this.mte.sortRows(SortOrder.Descending, this.settings.asOptions());
+  };
+
+  public readonly evaluateFormulas = (): void => {
+    const err = this.mte.evaluateFormulas(this.settings.asOptions());
+    if (err) {
+      new Notice(err.message);
+    }
   };
 
   public readonly openTableControls = (): TableControls => {

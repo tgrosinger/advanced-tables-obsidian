@@ -182,6 +182,14 @@ export default class TableEditorPlugin extends Plugin {
     });
 
     this.addCommand({
+      id: 'evaluate-formulas',
+      name: 'Evaluate table formulas',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.evaluateFormulas();
+      }),
+    });
+
+    this.addCommand({
       id: 'table-control-bar',
       name: 'Open table controls toolbar',
       hotkeys: [
