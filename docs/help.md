@@ -15,6 +15,10 @@ which contains detailed explanation and helpful examples.
 
 <https://github.com/tgrosinger/md-advanced-tables/blob/main/docs/formulas.md>
 
+Evaluating formulas is done using the formulas button in the toolbar.
+
+![evaluate formulas button](https://raw.githubusercontent.com/tgrosinger/advanced-tables-obsidian/main/resources/screenshots/evaluate-formulas-button.png)
+
 ## Sorting Rows
 
 When using the sort option in the toolbar, the sort will be performed based

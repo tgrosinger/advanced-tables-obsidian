@@ -4,7 +4,7 @@ Add improved navigation, formatting, and manipulation to markdown tables in Obsi
 
 - Auto formatting
 - Excel-like table navigation (tab/enter between cells and rows)
-- [Spreadsheet formulas!](https://github.com/tgrosinger/md-advanced-tables/blob/main/docs/formulas.md)
+- [Spreadsheet formulas!](https://github.com/tgrosinger/advanced-tables-obsidian/blob/main/docs/help.md#using-formulas-in-markdown-tables)
 - Add, remove, and move columns and rows
 - Set column alignment (left, center, right)
 - Sort rows by a specified column
@@ -29,6 +29,13 @@ When a cursor is in a markdown table...
 
 Or use the command palette and search "Advanced Tables". There are many
 commands available, don't forget to scroll!
+
+## Formulas and Spreadsheets in Markdown!
+
+![formulas demo](https://raw.githubusercontent.com/tgrosinger/advanced-tables-obsidian/main/resources/screenshots/formulas-demo.gif)
+
+For more information on using formulas, visit the
+[Help Docs](https://github.com/tgrosinger/advanced-tables-obsidian/blob/main/docs/help.md).
 
 ## How to Install
 
