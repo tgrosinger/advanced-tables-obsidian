@@ -102,10 +102,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@tgrosinger/md-advanced-tables@3.2.3":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.2.3.tgz#6cccce530a3d8eaad71993b10586b44c0c863a49"
-  integrity sha512-gnanO9EYTgUpqdHdRGw1D7aiAV24JN5ztCxz5juCGCOyiqN4DsJ/3pgcGPMKXMXYdjlR9Og0Xa39eL9c8FLXcA==
+"@tgrosinger/md-advanced-tables@3.2.4":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.2.4.tgz#8f925ee1eed146a1dc54db8c69ab8b8df2d0954b"
+  integrity sha512-0wMebcX+AoYJIGkaca1xOS2qVd3pgpE05j+Qk9AYhWHn8Mh1Gpo7tHXDlbnhUjRvaf4mJa9w70ZGIMVNiY5OSA==
   dependencies:
     ebnf "1.9.0"
     lodash "4.17.20"
@@ -1178,8 +1178,8 @@ object.values@^1.1.1:
     has "^1.0.3"
 
 "obsidian@https://github.com/obsidianmd/obsidian-api/tarball/master":
-  version "0.9.15"
-  resolved "https://github.com/obsidianmd/obsidian-api/tarball/master#a0bff46918f7700f8a38b3086acc542037d29faa"
+  version "0.9.16"
+  resolved "https://github.com/obsidianmd/obsidian-api/tarball/master#4c86767aa32e72b41352b21437d14e446cef1e5a"
   dependencies:
     "@types/codemirror" "0.0.98"
 
