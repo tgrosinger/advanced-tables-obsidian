@@ -28,3 +28,13 @@
   width: 15px;
   height: 15px;
 }
+
+.advanced-tables-donation {
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.advanced-tables-donate-button {
+  margin: 10px;
+}

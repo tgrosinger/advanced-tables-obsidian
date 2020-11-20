@@ -497,8 +497,53 @@ class TableEditorSettingsTab extends PluginSettingTab {
           });
         });
     }
+
+    const div = containerEl.createEl('div', {
+      cls: 'advanced-tables-donation',
+    });
+
+    const donateText = document.createElement('p');
+    donateText.appendText(
+      'If this plugin adds value for you and you would like to help support ' +
+        'continued development, please use the buttons below:',
+    );
+    div.appendChild(donateText);
+
+    div.appendChild(
+      createDonateButton(
+        'https://www.buymeacoffee.com/tgrosinger',
+        'Buy Me a Coffee',
+        'https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png',
+      ),
+    );
+
+    div.appendChild(
+      createDonateButton(
+        'https://paypal.me/tgrosinger',
+        'PayPal.Me',
+        'https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png',
+      ),
+    );
   }
 }
+
+const createDonateButton = (
+  link: string,
+  name: string,
+  imgURL: string,
+): HTMLElement => {
+  const a = document.createElement('a');
+  a.setAttribute('href', link);
+  a.addClass('advanced-tables-donate-button');
+
+  const img = document.createElement('img');
+  img.setAttribute('width', '150px');
+  img.setAttribute('src', imgURL);
+  img.setText(name);
+
+  a.appendChild(img);
+  return a;
+};
 
 /**
  * An svg icon of a spreadsheet
