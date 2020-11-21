@@ -94,6 +94,14 @@ export default class TableEditorPlugin extends Plugin {
     });
 
     this.addCommand({
+      id: 'insert-row',
+      name: 'Insert row before current',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.insertRow();
+      }),
+    });
+
+    this.addCommand({
       id: 'left-align-column',
       name: 'Left align column',
       callback: this.newPerformTableAction((te: TableEditor) => {
