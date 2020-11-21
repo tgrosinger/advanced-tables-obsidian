@@ -1,3 +1,5 @@
+import { App } from 'obsidian';
+import { DisabledFormulasModal } from './disabled-formulas';
 import { TableEditor } from './table-editor';
 
 /**
@@ -7,6 +9,7 @@ import { TableEditor } from './table-editor';
 export class TableControls {
   private readonly cm: CodeMirror.Editor;
   private readonly te: TableEditor;
+  private readonly app: App;
 
   /**
    * Stores the position of the cursor when this widget was created.
@@ -19,9 +22,10 @@ export class TableControls {
    */
   private widget: CodeMirror.LineWidget;
 
-  constructor(cm: CodeMirror.Editor, te: TableEditor) {
+  constructor(cm: CodeMirror.Editor, te: TableEditor, app: App) {
     this.cm = cm;
     this.te = te;
+    this.app = app;
 
     this.cursorPos = cm.getCursor();
   }
@@ -155,7 +159,8 @@ export class TableControls {
     node.appendChild(
       this.createButtonSvg(formula, 'Evaluate formulas', () => {
         this.cm.setCursor(this.cursorPos);
-        this.te.evaluateFormulas();
+        new DisabledFormulasModal(this.app).open();
+        //this.te.evaluateFormulas();
       }),
     );
 

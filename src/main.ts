@@ -6,11 +6,13 @@ import {
   addIcon,
   App,
   MarkdownView,
+  Modal,
   Notice,
   Plugin,
   PluginSettingTab,
   Setting,
 } from 'obsidian';
+import { DisabledFormulasModal } from './disabled-formulas';
 
 export default class TableEditorPlugin extends Plugin {
   public settings: TableEditorPluginSettings;
@@ -201,7 +203,8 @@ export default class TableEditorPlugin extends Plugin {
       id: 'evaluate-formulas',
       name: 'Evaluate table formulas',
       callback: this.newPerformTableAction((te: TableEditor) => {
-        te.evaluateFormulas();
+        // te.evaluateFormulas();
+        new DisabledFormulasModal(this.app).open();
       }),
     });
 
@@ -215,7 +218,7 @@ export default class TableEditorPlugin extends Plugin {
         },
       ],
       callback: this.newPerformTableAction((te: TableEditor) => {
-        this.tableControls = te.openTableControls();
+        this.tableControls = te.openTableControls(this.app);
       }),
     });
 
@@ -390,7 +393,7 @@ export default class TableEditorPlugin extends Plugin {
       addIcon('spreadsheet', tableControlsIcon);
       this.addRibbonIcon('spreadsheet', 'Advanced Tables Toolbar', () => {
         this.newPerformTableAction((te: TableEditor) => {
-          this.tableControls = te.openTableControls();
+          this.tableControls = te.openTableControls(this.app);
         })();
       });
     }

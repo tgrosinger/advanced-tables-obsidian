@@ -6,7 +6,7 @@ import {
   SortOrder,
   TableEditor as MTEEditor,
 } from '@tgrosinger/md-advanced-tables';
-import { Notice } from 'obsidian';
+import { App, Notice } from 'obsidian';
 
 export class TableEditor {
   private readonly settings: TableEditorPluginSettings;
@@ -103,8 +103,8 @@ export class TableEditor {
     }
   };
 
-  public readonly openTableControls = (): TableControls => {
-    const controls = new TableControls(this.editor, this);
+  public readonly openTableControls = (app: App): TableControls => {
+    const controls = new TableControls(this.editor, this, app);
     controls.display();
     return controls;
   };
