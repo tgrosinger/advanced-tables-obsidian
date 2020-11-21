@@ -102,6 +102,14 @@ export default class TableEditorPlugin extends Plugin {
     });
 
     this.addCommand({
+      id: 'escape-table',
+      name: 'Move cursor out of table',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.escape();
+      }),
+    });
+
+    this.addCommand({
       id: 'left-align-column',
       name: 'Left align column',
       callback: this.newPerformTableAction((te: TableEditor) => {
@@ -317,7 +325,11 @@ export default class TableEditorPlugin extends Plugin {
               return;
             }
 
-            te.nextRow();
+            if (event.shiftKey) {
+              te.escape();
+            } else {
+              te.nextRow();
+            }
             break;
         }
         event.preventDefault();

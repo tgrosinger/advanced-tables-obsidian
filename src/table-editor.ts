@@ -92,6 +92,10 @@ export class TableEditor {
     this.mte.sortRows(SortOrder.Descending, this.settings.asOptions());
   };
 
+  public readonly escape = (): void => {
+    this.mte.escape(this.settings.asOptions());
+  };
+
   public readonly evaluateFormulas = (): void => {
     const err = this.mte.evaluateFormulas(this.settings.asOptions());
     if (err) {
