@@ -1,5 +1,4 @@
 import { App } from 'obsidian';
-import { DisabledFormulasModal } from './disabled-formulas';
 import { TableEditor } from './table-editor';
 
 /**
@@ -159,8 +158,7 @@ export class TableControls {
     node.appendChild(
       this.createButtonSvg(formula, 'Evaluate formulas', () => {
         this.cm.setCursor(this.cursorPos);
-        new DisabledFormulasModal(this.app).open();
-        //this.te.evaluateFormulas();
+        this.te.evaluateFormulas();
       }),
     );
 

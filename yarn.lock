@@ -102,10 +102,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@tgrosinger/md-advanced-tables@3.2.4":
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.2.4.tgz#8f925ee1eed146a1dc54db8c69ab8b8df2d0954b"
-  integrity sha512-0wMebcX+AoYJIGkaca1xOS2qVd3pgpE05j+Qk9AYhWHn8Mh1Gpo7tHXDlbnhUjRvaf4mJa9w70ZGIMVNiY5OSA==
+"@tgrosinger/md-advanced-tables@3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.3.0.tgz#a82740703755dce824c8029868a361bd2ebfb862"
+  integrity sha512-IMBFJ2X5h3oAyzUXq2GKFvSm0hKB23WtnO0Ht5owgaCdkax9szXzdFJU/dDyM3ILPdjT7s4ANfzlFERDivrMgQ==
   dependencies:
     ebnf "1.9.0"
     lodash "4.17.20"
