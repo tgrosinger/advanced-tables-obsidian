@@ -86,6 +86,14 @@ export default class TableEditorPlugin extends Plugin {
     });
 
     this.addCommand({
+      id: 'format-all-tables',
+      name: 'Format all tables in this file',
+      callback: this.newPerformTableAction((te: TableEditor) => {
+        te.formatAllTables();
+      }),
+    });
+
+    this.addCommand({
       id: 'insert-column',
       name: 'Insert column before current',
       callback: this.newPerformTableAction((te: TableEditor) => {

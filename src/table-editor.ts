@@ -40,6 +40,10 @@ export class TableEditor {
     this.mte.format(this.settings.asOptions());
   };
 
+  public readonly formatAllTables = (): void => {
+    this.mte.formatAll(this.settings.asOptions());
+  };
+
   public readonly insertColumn = (): void => {
     this.mte.insertColumn(this.settings.asOptions());
   };
