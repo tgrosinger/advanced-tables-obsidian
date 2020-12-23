@@ -4,7 +4,25 @@ import {
   optionsWithDefaults,
 } from '@tgrosinger/md-advanced-tables';
 
-export class TableEditorPluginSettings {
+export const defaultSettings: Partial<ISettings> = {
+  formatType: FormatType.NORMAL,
+  showRibbonIcon: true,
+  useMonospaceFont: true,
+  preferredMonospaceFont: '',
+  bindEnter: true,
+  bindTab: true,
+};
+
+export interface ISettings {
+  formatType: FormatType;
+  showRibbonIcon: boolean;
+  useMonospaceFont: boolean;
+  preferredMonospaceFont: string;
+  bindEnter: boolean;
+  bindTab: boolean;
+}
+
+export class TableEditorPluginSettings implements ISettings {
   public formatType: FormatType;
   public showRibbonIcon: boolean;
 
@@ -14,12 +32,14 @@ export class TableEditorPluginSettings {
   public bindEnter: boolean;
   public bindTab: boolean;
 
-  constructor() {
-    this.formatType = FormatType.NORMAL;
-    this.showRibbonIcon = true;
-    this.useMonospaceFont = true;
-    this.bindEnter = true;
-    this.bindTab = true;
+  constructor(loadedData: Partial<ISettings>) {
+    const allFields = { ...defaultSettings, ...loadedData };
+    this.formatType = allFields.formatType;
+    this.showRibbonIcon = allFields.showRibbonIcon;
+    this.useMonospaceFont = allFields.useMonospaceFont;
+    this.preferredMonospaceFont = allFields.preferredMonospaceFont;
+    this.bindEnter = allFields.bindEnter;
+    this.bindTab = allFields.bindTab;
   }
 
   public asOptions(): Options {

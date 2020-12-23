@@ -1,4 +1,4 @@
-import { TableEditorPluginSettings } from './settings';
+import { defaultSettings, TableEditorPluginSettings } from './settings';
 import { TableControls } from './table-controls';
 import { TableEditor } from './table-editor';
 import { FormatType } from '@tgrosinger/md-advanced-tables';
@@ -25,7 +25,19 @@ export default class TableEditorPlugin extends Plugin {
   public async onload(): Promise<void> {
     console.log('loading markdown-table-editor plugin');
 
-    this.loadSettings();
+    await this.loadSettings();
+
+    if (this.settings.showRibbonIcon) {
+      addIcon('spreadsheet', tableControlsIcon);
+      this.addRibbonIcon('spreadsheet', 'Advanced Tables Toolbar', () => {
+        this.newPerformTableAction((te: TableEditor) => {
+          this.tableControls = te.openTableControls(this.app);
+        })();
+      });
+    }
+    if (this.settings.useMonospaceFont) {
+      this.enableMonospaceFont();
+    }
 
     this.cmEditors = [];
     this.registerEvent(
@@ -346,66 +358,13 @@ export default class TableEditorPlugin extends Plugin {
   };
 
   private async loadSettings(): Promise<void> {
-    this.settings = new TableEditorPluginSettings();
-    (async () => {
-      const loadedSettings = await this.loadData();
-      if (loadedSettings) {
-        console.log('Found existing settings file');
-
-        if ('formatType' in loadedSettings) {
-          this.settings.formatType = loadedSettings.formatType;
-        }
-
-        if ('showRibbonIcon' in loadedSettings) {
-          this.settings.showRibbonIcon = loadedSettings.showRibbonIcon;
-        }
-
-        if ('useMonospaceFont' in loadedSettings) {
-          this.settings.useMonospaceFont = loadedSettings.useMonospaceFont;
-        }
-
-        if ('preferredMonospaceFont' in loadedSettings) {
-          this.settings.preferredMonospaceFont =
-            loadedSettings.preferredMonospaceFont;
-        }
-
-        if ('bindEnter' in loadedSettings) {
-          this.settings.bindEnter = loadedSettings.bindEnter;
-        }
-
-        if ('bindTab' in loadedSettings) {
-          this.settings.bindTab = loadedSettings.bindTab;
-        }
-
-        console.log('Saving settings to ensure consistency');
-        this.saveData(this.settings);
-      } else {
-        console.log('No settings file found, saving...');
-        this.saveData(this.settings);
-      }
-
-      this.initAfterSettings();
-    })();
+    const settingsOptions = Object.assign(
+      defaultSettings,
+      await this.loadData(),
+    );
+    this.settings = new TableEditorPluginSettings(settingsOptions);
+    this.saveData(this.settings);
   }
-
-  /**
-   * This function can be used to initialize state which depends on values
-   * loaded from the settings. It will not be called until loading settings is
-   * complete.
-   */
-  private readonly initAfterSettings = (): void => {
-    if (this.settings.showRibbonIcon) {
-      addIcon('spreadsheet', tableControlsIcon);
-      this.addRibbonIcon('spreadsheet', 'Advanced Tables Toolbar', () => {
-        this.newPerformTableAction((te: TableEditor) => {
-          this.tableControls = te.openTableControls(this.app);
-        })();
-      });
-    }
-    if (this.settings.useMonospaceFont) {
-      this.enableMonospaceFont();
-    }
-  };
 }
 
 class TableEditorSettingsTab extends PluginSettingTab {
