@@ -40,12 +40,10 @@ export default class TableEditorPlugin extends Plugin {
     }
 
     this.cmEditors = [];
-    this.registerEvent(
-      this.app.on('codemirror', (cm: CodeMirror.Editor) => {
-        this.cmEditors.push(cm);
-        cm.on('keydown', this.handleKeyDown);
-      }),
-    );
+    this.registerCodeMirror((cm) => {
+      this.cmEditors.push(cm);
+      cm.on('keydown', this.handleKeyDown);
+    });
 
     this.addCommand({
       id: 'next-row',
