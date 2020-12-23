@@ -345,6 +345,8 @@ export default class TableEditorPlugin extends Plugin {
 
             if (event.shiftKey) {
               te.escape();
+            } else if (event.ctrlKey || event.metaKey || event.altKey) {
+              return;
             } else {
               te.nextRow();
             }
