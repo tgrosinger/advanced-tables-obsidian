@@ -11,11 +11,6 @@ export class TableControls {
   private readonly app: App;
 
   /**
-   * Stores the position of the cursor when this widget was created.
-   */
-  private readonly cursorPos: CodeMirror.Position;
-
-  /**
    * Stores the CodeMirror widget object, which can be used to
    * remove it from the editor.
    */
@@ -25,8 +20,6 @@ export class TableControls {
     this.cm = cm;
     this.te = te;
     this.app = app;
-
-    this.cursorPos = cm.getCursor();
   }
 
   /**
@@ -66,105 +59,90 @@ export class TableControls {
 
     node.appendChild(
       this.createButtonSvg(alignLeft, 'Align column left', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.leftAlignColumn();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(alignCenter, 'Align column center', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.centerAlignColumn();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(alignRight, 'Align column right', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.rightAlignColumn();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(sortAsc, 'Sort rows ascending', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.sortRowsAsc();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(sortDesc, 'Sort rows descending', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.sortRowsDesc();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(moveColumnLeft, 'Move column left', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.moveColumnLeft();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(moveColumnRight, 'Move column right', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.moveColumnRight();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(moveRowUp, 'Move row up', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.moveRowUp();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(moveRowDown, 'Move row down', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.moveRowDown();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(insertColumn, 'Insert column', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.insertColumn();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(insertRow, 'Insert row', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.insertRow();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(deleteColumn, 'Delete column', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.deleteColumn();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(deleteRow, 'Delete row', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.deleteRow();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(formula, 'Evaluate formulas', () => {
-        this.cm.setCursor(this.cursorPos);
         this.te.evaluateFormulas();
       }),
     );
 
     node.appendChild(
       this.createButtonSvg(help, 'Help', () => {
-        this.cm.setCursor(this.cursorPos);
         window.open(
           'https://github.com/tgrosinger/advanced-tables-obsidian/blob/main/docs/help.md',
         );
@@ -173,7 +151,6 @@ export class TableControls {
 
     node.appendChild(
       this.createButtonSvg(close, 'Close toolbar', () => {
-        this.cm.setCursor(this.cursorPos);
         this.clear();
       }),
     );
