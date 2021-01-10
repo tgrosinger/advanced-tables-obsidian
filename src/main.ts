@@ -10,7 +10,13 @@ import {
   Plugin,
   PluginSettingTab,
   Setting,
+  WorkspaceLeaf,
 } from 'obsidian';
+import {
+  TableControlsView,
+  TableControlsViewType,
+} from './table-controls-view';
+import { addIcons } from './icons';
 
 export default class TableEditorPlugin extends Plugin {
   public settings: TableEditorPluginSettings;
@@ -19,20 +25,34 @@ export default class TableEditorPlugin extends Plugin {
   private cmEditors: CodeMirror.Editor[];
 
   private tableControls: TableControls;
+  private tableControlsView: TableControlsView;
 
-  public onInit(): void {}
+  public onInit(): void {
+    console.log('ON INIT');
+  }
 
   public async onload(): Promise<void> {
     console.log('loading markdown-table-editor plugin');
 
     await this.loadSettings();
 
+    this.registerView(
+      TableControlsViewType,
+      (leaf) =>
+        (this.tableControlsView = new TableControlsView(leaf, this.settings)),
+    );
+
+    addIcons();
+
     if (this.settings.showRibbonIcon) {
-      addIcon('spreadsheet', tableControlsIcon);
       this.addRibbonIcon('spreadsheet', 'Advanced Tables Toolbar', () => {
-        this.newPerformTableAction((te: TableEditor) => {
-          this.tableControls = te.openTableControls(this.app);
-        })();
+        if (this.settings.experimentalToolbar) {
+          this.toggleTableControlsView();
+        } else {
+          this.newPerformTableAction((te: TableEditor) => {
+            this.tableControls = te.openTableControls(this.app);
+          })();
+        }
       });
     }
     if (this.settings.useMonospaceFont) {
@@ -232,9 +252,15 @@ export default class TableEditorPlugin extends Plugin {
           key: 'd',
         },
       ],
-      callback: this.newPerformTableAction((te: TableEditor) => {
-        this.tableControls = te.openTableControls(this.app);
-      }),
+      callback: () => {
+        if (this.settings.experimentalToolbar) {
+          this.toggleTableControlsView();
+        } else {
+          this.newPerformTableAction((te: TableEditor) => {
+            this.tableControls = te.openTableControls(this.app);
+          })();
+        }
+      },
     });
 
     this.addSettingTab(new TableEditorSettingsTab(this.app, this));
@@ -355,6 +381,30 @@ export default class TableEditorPlugin extends Plugin {
         event.preventDefault();
       }, false)();
     }
+  };
+
+  private readonly toggleTableControlsView = () => {
+    const existingView = this.app.workspace.getLeavesOfType(
+      TableControlsViewType,
+    );
+    if (existingView.length) {
+      console.log(existingView);
+      this.app.workspace.detachLeavesOfType(TableControlsViewType);
+      return;
+    }
+
+    const newLeaf = this.app.workspace.createLeafBySplit(
+      this.app.workspace.getMostRecentLeaf(),
+      'horizontal',
+      true,
+    );
+    newLeaf.setViewState({
+      type: TableControlsViewType,
+      pinned: true,
+      active: false,
+    });
+
+    console.log('testing');
   };
 
   private async loadSettings(): Promise<void> {
@@ -485,6 +535,21 @@ class TableEditorSettingsTab extends PluginSettingTab {
         });
     }
 
+    new Setting(containerEl)
+      .setName('Use experimental new table toolbar')
+      .setDesc(
+        'The new toolbar can be toggled with the same hotkey or ribbon button',
+      )
+      .addToggle((toggle) =>
+        toggle
+          .setValue(this.plugin.settings.experimentalToolbar)
+          .onChange((value) => {
+            this.plugin.settings.experimentalToolbar = value;
+            this.plugin.saveData(this.plugin.settings);
+            this.display();
+          }),
+      );
+
     const div = containerEl.createEl('div', {
       cls: 'advanced-tables-donation',
     });
@@ -531,10 +596,3 @@ const createDonateButton = (
   a.appendChild(img);
   return a;
 };
-
-/**
- * An svg icon of a spreadsheet
- */
-const tableControlsIcon = `<svg version="1.1" viewBox="0 0 482.81 482.81" xmlns="http://www.w3.org/2000/svg">
-  <path fill="currentColor" d="m457.58 25.464-432.83 0.42151c-13.658 0.013314-24.758 11.115-24.757 24.757l0.031024 347.45c7.4833e-4 8.3808 4.211 15.772 10.608 20.259 3.4533 2.4499 5.0716 3.2901 8.879 3.9022 1.7033 0.37333 3.4561 0.59471 5.2692 0.59294l432.84-0.42151c1.809-1e-3 3.5618-0.21823 5.2568-0.59294h1.2174v-0.37196c10.505-2.8727 18.279-12.397 18.278-23.788l-0.031-347.43c1e-3 -13.649-11.107-24.763-24.768-24.763zm3.5453 24.763v71.344h-163.31v-74.886h159.76c1.9641 0.0014 3.5467 1.5922 3.5467 3.5425zm-1.6737 350.37h-161.6v-67.207h163.31v64.268c1e-3 1.2572-0.70549 2.321-1.7033 2.9386zm-438.21-2.5171v-64.268h76.646v67.207h-74.942c-0.99784-0.61765-1.7033-1.6814-1.7033-2.9386zm255.28-155.18v69.688h-157.42v-69.688zm0 90.913v67.207h-157.42v-67.207zm-0.031-211.83h-157.42v-74.886h157.42zm0 21.226v77.826h-157.42v-77.826zm-178.64 77.826h-76.646v-77.826h76.646zm0.03102 21.862v69.688h-76.646v-69.688zm199.95 69.268v-69.697h163.31v69.697zm-0.031-91.552v-77.826h163.31v77.826z" stroke-width="1.3725"/>
-</svg>`;

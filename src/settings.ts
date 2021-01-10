@@ -11,6 +11,7 @@ export const defaultSettings: Partial<ISettings> = {
   preferredMonospaceFont: '',
   bindEnter: true,
   bindTab: true,
+  experimentalToolbar: false,
 };
 
 export interface ISettings {
@@ -20,6 +21,7 @@ export interface ISettings {
   preferredMonospaceFont: string;
   bindEnter: boolean;
   bindTab: boolean;
+  experimentalToolbar: boolean;
 }
 
 export class TableEditorPluginSettings implements ISettings {
@@ -32,6 +34,8 @@ export class TableEditorPluginSettings implements ISettings {
   public bindEnter: boolean;
   public bindTab: boolean;
 
+  public experimentalToolbar: boolean;
+
   constructor(loadedData: Partial<ISettings>) {
     const allFields = { ...defaultSettings, ...loadedData };
     this.formatType = allFields.formatType;
@@ -40,6 +44,7 @@ export class TableEditorPluginSettings implements ISettings {
     this.preferredMonospaceFont = allFields.preferredMonospaceFont;
     this.bindEnter = allFields.bindEnter;
     this.bindTab = allFields.bindTab;
+    this.experimentalToolbar = allFields.experimentalToolbar;
   }
 
   public asOptions(): Options {
