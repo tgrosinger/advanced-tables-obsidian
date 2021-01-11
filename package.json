@@ -1,6 +1,6 @@
 {
   "name": "advanced-tables-obsidian",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Improved table navigation, formatting, manipulation, and formulas",
   "main": "main.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "eslint": "eslint . --ext .ts,.tsx --fix"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tony Grosinger",
   "license": "GPL-3.0",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^15.1.0",
