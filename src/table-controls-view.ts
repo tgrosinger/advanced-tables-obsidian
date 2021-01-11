@@ -114,8 +114,8 @@ export class TableControlsView extends ItemView {
     const leaf = this.app.workspace
       .getLeavesOfType('markdown')
       .filter(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         // We are using a feature which is not exposed in the API
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (l) => (l.view as any).file.basename === this.mostRecentFile.basename,
       )
       .first();
