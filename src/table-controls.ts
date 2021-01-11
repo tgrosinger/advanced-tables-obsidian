@@ -1,6 +1,6 @@
-import { App } from 'obsidian';
 import { icons } from './icons';
 import { TableEditor } from './table-editor';
+import { App } from 'obsidian';
 
 /**
  * TableControls displays a line widget in the editor to users.

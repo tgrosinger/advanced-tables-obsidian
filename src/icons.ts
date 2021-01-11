@@ -120,7 +120,7 @@ export const icons: Record<string, string> = {
 </svg>`,
 };
 
-export const addIcons = () => {
+export const addIcons = (): void => {
   Object.keys(icons).forEach((key) => {
     addIcon(key, icons[key]);
   });

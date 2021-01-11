@@ -1,9 +1,13 @@
+import { addIcons } from './icons';
 import { defaultSettings, TableEditorPluginSettings } from './settings';
 import { TableControls } from './table-controls';
+import {
+  TableControlsView,
+  TableControlsViewType,
+} from './table-controls-view';
 import { TableEditor } from './table-editor';
 import { FormatType } from '@tgrosinger/md-advanced-tables';
 import {
-  addIcon,
   App,
   MarkdownView,
   Notice,
@@ -12,11 +16,6 @@ import {
   Setting,
   WorkspaceLeaf,
 } from 'obsidian';
-import {
-  TableControlsView,
-  TableControlsViewType,
-} from './table-controls-view';
-import { addIcons } from './icons';
 
 export default class TableEditorPlugin extends Plugin {
   public settings: TableEditorPluginSettings;
@@ -26,10 +25,6 @@ export default class TableEditorPlugin extends Plugin {
 
   private tableControls: TableControls;
   private tableControlsView: TableControlsView;
-
-  public onInit(): void {
-    console.log('ON INIT');
-  }
 
   public async onload(): Promise<void> {
     console.log('loading markdown-table-editor plugin');
@@ -383,28 +378,21 @@ export default class TableEditorPlugin extends Plugin {
     }
   };
 
-  private readonly toggleTableControlsView = () => {
-    const existingView = this.app.workspace.getLeavesOfType(
-      TableControlsViewType,
-    );
-    if (existingView.length) {
-      console.log(existingView);
-      this.app.workspace.detachLeavesOfType(TableControlsViewType);
+  private readonly toggleTableControlsView = async (): Promise<void> => {
+    const existing = this.app.workspace.getLeavesOfType(TableControlsViewType);
+    if (existing.length) {
+      this.app.workspace.revealLeaf(existing[0]);
       return;
     }
 
-    const newLeaf = this.app.workspace.createLeafBySplit(
-      this.app.workspace.getMostRecentLeaf(),
-      'horizontal',
-      true,
-    );
-    newLeaf.setViewState({
+    await this.app.workspace.getRightLeaf(false).setViewState({
       type: TableControlsViewType,
-      pinned: true,
-      active: false,
+      active: true,
     });
 
-    console.log('testing');
+    this.app.workspace.revealLeaf(
+      this.app.workspace.getLeavesOfType(TableControlsViewType)[0],
+    );
   };
 
   private async loadSettings(): Promise<void> {

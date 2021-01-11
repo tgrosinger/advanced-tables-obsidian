@@ -1,138 +1,87 @@
-import {
-  EventRef,
-  ItemView,
-  MarkdownView,
-  Menu,
-  Notice,
-  TFile,
-  WorkspaceLeaf,
-} from 'obsidian';
+import { icons } from './icons';
 import { TableEditorPluginSettings } from './settings';
 import { TableEditor } from './table-editor';
+import { ItemView, MarkdownView, Notice, TFile, WorkspaceLeaf } from 'obsidian';
 
 export const TableControlsViewType = 'advanced-tables-toolbar';
 
 export class TableControlsView extends ItemView {
-  private listeners: EventRef[];
   private mostRecentFile: TFile;
-  private settings: TableEditorPluginSettings;
+  private readonly settings: TableEditorPluginSettings;
 
   constructor(leaf: WorkspaceLeaf, settings: TableEditorPluginSettings) {
     super(leaf);
-
     this.settings = settings;
+  }
 
-    // Add buttons in reverse order
+  public getViewType(): string {
+    return TableControlsViewType;
+  }
 
-    this.addAction('help', 'Help', () =>
+  public getDisplayText(): string {
+    return 'Advanced Tables';
+  }
+
+  public getIcon(): string {
+    return 'spreadsheet';
+  }
+
+  public load(): void {
+    super.load();
+    this.registerEvent(
+      this.app.workspace.on('file-open', this.storeMostRecentFile),
+    );
+    this.draw();
+  }
+
+  private readonly draw = (): void => {
+    const container = this.containerEl.children[1];
+
+    const rootEl = document.createElement('div');
+
+    const navHeader = rootEl.createDiv({ cls: 'nav-header' });
+    const rowOneBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
+    this.drawBtn(rowOneBtns, 'alignLeft', (te) => te.leftAlignColumn());
+    this.drawBtn(rowOneBtns, 'alignCenter', (te) => te.centerAlignColumn());
+    this.drawBtn(rowOneBtns, 'alignRight', (te) => te.rightAlignColumn());
+
+    const rowTwoBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
+    this.drawBtn(rowTwoBtns, 'moveRowDown', (te) => te.moveRowDown());
+    this.drawBtn(rowTwoBtns, 'moveRowUp', (te) => te.moveRowUp());
+    this.drawBtn(rowTwoBtns, 'moveColumnRight', (te) => te.moveColumnRight());
+    this.drawBtn(rowTwoBtns, 'moveColumnLeft', (te) => te.moveColumnLeft());
+
+    const rowThreeBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
+    this.drawBtn(rowThreeBtns, 'insertRow', (te) => te.insertRow());
+    this.drawBtn(rowThreeBtns, 'insertColumn', (te) => te.insertColumn());
+    this.drawBtn(rowThreeBtns, 'deleteRow', (te) => te.deleteRow());
+    this.drawBtn(rowThreeBtns, 'deleteColumn', (te) => te.deleteColumn());
+
+    const rowFourBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
+    this.drawBtn(rowFourBtns, 'sortAsc', (te) => te.sortRowsAsc());
+    this.drawBtn(rowFourBtns, 'sortDesc', (te) => te.sortRowsDesc());
+    this.drawBtn(rowFourBtns, 'formula', (te) => te.evaluateFormulas());
+    this.drawBtn(rowFourBtns, 'help', () =>
       window.open(
         'https://github.com/tgrosinger/advanced-tables-obsidian/blob/main/docs/help.md',
       ),
     );
-    this.addAction('formula', 'Evaluate formulas', () =>
-      this.withTE((te) => {
-        te.evaluateFormulas();
-      }),
-    );
-    this.addAction('deleteRow', 'Delete row', () =>
-      this.withTE((te) => {
-        te.deleteRow();
-      }),
-    );
-    this.addAction('deleteColumn', 'Delete column', () =>
-      this.withTE((te) => {
-        te.deleteColumn();
-      }),
-    );
-    this.addAction('insertRow', 'Insert row', () =>
-      this.withTE((te) => {
-        te.insertRow();
-      }),
-    );
-    this.addAction('insertColumn', 'Insert column', () =>
-      this.withTE((te) => {
-        te.insertColumn();
-      }),
-    );
-    this.addAction('moveRowDown', 'Move row down', () =>
-      this.withTE((te) => {
-        te.moveRowDown();
-      }),
-    );
-    this.addAction('moveRowUp', 'Move row up', () =>
-      this.withTE((te) => {
-        te.moveRowUp();
-      }),
-    );
-    this.addAction('moveColumnRight', 'Move column right', () =>
-      this.withTE((te) => {
-        te.moveColumnRight();
-      }),
-    );
-    this.addAction('moveColumnLeft', 'Move column left', () =>
-      this.withTE((te) => {
-        te.moveColumnLeft();
-      }),
-    );
-    this.addAction('sortDesc', 'Sort rows descending', () =>
-      this.withTE((te) => {
-        te.sortRowsAsc();
-      }),
-    );
-    this.addAction('sortAsc', 'Sort rows ascending', () =>
-      this.withTE((te) => {
-        te.sortRowsAsc();
-      }),
-    );
-    this.addAction('alignRight', 'Align Column Right', () =>
-      this.withTE((te) => {
-        te.rightAlignColumn();
-      }),
-    );
-    this.addAction('alignCenter', 'Align Column Center', () =>
-      this.withTE((te) => {
-        te.centerAlignColumn();
-      }),
-    );
-    this.addAction('alignLeft', 'Align Column Left', () =>
-      this.withTE((te) => {
-        te.leftAlignColumn();
-      }),
-    );
-  }
 
-  getViewType(): string {
-    return TableControlsViewType;
-  }
-  getDisplayText(): string {
-    return 'Advanced Tables';
-  }
-  getIcon(): string {
-    return 'spreadsheet';
-  }
-
-  async onOpen(): Promise<void> {
-    this.listeners = [
-      this.app.workspace.on('resize', this.update),
-      this.app.workspace.on('click', this.update),
-      this.app.workspace.on('layout-ready', this.update),
-      this.app.workspace.on('layout-change', this.update),
-      this.app.workspace.on('file-open', this.storeMostRecentFile),
-    ];
-  }
-
-  async onClose() {
-    this.listeners.forEach((listener) => this.app.workspace.offref(listener));
-  }
-
-  private readonly update = () => {
-    if (this.containerEl.children.length === 2) {
-      this.containerEl.removeChild(this.containerEl.children[1]);
-    }
-    this.containerEl.parentElement.setAttribute('style', 'flex-grow: 4.3;');
+    container.empty();
+    container.appendChild(rootEl);
   };
 
-  private readonly storeMostRecentFile = (file: TFile) => {
+  private readonly drawBtn = (
+    parent: HTMLDivElement,
+    iconName: string,
+    fn: (te: TableEditor) => void,
+  ): void => {
+    const button = parent.createDiv({ cls: 'nav-action-button' });
+    button.onClickEvent(() => this.withTE(fn));
+    button.appendChild(Element(icons[iconName]));
+  };
+
+  private readonly storeMostRecentFile = (file: TFile): void => {
     if (!file) {
       return;
     }
@@ -142,7 +91,7 @@ export class TableControlsView extends ItemView {
   private readonly withTE = (
     fn: (te: TableEditor) => void,
     alertOnNoTable = true,
-  ) => {
+  ): void => {
     this.withCM((cm: CodeMirror.Editor) => {
       const te = new TableEditor(cm, this.settings);
       if (!te.cursorIsInTable()) {
@@ -156,22 +105,24 @@ export class TableControlsView extends ItemView {
     });
   };
 
-  private readonly withCM = (fn: (cm: CodeMirror.Editor) => void) => {
+  private readonly withCM = (fn: (cm: CodeMirror.Editor) => void): void => {
     if (!this.mostRecentFile) {
-      console.error('No most recent file stored');
+      new Notice('Advanced Tables: Cannot find a recently edited file');
       return;
     }
 
     const leaf = this.app.workspace
       .getLeavesOfType('markdown')
       .filter(
-        (leaf) =>
-          (leaf.view as any).file.basename === this.mostRecentFile.basename,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // We are using a feature which is not exposed in the API
+        (l) => (l.view as any).file.basename === this.mostRecentFile.basename,
       )
       .first();
 
     if (!leaf) {
       console.error('Could not find a leaf for the last known file opened');
+      new Notice('Advanced Tables: Cannot find a recently edited file');
       return;
     }
 
@@ -180,3 +131,13 @@ export class TableControlsView extends ItemView {
     }
   };
 }
+
+/**
+ * Convert an svg string into an HTML element.
+ *
+ * @param svgText svg image as a string
+ */
+const Element = (svgText: string): HTMLElement => {
+  const parser = new DOMParser();
+  return parser.parseFromString(svgText, 'text/xml').documentElement;
+};
