@@ -1,3 +1,8 @@
+.HyperMD-table-row span.cm-inline-code,
+pre > code:not(.prism) {
+  font-size: 100%;
+}
+
 .widget-background {
   background-color: var(--background-secondary);
 }
