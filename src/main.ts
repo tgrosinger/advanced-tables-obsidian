@@ -13,7 +13,6 @@ import {
   Plugin,
   PluginSettingTab,
   Setting,
-  WorkspaceLeaf,
 } from 'obsidian';
 
 export default class TableEditorPlugin extends Plugin {
@@ -56,7 +55,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'next-row',
       name: 'Go to next row',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         if (this.settings.bindEnter) {
           new Notice(
             'Advanced Tables: Next row also bound to enter. ' +
@@ -70,7 +69,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'next-cell',
       name: 'Go to next cell',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         if (this.settings.bindEnter) {
           new Notice(
             'Advanced Tables: Next cell also bound to tab. ' +
@@ -84,7 +83,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'previous-cell',
       name: 'Go to previous cell',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         if (this.settings.bindEnter) {
           new Notice(
             'Advanced Tables: Previous cell also bound to shift+tab. ' +
@@ -98,7 +97,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'format-table',
       name: 'Format table at the cursor',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.formatTable();
       }),
     });
@@ -106,7 +105,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'format-all-tables',
       name: 'Format all tables in this file',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.formatAllTables();
       }),
     });
@@ -114,7 +113,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'insert-column',
       name: 'Insert column before current',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.insertColumn();
       }),
     });
@@ -122,7 +121,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'insert-row',
       name: 'Insert row before current',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.insertRow();
       }),
     });
@@ -130,7 +129,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'escape-table',
       name: 'Move cursor out of table',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.escape();
       }),
     });
@@ -138,7 +137,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'left-align-column',
       name: 'Left align column',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.leftAlignColumn();
       }),
     });
@@ -146,7 +145,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'center-align-column',
       name: 'Center align column',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.centerAlignColumn();
       }),
     });
@@ -154,7 +153,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'right-align-column',
       name: 'Right align column',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.rightAlignColumn();
       }),
     });
@@ -162,7 +161,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'move-column-left',
       name: 'Move column left',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveColumnLeft();
       }),
     });
@@ -170,7 +169,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'move-column-right',
       name: 'Move column right',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveColumnRight();
       }),
     });
@@ -178,7 +177,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'move-row-up',
       name: 'Move row up',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveRowUp();
       }),
     });
@@ -186,7 +185,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'move-row-down',
       name: 'Move row down',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveRowDown();
       }),
     });
@@ -194,7 +193,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'delete-column',
       name: 'Delete column',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.deleteColumn();
       }),
     });
@@ -202,7 +201,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'delete-row',
       name: 'Delete row',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.deleteRow();
       }),
     });
@@ -210,7 +209,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'sort-rows-ascending',
       name: 'Sort rows ascending',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.sortRowsAsc();
       }),
     });
@@ -218,7 +217,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'sort-rows-descending',
       name: 'Sort rows descending',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.sortRowsDesc();
       }),
     });
@@ -226,7 +225,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'evaluate-formulas',
       name: 'Evaluate table formulas',
-      callback: this.newPerformTableAction((te: TableEditor) => {
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.evaluateFormulas();
       }),
     });
@@ -293,7 +292,7 @@ export default class TableEditorPlugin extends Plugin {
   private readonly newPerformTableAction = (
     fn: (te: TableEditor) => void,
     alertOnNoTable = true,
-  ) => (): void => {
+  ) => (checking: boolean): boolean | void => {
     // Any action will trigger checking for tables that need to be monospaced
     if (this.settings.useMonospaceFont) {
       this.enableMonospaceFont();
@@ -305,6 +304,10 @@ export default class TableEditorPlugin extends Plugin {
         activeLeaf.view.sourceMode.cmEditor,
         this.settings,
       );
+
+      if (checking) {
+        return te.cursorIsInTable();
+      }
 
       if (!te.cursorIsInTable()) {
         if (alertOnNoTable) {
@@ -350,7 +353,7 @@ export default class TableEditorPlugin extends Plugin {
             break;
         }
         event.preventDefault();
-      }, false)();
+      }, false)(false);
     }
   };
 
