@@ -25,7 +25,7 @@
     "eslint-plugin-jsdoc": "30.7.3",
     "eslint-plugin-prefer-arrow": "1.2.2",
     "eslint-plugin-simple-import-sort": "5.0.3",
-    "obsidian": "https://github.com/obsidianmd/obsidian-api/tarball/master",
+    "obsidian": "https://github.com/obsidianmd/obsidian-api/archive/7f3927722e1bdd791119727236a12bb10763dd04.tar.gz",
     "rollup": "^2.32.1",
     "tslib": "^2.0.3",
     "typescript": "^4.0.3"

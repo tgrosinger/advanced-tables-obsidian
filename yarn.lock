@@ -1177,9 +1177,9 @@ object.values@^1.1.1:
     function-bind "^1.1.1"
     has "^1.0.3"
 
-"obsidian@https://github.com/obsidianmd/obsidian-api/tarball/master":
-  version "0.10.6"
-  resolved "https://github.com/obsidianmd/obsidian-api/tarball/master#e5fc147f060653e67d3bba74267d7adbd6af7b27"
+"obsidian@https://github.com/obsidianmd/obsidian-api/archive/7f3927722e1bdd791119727236a12bb10763dd04.tar.gz":
+  version "0.10.9"
+  resolved "https://github.com/obsidianmd/obsidian-api/archive/7f3927722e1bdd791119727236a12bb10763dd04.tar.gz#2db949ea51191b31148ea5f4075901c37c41255f"
   dependencies:
     "@types/codemirror" "0.0.98"
 
