@@ -1,6 +1,5 @@
 import { addIcons } from './icons';
 import { defaultSettings, TableEditorPluginSettings } from './settings';
-import { TableControls } from './table-controls';
 import {
   TableControlsView,
   TableControlsViewType,
@@ -23,7 +22,6 @@ export default class TableEditorPlugin extends Plugin {
   // cmEditors is used during unload to remove our event handlers.
   private cmEditors: CodeMirror.Editor[];
 
-  private tableControls: TableControls;
   private tableControlsView: TableControlsView;
 
   public async onload(): Promise<void> {
@@ -41,15 +39,10 @@ export default class TableEditorPlugin extends Plugin {
 
     if (this.settings.showRibbonIcon) {
       this.addRibbonIcon('spreadsheet', 'Advanced Tables Toolbar', () => {
-        if (this.settings.experimentalToolbar) {
-          this.toggleTableControlsView();
-        } else {
-          this.newPerformTableAction((te: TableEditor) => {
-            this.tableControls = te.openTableControls(this.app);
-          })();
-        }
+        this.toggleTableControlsView();
       });
     }
+
     if (this.settings.useMonospaceFont) {
       this.enableMonospaceFont();
     }
@@ -248,13 +241,7 @@ export default class TableEditorPlugin extends Plugin {
         },
       ],
       callback: () => {
-        if (this.settings.experimentalToolbar) {
-          this.toggleTableControlsView();
-        } else {
-          this.newPerformTableAction((te: TableEditor) => {
-            this.tableControls = te.openTableControls(this.app);
-          })();
-        }
+        this.toggleTableControlsView();
       },
     });
 
@@ -263,11 +250,6 @@ export default class TableEditorPlugin extends Plugin {
 
   public onunload(): void {
     console.log('unloading markdown-table-editor plugin');
-
-    if (this.tableControls) {
-      this.tableControls.clear();
-      this.tableControls = null;
-    }
 
     this.cmEditors.forEach((cm) => {
       cm.off('keydown', this.handleKeyDown);
@@ -312,12 +294,6 @@ export default class TableEditorPlugin extends Plugin {
     fn: (te: TableEditor) => void,
     alertOnNoTable = true,
   ) => (): void => {
-    // Any action will trigger hiding the table controls
-    if (this.tableControls) {
-      this.tableControls.clear();
-      this.tableControls = null;
-    }
-
     // Any action will trigger checking for tables that need to be monospaced
     if (this.settings.useMonospaceFont) {
       this.enableMonospaceFont();
@@ -522,21 +498,6 @@ class TableEditorSettingsTab extends PluginSettingTab {
           });
         });
     }
-
-    new Setting(containerEl)
-      .setName('Use experimental new table toolbar')
-      .setDesc(
-        'The new toolbar can be toggled with the same hotkey or ribbon button',
-      )
-      .addToggle((toggle) =>
-        toggle
-          .setValue(this.plugin.settings.experimentalToolbar)
-          .onChange((value) => {
-            this.plugin.settings.experimentalToolbar = value;
-            this.plugin.saveData(this.plugin.settings);
-            this.display();
-          }),
-      );
 
     const div = containerEl.createEl('div', {
       cls: 'advanced-tables-donation',

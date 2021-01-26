@@ -1,6 +1,5 @@
 import { ObsidianTextEditor } from './obsidian-text-editor';
 import { TableEditorPluginSettings } from './settings';
-import { TableControls } from './table-controls';
 import {
   Alignment,
   SortOrder,
@@ -105,11 +104,5 @@ export class TableEditor {
     if (err) {
       new Notice(err.message);
     }
-  };
-
-  public readonly openTableControls = (app: App): TableControls => {
-    const controls = new TableControls(this.editor, this, app);
-    controls.display();
-    return controls;
   };
 }
