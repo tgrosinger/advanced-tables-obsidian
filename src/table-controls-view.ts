@@ -28,6 +28,15 @@ export class TableControlsView extends ItemView {
 
   public load(): void {
     super.load();
+
+    if (this.app.workspace.layoutReady) {
+      this.getAndStoreActiveFile();
+    } else {
+      this.registerEvent(
+        this.app.workspace.on('layout-ready', this.getAndStoreActiveFile),
+      );
+    }
+
     this.registerEvent(
       this.app.workspace.on('file-open', this.storeMostRecentFile),
     );
@@ -79,6 +88,10 @@ export class TableControlsView extends ItemView {
     const button = parent.createDiv({ cls: 'nav-action-button' });
     button.onClickEvent(() => this.withTE(fn));
     button.appendChild(Element(icons[iconName]));
+  };
+
+  private readonly getAndStoreActiveFile = (): void => {
+    this.storeMostRecentFile(this.app.workspace.getActiveFile());
   };
 
   private readonly storeMostRecentFile = (file: TFile): void => {
