@@ -3,16 +3,6 @@ pre > code:not(.prism) {
   font-size: 100%;
 }
 
-.widget-background {
-  background-color: var(--background-secondary);
-}
-
-.widget-button {
-  padding: 3px 4px;
-  margin: 3px;
-  background-color: Transparent;
-}
-
 .widget-icon {
   width: 20px;
   height: 20px;
@@ -21,17 +11,6 @@ pre > code:not(.prism) {
 
 .widget-icon:hover {
   fill: var(--text-normal);
-}
-
-.widget-button-close {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.widget-icon-close {
-  width: 15px;
-  height: 15px;
 }
 
 .advanced-tables-donation {
