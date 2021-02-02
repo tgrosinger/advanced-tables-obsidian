@@ -8,7 +8,6 @@ Add improved navigation, formatting, and manipulation to markdown tables in Obsi
 - Add, remove, and move columns and rows
 - Set column alignment (left, center, right)
 - Sort rows by a specified column
-- Automatically use monospace font when editing tables
 
 ## Demo
 

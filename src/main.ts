@@ -42,10 +42,6 @@ export default class TableEditorPlugin extends Plugin {
       });
     }
 
-    if (this.settings.useMonospaceFont) {
-      this.enableMonospaceFont();
-    }
-
     this.cmEditors = [];
     this.registerCodeMirror((cm) => {
       this.cmEditors.push(cm);
@@ -255,49 +251,10 @@ export default class TableEditorPlugin extends Plugin {
     });
   }
 
-  public enableMonospaceFont(): void {
-    console.debug(
-      'Advanced Tables: Adding css class to enable monospace font in tables',
-    );
-
-    const existingElem = document.getElementById('advanced-tables-monospace');
-    if (existingElem) {
-      console.debug('Advanced Tables: css already enabled, skipping');
-      return;
-    }
-
-    let font = 'monospace';
-    const preferredFont = this.settings.preferredMonospaceFont;
-    if (preferredFont) {
-      font = `${preferredFont}, ${font}`;
-    }
-
-    const css = `
-<style type='text/css' id='advanced-tables-monospace'>
-  .HyperMD-table-row {
-    font-family: ${font} !important;
-  }
-</style>
-`;
-    document.head.insertAdjacentHTML('beforeend', css);
-  }
-
-  public disableMonospaceFont(): void {
-    const elem = document.getElementById('advanced-tables-monospace');
-    if (elem) {
-      elem.parentElement.removeChild(elem);
-    }
-  }
-
   private readonly newPerformTableAction = (
     fn: (te: TableEditor) => void,
     alertOnNoTable = true,
   ) => (checking: boolean): boolean | void => {
-    // Any action will trigger checking for tables that need to be monospaced
-    if (this.settings.useMonospaceFont) {
-      this.enableMonospaceFont();
-    }
-
     const activeLeaf = this.app.workspace.activeLeaf;
     if (activeLeaf.view instanceof MarkdownView) {
       const te = new TableEditor(
@@ -432,7 +389,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
       .setName('Pad cell width using spaces')
       .setDesc(
         'If enabled, table cells will have spaces added to match the with of the ' +
-          'longest cell in the column. Only useful when using a monospace font during editing.',
+          'longest cell in the column.',
       )
       .addToggle((toggle) =>
         toggle
@@ -461,46 +418,6 @@ class TableEditorSettingsTab extends PluginSettingTab {
             this.display();
           }),
       );
-
-    new Setting(containerEl)
-      .setName('Use monospace font')
-      .setDesc(
-        'If enabled, a monospaced font will be used for text inside tables. If you already use a monospace font while editing, disable this to preserve your preferred font.',
-      )
-      .addToggle((toggle) =>
-        toggle
-          .setValue(this.plugin.settings.useMonospaceFont)
-          .onChange((value) => {
-            this.plugin.settings.useMonospaceFont = value;
-            this.plugin.saveData(this.plugin.settings);
-            if (value) {
-              this.plugin.enableMonospaceFont();
-            } else {
-              this.plugin.disableMonospaceFont();
-            }
-            this.display();
-          }),
-      );
-
-    if (this.plugin.settings.useMonospaceFont) {
-      new Setting(containerEl)
-        .setName('Monospace Font Name')
-        .setDesc(
-          'Optionally, provide a preferred monospace font that is installed on this system.',
-        )
-        .addText((text) => {
-          text.setPlaceholder('monospace');
-          if (this.plugin.settings.preferredMonospaceFont) {
-            text.setValue(this.plugin.settings.preferredMonospaceFont);
-          }
-          text.onChange((value) => {
-            this.plugin.settings.preferredMonospaceFont = value;
-            this.plugin.saveData(this.plugin.settings);
-            this.plugin.disableMonospaceFont();
-            this.plugin.enableMonospaceFont();
-          });
-        });
-    }
 
     const div = containerEl.createEl('div', {
       cls: 'advanced-tables-donation',
