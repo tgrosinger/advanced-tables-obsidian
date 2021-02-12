@@ -240,6 +240,14 @@ export default class TableEditorPlugin extends Plugin {
       },
     });
 
+    this.addCommand({
+      id: 'csv-export',
+      name: 'Export as CSV',
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+        te.exportCSV();
+      }),
+    });
+
     this.addSettingTab(new TableEditorSettingsTab(this.app, this));
   }
 

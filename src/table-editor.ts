@@ -20,6 +20,15 @@ export class TableEditor {
     this.mte = new MTEEditor(ote);
   }
 
+  public readonly exportCSV = (): void => {
+    this.mte.withCompletedTable(
+      this.settings.asOptions(),
+      ({ range, lines, formulaLines, table, focus }: any) => {
+        // TODO
+      }
+    );
+  };
+
   public readonly cursorIsInTable = (): boolean =>
     this.mte.cursorIsInTable(this.settings.asOptions());
 
