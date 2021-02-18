@@ -102,14 +102,14 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@tgrosinger/md-advanced-tables@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.3.0.tgz#a82740703755dce824c8029868a361bd2ebfb862"
-  integrity sha512-IMBFJ2X5h3oAyzUXq2GKFvSm0hKB23WtnO0Ht5owgaCdkax9szXzdFJU/dDyM3ILPdjT7s4ANfzlFERDivrMgQ==
+"@tgrosinger/md-advanced-tables@3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.4.0.tgz#3fbed85fe0144c02e24467ee2b43f8c526274c1e"
+  integrity sha512-iY3MPJT2Qcu8zVSyBkvMCXjUJz1/xqYV9kjXo9VIZ+l9B9oztAe3unGbL7+PEHhSptknPlbG/cCjLlj7mlqBog==
   dependencies:
     ebnf "1.9.0"
     lodash "4.17.20"
-    meaw "^4.3.0"
+    meaw "5.0.0"
 
 "@types/codemirror@0.0.98":
   version "0.0.98"
@@ -1085,10 +1085,10 @@ magic-string@^0.25.7:
   dependencies:
     sourcemap-codec "^1.4.4"
 
-meaw@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/meaw/-/meaw-4.3.0.tgz#96d74682bb9492623bd3c5d701ad37ba7a561091"
-  integrity sha512-LqrSSga9IZHJzqAQD0KkGQqeXwqgNsM3X+eHAlf/5h1DqyFdP2Q30Tx8Nx2TCzjoibxmQL/JsUtSGwdpZHvuUg==
+meaw@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/meaw/-/meaw-5.0.0.tgz#aa6fb01050edd0e5ea68e19b81b60d0d88172b91"
+  integrity sha512-yaK9Pnj6JrLcQGEqDUS0WGUEiaFg9Q215isi8mzcDVOjeGr5oS863hu+/ZS49g+azKPo5Wbpk3tgkP2+YOyZZw==
 
 merge2@^1.3.0:
   version "1.4.1"

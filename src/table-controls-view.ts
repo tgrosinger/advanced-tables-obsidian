@@ -70,7 +70,10 @@ export class TableControlsView extends ItemView {
     this.drawBtn(rowFourBtns, 'sortAsc', (te) => te.sortRowsAsc());
     this.drawBtn(rowFourBtns, 'sortDesc', (te) => te.sortRowsDesc());
     this.drawBtn(rowFourBtns, 'formula', (te) => te.evaluateFormulas());
-    this.drawBtn(rowFourBtns, 'help', () =>
+
+    const rowFiveBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
+    this.drawBtn(rowFiveBtns, 'csv', (te) => te.exportCSVModal());
+    this.drawBtn(rowFiveBtns, 'help', () =>
       window.open(
         'https://github.com/tgrosinger/advanced-tables-obsidian/blob/main/docs/help.md',
       ),
@@ -106,7 +109,7 @@ export class TableControlsView extends ItemView {
     alertOnNoTable = true,
   ): void => {
     this.withCM((cm: CodeMirror.Editor) => {
-      const te = new TableEditor(cm, this.settings);
+      const te = new TableEditor(this.app, cm, this.settings);
       if (!te.cursorIsInTable()) {
         if (alertOnNoTable) {
           new Notice('Advanced Tables: Cursor must be in a table.');

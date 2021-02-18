@@ -5,14 +5,20 @@ import {
   SortOrder,
   TableEditor as MTEEditor,
 } from '@tgrosinger/md-advanced-tables';
-import { App, Notice } from 'obsidian';
+import { App, Modal, Notice } from 'obsidian';
 
 export class TableEditor {
+  private readonly app: App;
   private readonly settings: TableEditorPluginSettings;
   private readonly editor: CodeMirror.Editor;
   private readonly mte: MTEEditor;
 
-  constructor(cm: CodeMirror.Editor, settings: TableEditorPluginSettings) {
+  constructor(
+    app: App,
+    cm: CodeMirror.Editor,
+    settings: TableEditorPluginSettings,
+  ) {
+    this.app = app;
     this.settings = settings;
     this.editor = cm;
 
@@ -105,4 +111,51 @@ export class TableEditor {
       new Notice(err.message);
     }
   };
+
+  public readonly exportCSVModal = (): void => {
+    new CSVModal(this.app, this.mte, this.settings).open();
+  };
+}
+
+class CSVModal extends Modal {
+  private readonly mte: MTEEditor;
+  private readonly settings: TableEditorPluginSettings;
+
+  constructor(app: App, mte: MTEEditor, settings: TableEditorPluginSettings) {
+    super(app);
+    this.mte = mte;
+    this.settings = settings;
+  }
+
+  public onOpen(): void {
+    const { contentEl } = this;
+    const div = contentEl.createDiv({
+      cls: 'advanced-tables-csv-export',
+    });
+
+    const ta = div.createEl('textarea', {
+      attr: {
+        readonly: true,
+      },
+    });
+    ta.value = this.mte.exportCSV(true, this.settings.asOptions());
+    ta.onClickEvent(() => ta.select());
+
+    const lb = div.createEl('label');
+    const cb = lb.createEl('input', {
+      type: 'checkbox',
+      attr: {
+        checked: true,
+      },
+    });
+    lb.createSpan().setText('Include table headers');
+    cb.onClickEvent(() => {
+      ta.value = this.mte.exportCSV(cb.checked, this.settings.asOptions());
+    });
+  }
+
+  public onClose(): void {
+    const { contentEl } = this;
+    contentEl.empty();
+  }
 }

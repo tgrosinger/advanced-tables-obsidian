@@ -258,6 +258,7 @@ export default class TableEditorPlugin extends Plugin {
     const activeLeaf = this.app.workspace.activeLeaf;
     if (activeLeaf.view instanceof MarkdownView) {
       const te = new TableEditor(
+        this.app,
         activeLeaf.view.sourceMode.cmEditor,
         this.settings,
       );

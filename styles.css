@@ -13,6 +13,11 @@ pre > code:not(.prism) {
   fill: var(--text-normal);
 }
 
+.advanced-tables-csv-export textarea {
+  height: 200px;
+  width: 100%;
+}
+
 .advanced-tables-donation {
   width: 70%;
   margin: 0 auto;

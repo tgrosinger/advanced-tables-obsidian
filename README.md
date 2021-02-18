@@ -8,6 +8,7 @@ Add improved navigation, formatting, and manipulation to markdown tables in Obsi
 - Add, remove, and move columns and rows
 - Set column alignment (left, center, right)
 - Sort rows by a specified column
+- Export to CSV
 
 ## Demo
 
@@ -16,6 +17,12 @@ Add improved navigation, formatting, and manipulation to markdown tables in Obsi
 **Note:** The Obsidian API is still in early alpha and this plugin may break at any time!
 
 ## How to use
+
+To create a table, create a single `|` character, then type the table's first
+heading and press <kbd>Tab</kbd>. Continue entering headings and pressing
+<kbd>Tab</kbd> until all the headings are created. Press <kbd>Enter</kbd> to
+go to the first row. Continue filling cells as before, and press
+<kbd>Enter</kbd> again for each new row.
 
 When a cursor is in a markdown table...
 
