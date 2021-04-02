@@ -259,7 +259,7 @@ export default class TableEditorPlugin extends Plugin {
     if (activeLeaf.view instanceof MarkdownView) {
       const te = new TableEditor(
         this.app,
-        activeLeaf.view.sourceMode.cmEditor,
+        activeLeaf.view.editor,
         this.settings,
       );
 

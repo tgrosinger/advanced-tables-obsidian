@@ -1,22 +1,17 @@
 import { Point, Range } from '@tgrosinger/md-advanced-tables';
-import { MarkdownView } from 'obsidian';
+import { Editor, MarkdownView } from 'obsidian';
 
 /**
  * ObsidianTextEditor is an implementation of the ITextEditor interface from
  * the mte-kernel library. It teaches the table editor library how to interface
- * with Obsidian and the underlying CodeMirror interface.
+ * with Obsidian.
  */
 export class ObsidianTextEditor {
-  private readonly editor: CodeMirror.Editor;
+  private readonly editor: Editor;
 
-  constructor(editor: CodeMirror.Editor);
-  constructor(view: MarkdownView);
-  constructor(obj: CodeMirror.Editor | MarkdownView) {
-    if ('sourceMode' in obj) {
-      this.editor = obj.sourceMode.cmEditor;
-    } else {
-      this.editor = obj;
-    }
+  constructor(editor: Editor);
+  constructor(obj: Editor) {
+    this.editor = obj;
   }
 
   public getCursorPosition = (): Point => {
@@ -83,26 +78,24 @@ export class ObsidianTextEditor {
     endRow: number,
     lines: string[],
   ): void => {
-    console.debug('replaceLines was called');
-    console.debug(`start ${startRow}, end: ${endRow}`);
-    console.debug(lines);
-
     // Take one off the endRow and instead go to the end of that line
     const realEndRow = endRow - 1;
     const endRowContents = this.editor.getLine(realEndRow);
     const endRowFinalIndex = endRowContents.length;
 
     this.editor.replaceRange(
-      lines,
+      lines.join('\n'),
       { line: startRow, ch: 0 },
       { line: realEndRow, ch: endRowFinalIndex },
     );
   };
 
   public transact = (func: Function): void => {
-    console.debug('transact was called');
+    /*
     this.editor.operation(() => {
       func();
     });
+    */
+    func();
   };
 }

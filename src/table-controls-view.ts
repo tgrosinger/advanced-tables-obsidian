@@ -1,7 +1,14 @@
 import { icons } from './icons';
 import { TableEditorPluginSettings } from './settings';
 import { TableEditor } from './table-editor';
-import { ItemView, MarkdownView, Notice, TFile, WorkspaceLeaf } from 'obsidian';
+import {
+  Editor,
+  ItemView,
+  MarkdownView,
+  Notice,
+  TFile,
+  WorkspaceLeaf,
+} from 'obsidian';
 
 export const TableControlsViewType = 'advanced-tables-toolbar';
 
@@ -108,8 +115,8 @@ export class TableControlsView extends ItemView {
     fn: (te: TableEditor) => void,
     alertOnNoTable = true,
   ): void => {
-    this.withCM((cm: CodeMirror.Editor) => {
-      const te = new TableEditor(this.app, cm, this.settings);
+    this.withEditor((editor: Editor) => {
+      const te = new TableEditor(this.app, editor, this.settings);
       if (!te.cursorIsInTable()) {
         if (alertOnNoTable) {
           new Notice('Advanced Tables: Cursor must be in a table.');
@@ -121,7 +128,7 @@ export class TableControlsView extends ItemView {
     });
   };
 
-  private readonly withCM = (fn: (cm: CodeMirror.Editor) => void): void => {
+  private readonly withEditor = (fn: (editor: Editor) => void): void => {
     if (!this.mostRecentFile) {
       new Notice('Advanced Tables: Cannot find a recently edited file');
       return;
@@ -143,7 +150,7 @@ export class TableControlsView extends ItemView {
     }
 
     if (leaf.view instanceof MarkdownView) {
-      fn(leaf.view.sourceMode.cmEditor);
+      fn(leaf.view.editor);
     }
   };
 }

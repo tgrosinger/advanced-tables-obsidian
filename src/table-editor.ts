@@ -5,24 +5,18 @@ import {
   SortOrder,
   TableEditor as MTEEditor,
 } from '@tgrosinger/md-advanced-tables';
-import { App, Modal, Notice } from 'obsidian';
+import { App, Editor, Modal, Notice } from 'obsidian';
 
 export class TableEditor {
   private readonly app: App;
   private readonly settings: TableEditorPluginSettings;
-  private readonly editor: CodeMirror.Editor;
   private readonly mte: MTEEditor;
 
-  constructor(
-    app: App,
-    cm: CodeMirror.Editor,
-    settings: TableEditorPluginSettings,
-  ) {
+  constructor(app: App, editor: Editor, settings: TableEditorPluginSettings) {
     this.app = app;
     this.settings = settings;
-    this.editor = cm;
 
-    const ote = new ObsidianTextEditor(cm);
+    const ote = new ObsidianTextEditor(editor);
     this.mte = new MTEEditor(ote);
   }
 

@@ -5,7 +5,7 @@
   "authorUrl": "https://grosinger.net",
   "description": "Improved table navigation, formatting, manipulation, and formulas",
   "isDesktopOnly": false,
-  "minAppVersion": "0.10.12",
-  "version": "0.11.0",
+  "minAppVersion": "0.11.12",
+  "version": "0.12.0",
   "js": "main.js"
 }
