@@ -9,6 +9,7 @@ Add improved navigation, formatting, and manipulation to markdown tables in Obsi
 - Set column alignment (left, center, right)
 - Sort rows by a specified column
 - Export to CSV
+- Works on Obsidian Mobile (See notes below)
 
 ## Demo
 
@@ -31,7 +32,7 @@ When a cursor is in a markdown table...
 | <kbd>Tab</kbd>                                    | Next Cell                   |
 | <kbd>Shift</kbd> + <kbd>Tab</kbd>                 | Previous Cell               |
 | <kbd>Enter</kbd>                                  | Next Row                    |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | Open table controls toolbar |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | Open table controls sidebar |
 
 Or use the command palette and search "Advanced Tables". There are many
 commands available, don't forget to scroll!
@@ -56,11 +57,12 @@ From Obsidian v0.9.8+, you can activate this plugin within Obsidian by doing the
 - Click Install
 - Once installed, close the community plugins window and activate the newly installed plugin
 
-#### Updates
+## Obsidian Mobile
 
-You can follow the same procedure to update the plugin
-
-(Thanks to @deathau for the borrowed installation instructions.)
+When using Obsidian on a mobile device, the Advanced Tables plugin can be
+used. Using <kbd>Enter</kbd> and <kbd>Tab</kbd> to navigate the table is not
+yet functional, but you can create new rows and columns using the buttons in
+the Advanced Tables sidebar.
 
 ## Pricing
 
