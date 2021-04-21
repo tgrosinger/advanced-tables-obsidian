@@ -57,30 +57,60 @@ export class TableControlsView extends ItemView {
 
     const navHeader = rootEl.createDiv({ cls: 'nav-header' });
     const rowOneBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
-    this.drawBtn(rowOneBtns, 'alignLeft', (te) => te.leftAlignColumn());
-    this.drawBtn(rowOneBtns, 'alignCenter', (te) => te.centerAlignColumn());
-    this.drawBtn(rowOneBtns, 'alignRight', (te) => te.rightAlignColumn());
+    this.drawBtn(rowOneBtns, 'alignLeft', 'left align column', (te) =>
+      te.leftAlignColumn(),
+    );
+    this.drawBtn(rowOneBtns, 'alignCenter', 'center align column', (te) =>
+      te.centerAlignColumn(),
+    );
+    this.drawBtn(rowOneBtns, 'alignRight', 'right align column', (te) =>
+      te.rightAlignColumn(),
+    );
 
     const rowTwoBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
-    this.drawBtn(rowTwoBtns, 'moveRowDown', (te) => te.moveRowDown());
-    this.drawBtn(rowTwoBtns, 'moveRowUp', (te) => te.moveRowUp());
-    this.drawBtn(rowTwoBtns, 'moveColumnRight', (te) => te.moveColumnRight());
-    this.drawBtn(rowTwoBtns, 'moveColumnLeft', (te) => te.moveColumnLeft());
+    this.drawBtn(rowTwoBtns, 'moveRowDown', 'move row down', (te) =>
+      te.moveRowDown(),
+    );
+    this.drawBtn(rowTwoBtns, 'moveRowUp', 'move row up', (te) =>
+      te.moveRowUp(),
+    );
+    this.drawBtn(rowTwoBtns, 'moveColumnRight', 'move column right', (te) =>
+      te.moveColumnRight(),
+    );
+    this.drawBtn(rowTwoBtns, 'moveColumnLeft', 'move column left', (te) =>
+      te.moveColumnLeft(),
+    );
 
     const rowThreeBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
-    this.drawBtn(rowThreeBtns, 'insertRow', (te) => te.insertRow());
-    this.drawBtn(rowThreeBtns, 'insertColumn', (te) => te.insertColumn());
-    this.drawBtn(rowThreeBtns, 'deleteRow', (te) => te.deleteRow());
-    this.drawBtn(rowThreeBtns, 'deleteColumn', (te) => te.deleteColumn());
+    this.drawBtn(rowThreeBtns, 'insertRow', 'insert row above', (te) =>
+      te.insertRow(),
+    );
+    this.drawBtn(rowThreeBtns, 'insertColumn', 'insert column left', (te) =>
+      te.insertColumn(),
+    );
+    this.drawBtn(rowThreeBtns, 'deleteRow', 'delete row', (te) =>
+      te.deleteRow(),
+    );
+    this.drawBtn(rowThreeBtns, 'deleteColumn', 'delete column', (te) =>
+      te.deleteColumn(),
+    );
 
     const rowFourBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
-    this.drawBtn(rowFourBtns, 'sortAsc', (te) => te.sortRowsAsc());
-    this.drawBtn(rowFourBtns, 'sortDesc', (te) => te.sortRowsDesc());
-    this.drawBtn(rowFourBtns, 'formula', (te) => te.evaluateFormulas());
+    this.drawBtn(rowFourBtns, 'sortAsc', 'sort by column ascending', (te) =>
+      te.sortRowsAsc(),
+    );
+    this.drawBtn(rowFourBtns, 'sortDesc', 'sort by column descending', (te) =>
+      te.sortRowsDesc(),
+    );
+    this.drawBtn(rowFourBtns, 'formula', 'evaluate formulas', (te) =>
+      te.evaluateFormulas(),
+    );
 
     const rowFiveBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
-    this.drawBtn(rowFiveBtns, 'csv', (te) => te.exportCSVModal());
-    this.drawBtn(rowFiveBtns, 'help', () =>
+    this.drawBtn(rowFiveBtns, 'csv', 'export as csv', (te) =>
+      te.exportCSVModal(),
+    );
+    this.drawBtn(rowFiveBtns, 'help', 'help', () =>
       window.open(
         'https://github.com/tgrosinger/advanced-tables-obsidian/blob/main/docs/help.md',
       ),
@@ -93,9 +123,10 @@ export class TableControlsView extends ItemView {
   private readonly drawBtn = (
     parent: HTMLDivElement,
     iconName: string,
+    title: string,
     fn: (te: TableEditor) => void,
   ): void => {
-    const button = parent.createDiv({ cls: 'nav-action-button' });
+    const button = parent.createDiv({ cls: 'nav-action-button', title: title });
     button.onClickEvent(() => this.withTE(fn));
     button.appendChild(Element(icons[iconName]));
   };
