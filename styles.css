@@ -1,5 +1,4 @@
-.HyperMD-table-row span.cm-inline-code,
-pre > code:not(.prism) {
+.HyperMD-table-row span.cm-inline-code {
   font-size: 100%;
 }
 
