@@ -6,6 +6,6 @@
   "description": "Improved table navigation, formatting, manipulation, and formulas",
   "isDesktopOnly": false,
   "minAppVersion": "0.11.12",
-  "version": "0.12.3",
+  "version": "0.12.4",
   "js": "main.js"
 }
