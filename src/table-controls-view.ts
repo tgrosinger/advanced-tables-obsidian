@@ -6,14 +6,13 @@ import {
   ItemView,
   MarkdownView,
   Notice,
-  TFile,
   WorkspaceLeaf,
 } from 'obsidian';
 
 export const TableControlsViewType = 'advanced-tables-toolbar';
 
 export class TableControlsView extends ItemView {
-  private mostRecentFile: TFile;
+  private editor: Editor;
   private readonly settings: TableEditorPluginSettings;
 
   constructor(leaf: WorkspaceLeaf, settings: TableEditorPluginSettings) {
@@ -36,17 +35,12 @@ export class TableControlsView extends ItemView {
   public load(): void {
     super.load();
 
-    if (this.app.workspace.layoutReady) {
-      this.getAndStoreActiveFile();
-    } else {
-      this.registerEvent(
-        this.app.workspace.on('layout-ready', this.getAndStoreActiveFile),
-      );
-    }
+    this.app.workspace.on('active-leaf-change', (leaf) => {
+      if (leaf.view instanceof MarkdownView) {
+        this.editor = leaf.view.editor;
+      }
+    });
 
-    this.registerEvent(
-      this.app.workspace.on('file-open', this.storeMostRecentFile),
-    );
     this.draw();
   }
 
@@ -131,58 +125,19 @@ export class TableControlsView extends ItemView {
     button.appendChild(Element(icons[iconName]));
   };
 
-  private readonly getAndStoreActiveFile = (): void => {
-    this.storeMostRecentFile(this.app.workspace.getActiveFile());
-  };
-
-  private readonly storeMostRecentFile = (file: TFile): void => {
-    if (!file) {
-      return;
-    }
-    this.mostRecentFile = file;
-  };
-
   private readonly withTE = (
     fn: (te: TableEditor) => void,
     alertOnNoTable = true,
   ): void => {
-    this.withEditor((editor: Editor) => {
-      const te = new TableEditor(this.app, editor, this.settings);
-      if (!te.cursorIsInTable()) {
-        if (alertOnNoTable) {
-          new Notice('Advanced Tables: Cursor must be in a table.');
-        }
-        return;
+    const te = new TableEditor(this.app, this.editor, this.settings);
+    if (!te.cursorIsInTable()) {
+      if (alertOnNoTable) {
+        new Notice('Advanced Tables: Cursor must be in a table.');
       }
-
-      fn(te);
-    });
-  };
-
-  private readonly withEditor = (fn: (editor: Editor) => void): void => {
-    if (!this.mostRecentFile) {
-      new Notice('Advanced Tables: Cannot find a recently edited file');
       return;
     }
 
-    const leaf = this.app.workspace
-      .getLeavesOfType('markdown')
-      .filter(
-        // We are using a feature which is not exposed in the API
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (l) => (l.view as any).file.basename === this.mostRecentFile.basename,
-      )
-      .first();
-
-    if (!leaf) {
-      console.error('Could not find a leaf for the last known file opened');
-      new Notice('Advanced Tables: Cannot find a recently edited file');
-      return;
-    }
-
-    if (leaf.view instanceof MarkdownView) {
-      fn(leaf.view.editor);
-    }
+    fn(te);
   };
 }
 
