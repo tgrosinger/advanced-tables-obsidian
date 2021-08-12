@@ -51,6 +51,10 @@ export class TableEditor {
     this.mte.insertRow(this.settings.asOptions());
   };
 
+  public readonly insertRowBelow = (): void => {
+    this.mte.insertRowBelow(this.settings.asOptions());
+  };
+
   public readonly leftAlignColumn = (): void => {
     this.mte.alignColumn(Alignment.LEFT, this.settings.asOptions());
   };

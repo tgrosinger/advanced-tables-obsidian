@@ -121,6 +121,15 @@ export default class TableEditorPlugin extends Plugin {
         te.insertRow();
       }),
     });
+    
+    this.addCommand({
+      id: 'insert-row-below',
+      name: 'Insert row after current',
+      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+        te.insertRowBelow();
+      }),
+    });
+
 
     this.addCommand({
       id: 'escape-table',
