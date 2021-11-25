@@ -119,5 +119,10 @@ export const icons: Record<string, string> = {
 };
 
 export const addIcons = (): void => {
-  addIcon('spreadsheet', icons['spreadsheet']);
+  Object.keys(icons).forEach((key) => {
+    // Don't add the 'help' icon here as it will overwrite the native one.
+    if (key !== 'help') {
+      addIcon(key, icons[key]);
+    }
+  });
 };

@@ -109,6 +109,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'insert-column',
       name: 'Insert column before current',
+      icon: 'insertColumn',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.insertColumn();
       }),
@@ -117,6 +118,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'insert-row',
       name: 'Insert row before current',
+      icon: 'insertRow',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.insertRow();
       }),
@@ -133,6 +135,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'left-align-column',
       name: 'Left align column',
+      icon: 'alignLeft',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.leftAlignColumn();
       }),
@@ -141,6 +144,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'center-align-column',
       name: 'Center align column',
+      icon: 'alignCenter',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.centerAlignColumn();
       }),
@@ -149,6 +153,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'right-align-column',
       name: 'Right align column',
+      icon: 'alignRight',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.rightAlignColumn();
       }),
@@ -157,6 +162,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'move-column-left',
       name: 'Move column left',
+      icon: 'moveColumnLeft',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveColumnLeft();
       }),
@@ -165,6 +171,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'move-column-right',
       name: 'Move column right',
+      icon: 'moveColumnRight',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveColumnRight();
       }),
@@ -173,6 +180,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'move-row-up',
       name: 'Move row up',
+      icon: 'moveRowUp',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveRowUp();
       }),
@@ -181,6 +189,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'move-row-down',
       name: 'Move row down',
+      icon: 'moveRowDown',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveRowDown();
       }),
@@ -189,6 +198,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'delete-column',
       name: 'Delete column',
+      icon: 'deleteColumn',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.deleteColumn();
       }),
@@ -197,6 +207,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'delete-row',
       name: 'Delete row',
+      icon: 'deleteRow',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.deleteRow();
       }),
@@ -205,6 +216,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'sort-rows-ascending',
       name: 'Sort rows ascending',
+      icon: 'sortAsc',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.sortRowsAsc();
       }),
@@ -213,6 +225,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'sort-rows-descending',
       name: 'Sort rows descending',
+      icon: 'sortDesc',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.sortRowsDesc();
       }),
@@ -221,6 +234,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'evaluate-formulas',
       name: 'Evaluate table formulas',
+      icon: 'formula',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         te.evaluateFormulas();
       }),
