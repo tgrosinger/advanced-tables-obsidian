@@ -51,6 +51,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'next-row',
       name: 'Go to next row',
+      icon: 'arrowenter',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         if (this.settings.bindEnter) {
           new Notice(
@@ -65,6 +66,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'next-cell',
       name: 'Go to next cell',
+      icon: 'arrowtab',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
         if (this.settings.bindEnter) {
           new Notice(
@@ -265,32 +267,31 @@ export default class TableEditorPlugin extends Plugin {
     });
   }
 
-  private readonly newPerformTableAction = (
-    fn: (te: TableEditor) => void,
-    alertOnNoTable = true,
-  ) => (checking: boolean): boolean | void => {
-    const activeLeaf = this.app.workspace.activeLeaf;
-    if (activeLeaf.view instanceof MarkdownView) {
-      const te = new TableEditor(
-        this.app,
-        activeLeaf.view.editor,
-        this.settings,
-      );
+  private readonly newPerformTableAction =
+    (fn: (te: TableEditor) => void, alertOnNoTable = true) =>
+    (checking: boolean): boolean | void => {
+      const activeLeaf = this.app.workspace.activeLeaf;
+      if (activeLeaf.view instanceof MarkdownView) {
+        const te = new TableEditor(
+          this.app,
+          activeLeaf.view.editor,
+          this.settings,
+        );
 
-      if (checking) {
-        return te.cursorIsInTable();
-      }
-
-      if (!te.cursorIsInTable()) {
-        if (alertOnNoTable) {
-          new Notice('Advanced Tables: Cursor must be in a table.');
+        if (checking) {
+          return te.cursorIsInTable();
         }
-        return;
-      }
 
-      fn(te);
-    }
-  };
+        if (!te.cursorIsInTable()) {
+          if (alertOnNoTable) {
+            new Notice('Advanced Tables: Cursor must be in a table.');
+          }
+          return;
+        }
+
+        fn(te);
+      }
+    };
 
   private readonly handleKeyDown = (
     cm: CodeMirror.Editor,
