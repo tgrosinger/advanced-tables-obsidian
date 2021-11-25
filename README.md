@@ -59,10 +59,10 @@ From Obsidian v0.9.8+, you can activate this plugin within Obsidian by doing the
 
 ## Obsidian Mobile
 
-When using Obsidian on a mobile device, the Advanced Tables plugin can be
-used. Using <kbd>Enter</kbd> and <kbd>Tab</kbd> to navigate the table is not
-yet functional, but you can create new rows and columns using the buttons in
-the Advanced Tables sidebar.
+When using Obsidian on a mobile device, the Advanced Tables plugin can be used.
+Using <kbd>Enter</kbd> and <kbd>Tab</kbd> to navigate the table will not work,
+however you can add the "Next Cell" and "Next Row" commands to the mobile
+toolbar and use them to navigate, or use the buttons from the sidebar.
 
 ## Pricing
 

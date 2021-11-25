@@ -53,7 +53,7 @@ export default class TableEditorPlugin extends Plugin {
       name: 'Go to next row',
       icon: 'arrowenter',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
-        if (this.settings.bindEnter) {
+        if (this.settings.bindEnter && !this.isMobile) {
           new Notice(
             'Advanced Tables: Next row also bound to enter. ' +
               'Possibly producing double actions. See Advanced Tables settings.',
@@ -68,7 +68,7 @@ export default class TableEditorPlugin extends Plugin {
       name: 'Go to next cell',
       icon: 'arrowtab',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
-        if (this.settings.bindEnter) {
+        if (this.settings.bindTab && !this.isMobile) {
           new Notice(
             'Advanced Tables: Next cell also bound to tab. ' +
               'Possibly producing double actions. See Advanced Tables settings.',
@@ -82,7 +82,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'previous-cell',
       name: 'Go to previous cell',
       checkCallback: this.newPerformTableAction((te: TableEditor) => {
-        if (this.settings.bindEnter) {
+        if (this.settings.bindTab && !this.isMobile) {
           new Notice(
             'Advanced Tables: Previous cell also bound to shift+tab. ' +
               'Possibly producing double actions. See Advanced Tables settings.',
@@ -355,6 +355,8 @@ export default class TableEditorPlugin extends Plugin {
     this.settings = new TableEditorPluginSettings(settingsOptions);
     this.saveData(this.settings);
   }
+
+  private readonly isMobile = (): boolean => (this.app as any).isMobile;
 }
 
 class TableEditorSettingsTab extends PluginSettingTab {
