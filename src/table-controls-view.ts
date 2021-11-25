@@ -12,7 +12,6 @@ import {
 export const TableControlsViewType = 'advanced-tables-toolbar';
 
 export class TableControlsView extends ItemView {
-  private editor: Editor;
   private readonly settings: TableEditorPluginSettings;
 
   constructor(leaf: WorkspaceLeaf, settings: TableEditorPluginSettings) {
@@ -34,13 +33,6 @@ export class TableControlsView extends ItemView {
 
   public load(): void {
     super.load();
-
-    this.app.workspace.on('active-leaf-change', (leaf) => {
-      if (leaf.view instanceof MarkdownView) {
-        this.editor = leaf.view.editor;
-      }
-    });
-
     this.draw();
   }
 
@@ -120,7 +112,7 @@ export class TableControlsView extends ItemView {
     title: string,
     fn: (te: TableEditor) => void,
   ): void => {
-    const button = parent.createDiv({ cls: 'nav-action-button', title: title });
+    const button = parent.createDiv({ cls: 'nav-action-button', title });
     button.onClickEvent(() => this.withTE(fn));
     button.appendChild(Element(icons[iconName]));
   };
@@ -129,7 +121,16 @@ export class TableControlsView extends ItemView {
     fn: (te: TableEditor) => void,
     alertOnNoTable = true,
   ): void => {
-    const te = new TableEditor(this.app, this.editor, this.settings);
+    let editor: Editor;
+    const leaf = this.app.workspace.getMostRecentLeaf();
+    if (leaf.view instanceof MarkdownView) {
+      editor = leaf.view.editor;
+    } else {
+      console.warn('Advanced Tables: Unable to determine current editor.');
+      return;
+    }
+
+    const te = new TableEditor(this.app, editor, this.settings);
     if (!te.cursorIsInTable()) {
       if (alertOnNoTable) {
         new Notice('Advanced Tables: Cursor must be in a table.');
