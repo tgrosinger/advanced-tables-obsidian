@@ -8,6 +8,7 @@ import { TableEditor } from './table-editor';
 import { FormatType } from '@tgrosinger/md-advanced-tables';
 import {
   App,
+  Editor,
   MarkdownView,
   Notice,
   Plugin,
@@ -52,7 +53,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'next-row',
       name: 'Go to next row',
       icon: 'arrowenter',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         if (this.settings.bindEnter && !this.isMobile) {
           new Notice(
             'Advanced Tables: Next row also bound to enter. ' +
@@ -67,7 +68,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'next-cell',
       name: 'Go to next cell',
       icon: 'arrowtab',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         if (this.settings.bindTab && !this.isMobile) {
           new Notice(
             'Advanced Tables: Next cell also bound to tab. ' +
@@ -81,7 +82,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'previous-cell',
       name: 'Go to previous cell',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         if (this.settings.bindTab && !this.isMobile) {
           new Notice(
             'Advanced Tables: Previous cell also bound to shift+tab. ' +
@@ -95,7 +96,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'format-table',
       name: 'Format table at the cursor',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.formatTable();
       }),
     });
@@ -103,7 +104,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'format-all-tables',
       name: 'Format all tables in this file',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.formatAllTables();
       }),
     });
@@ -112,7 +113,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'insert-column',
       name: 'Insert column before current',
       icon: 'insertColumn',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.insertColumn();
       }),
     });
@@ -121,7 +122,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'insert-row',
       name: 'Insert row before current',
       icon: 'insertRow',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.insertRow();
       }),
     });
@@ -129,7 +130,7 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'escape-table',
       name: 'Move cursor out of table',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.escape();
       }),
     });
@@ -138,7 +139,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'left-align-column',
       name: 'Left align column',
       icon: 'alignLeft',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.leftAlignColumn();
       }),
     });
@@ -147,7 +148,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'center-align-column',
       name: 'Center align column',
       icon: 'alignCenter',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.centerAlignColumn();
       }),
     });
@@ -156,7 +157,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'right-align-column',
       name: 'Right align column',
       icon: 'alignRight',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.rightAlignColumn();
       }),
     });
@@ -165,7 +166,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'move-column-left',
       name: 'Move column left',
       icon: 'moveColumnLeft',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveColumnLeft();
       }),
     });
@@ -174,7 +175,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'move-column-right',
       name: 'Move column right',
       icon: 'moveColumnRight',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveColumnRight();
       }),
     });
@@ -183,7 +184,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'move-row-up',
       name: 'Move row up',
       icon: 'moveRowUp',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveRowUp();
       }),
     });
@@ -192,7 +193,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'move-row-down',
       name: 'Move row down',
       icon: 'moveRowDown',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveRowDown();
       }),
     });
@@ -201,7 +202,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'delete-column',
       name: 'Delete column',
       icon: 'deleteColumn',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.deleteColumn();
       }),
     });
@@ -210,7 +211,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'delete-row',
       name: 'Delete row',
       icon: 'deleteRow',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.deleteRow();
       }),
     });
@@ -219,7 +220,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'sort-rows-ascending',
       name: 'Sort rows ascending',
       icon: 'sortAsc',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.sortRowsAsc();
       }),
     });
@@ -228,7 +229,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'sort-rows-descending',
       name: 'Sort rows descending',
       icon: 'sortDesc',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.sortRowsDesc();
       }),
     });
@@ -237,7 +238,7 @@ export default class TableEditorPlugin extends Plugin {
       id: 'evaluate-formulas',
       name: 'Evaluate table formulas',
       icon: 'formula',
-      checkCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.evaluateFormulas();
       }),
     });
@@ -269,28 +270,14 @@ export default class TableEditorPlugin extends Plugin {
 
   private readonly newPerformTableAction =
     (fn: (te: TableEditor) => void, alertOnNoTable = true) =>
-    (checking: boolean): boolean | void => {
-      const activeLeaf = this.app.workspace.activeLeaf;
-      if (activeLeaf.view instanceof MarkdownView) {
-        const te = new TableEditor(
-          this.app,
-          activeLeaf.view.editor,
-          this.settings,
-        );
+    (checking: boolean, editor: Editor, view: MarkdownView): boolean | void => {
+      const te = new TableEditor(this.app, editor, this.settings);
 
-        if (checking) {
-          return te.cursorIsInTable();
-        }
-
-        if (!te.cursorIsInTable()) {
-          if (alertOnNoTable) {
-            new Notice('Advanced Tables: Cursor must be in a table.');
-          }
-          return;
-        }
-
-        fn(te);
+      if (checking) {
+        return te.cursorIsInTable();
       }
+
+      fn(te);
     };
 
   private readonly handleKeyDown = (
@@ -298,7 +285,13 @@ export default class TableEditorPlugin extends Plugin {
     event: KeyboardEvent,
   ): void => {
     if (['Tab', 'Enter'].contains(event.key)) {
-      this.newPerformTableAction((te: TableEditor) => {
+      var editor: Editor;
+      const activeLeaf = this.app.workspace.activeLeaf;
+      if (activeLeaf.view instanceof MarkdownView) {
+        editor = activeLeaf.view.editor;
+      }
+
+      const action = this.newPerformTableAction((te: TableEditor) => {
         switch (event.key) {
           case 'Tab':
             if (!this.settings.bindTab) {
@@ -326,7 +319,12 @@ export default class TableEditorPlugin extends Plugin {
             break;
         }
         event.preventDefault();
-      }, false)(false);
+      }, false);
+
+      // Check first if we are in a table, if so, then execute.
+      if (action(true, editor, null)) {
+        action(false, editor, null);
+      }
     }
   };
 
