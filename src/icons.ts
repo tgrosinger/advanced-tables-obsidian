@@ -119,7 +119,5 @@ export const icons: Record<string, string> = {
 };
 
 export const addIcons = (): void => {
-  Object.keys(icons).forEach((key) => {
-    addIcon(key, icons[key]);
-  });
+  addIcon('spreadsheet', icons['spreadsheet']);
 };
