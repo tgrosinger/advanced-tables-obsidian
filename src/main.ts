@@ -238,9 +238,17 @@ export default class TableEditorPlugin extends Plugin {
       id: 'evaluate-formulas',
       name: 'Evaluate table formulas',
       icon: 'formula',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCheckCallback: (
+        checking: boolean,
+        editor: Editor,
+        view: MarkdownView,
+      ): boolean | void => {
+        const te = new TableEditor(this.app, editor, this.settings);
+        if (checking) {
+          return te.cursorIsInTable() || te.cursorIsInTableFormula();
+        }
         te.evaluateFormulas();
-      }),
+      },
     });
 
     this.addCommand({
@@ -285,7 +293,7 @@ export default class TableEditorPlugin extends Plugin {
     event: KeyboardEvent,
   ): void => {
     if (['Tab', 'Enter'].contains(event.key)) {
-      var editor: Editor;
+      let editor: Editor;
       const activeLeaf = this.app.workspace.activeLeaf;
       if (activeLeaf.view instanceof MarkdownView) {
         editor = activeLeaf.view.editor;

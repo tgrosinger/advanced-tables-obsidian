@@ -112,13 +112,21 @@ export class TableControlsView extends ItemView {
     title: string,
     fn: (te: TableEditor) => void,
   ): void => {
+    const cursorCheck = (te: TableEditor): boolean => {
+      if (title === 'evaluate formulas') {
+        return te.cursorIsInTable() || te.cursorIsInTableFormula();
+      }
+      return te.cursorIsInTable();
+    };
+
     const button = parent.createDiv({ cls: 'nav-action-button', title });
-    button.onClickEvent(() => this.withTE(fn));
+    button.onClickEvent(() => this.withTE(fn, cursorCheck));
     button.appendChild(Element(icons[iconName]));
   };
 
   private readonly withTE = (
     fn: (te: TableEditor) => void,
+    cursorCheck: (te: TableEditor) => boolean,
     alertOnNoTable = true,
   ): void => {
     let editor: Editor;
@@ -131,7 +139,7 @@ export class TableControlsView extends ItemView {
     }
 
     const te = new TableEditor(this.app, editor, this.settings);
-    if (!te.cursorIsInTable()) {
+    if (!cursorCheck(te)) {
       if (alertOnNoTable) {
         new Notice('Advanced Tables: Cursor must be in a table.');
       }

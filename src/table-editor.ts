@@ -20,6 +20,9 @@ export class TableEditor {
     this.mte = new MTEEditor(ote);
   }
 
+  public readonly cursorIsInTableFormula = (): boolean =>
+    this.mte.cursorIsInTableFormula(this.settings.asOptions());
+
   public readonly cursorIsInTable = (): boolean =>
     this.mte.cursorIsInTable(this.settings.asOptions());
 
