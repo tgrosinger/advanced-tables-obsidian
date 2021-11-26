@@ -1182,6 +1182,13 @@ object.values@^1.1.1:
     function-bind "^1.1.1"
     has "^1.0.3"
 
+"obsidian@https://github.com/obsidianmd/obsidian-api/archive/5687a75ecfdb78b6a832127cf6f9229e27e196a0.tar.gz":
+  version "0.12.17"
+  resolved "https://github.com/obsidianmd/obsidian-api/archive/5687a75ecfdb78b6a832127cf6f9229e27e196a0.tar.gz#6fb726b645507fbe9ee25edd765e45c42cf8836a"
+  dependencies:
+    "@types/codemirror" "0.0.108"
+    moment "2.29.1"
+
 "obsidian@https://github.com/obsidianmd/obsidian-api/archive/dbfa19ad7aa6557f0ecff962065c3f540bc77e27.tar.gz":
   version "0.11.11"
   resolved "https://github.com/obsidianmd/obsidian-api/archive/dbfa19ad7aa6557f0ecff962065c3f540bc77e27.tar.gz#bdb780e7aea4ad79101c733d7bc1656e3051a114"
