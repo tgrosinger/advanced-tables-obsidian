@@ -5,6 +5,8 @@ import {
   TableControlsViewType,
 } from './table-controls-view';
 import { TableEditor } from './table-editor';
+import { Extension, Prec } from '@codemirror/state';
+import { keymap } from '@codemirror/view';
 import { FormatType } from '@tgrosinger/md-advanced-tables';
 import {
   App,
@@ -48,6 +50,9 @@ export default class TableEditorPlugin extends Plugin {
       this.cmEditors.push(cm);
       cm.on('keydown', this.handleKeyDown);
     });
+
+    // CM6 editor extension for remapping keys
+    this.registerEditorExtension(this.makeEditorExtension());
 
     this.addCommand({
       id: 'next-row',
@@ -276,6 +281,44 @@ export default class TableEditorPlugin extends Plugin {
     });
   }
 
+  // makeEditorExtension is used to bind Tab and Enter in the new CM6 Live Preview editor.
+  private readonly makeEditorExtension = (): Extension =>
+    Prec.high(
+      keymap.of([
+        {
+          key: 'Tab',
+          run: (): boolean =>
+            this.newPerformTableActionCM6((te: TableEditor) => te.nextCell())(),
+          shift: (): boolean =>
+            this.newPerformTableActionCM6((te: TableEditor) =>
+              te.previousCell(),
+            )(),
+          preventDefault: true,
+        },
+        {
+          key: 'Enter',
+          run: (): boolean =>
+            this.newPerformTableActionCM6((te: TableEditor) => te.nextRow())(),
+          preventDefault: true,
+        },
+      ]),
+    );
+
+  private readonly newPerformTableActionCM6 =
+    (fn: (te: TableEditor) => void): (() => boolean) =>
+    (): boolean => {
+      const leaf = this.app.workspace.activeLeaf;
+      if (leaf.view instanceof MarkdownView) {
+        const te = new TableEditor(this.app, leaf.view.editor, this.settings);
+
+        if (te.cursorIsInTable()) {
+          fn(te);
+          return true;
+        }
+      }
+      return false;
+    };
+
   private readonly newPerformTableAction =
     (fn: (te: TableEditor) => void, alertOnNoTable = true) =>
     (checking: boolean, editor: Editor, view: MarkdownView): boolean | void => {
@@ -288,6 +331,7 @@ export default class TableEditorPlugin extends Plugin {
       fn(te);
     };
 
+  // handleKeyDown is used to bind the tab and enter keys in the legacy CM5 editor.
   private readonly handleKeyDown = (
     cm: CodeMirror.Editor,
     event: KeyboardEvent,

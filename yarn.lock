@@ -30,6 +30,13 @@
   dependencies:
     "@codemirror/state" "^0.19.0"
 
+"@codemirror/state@0.19.0":
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/@codemirror/state/-/state-0.19.0.tgz#db3b111fbbab1bd4d7bb74b4c85f131b7004925c"
+  integrity sha512-yS4oUzaYggUCsDA5cVqMGFNe2CjA2x1YQp68A8/Nnczxr5PctIPuzSTUfBQCi/IKNRouJxMr+gDPweEErJi7fw==
+  dependencies:
+    "@codemirror/text" "^0.19.0"
+
 "@codemirror/state@^0.19.0", "@codemirror/state@^0.19.3":
   version "0.19.6"
   resolved "https://registry.yarnpkg.com/@codemirror/state/-/state-0.19.6.tgz#d631f041d39ce41b7891b099fca26cb1fdb9763e"
@@ -42,7 +49,7 @@
   resolved "https://registry.yarnpkg.com/@codemirror/text/-/text-0.19.5.tgz#75033af2476214e79eae22b81ada618815441c18"
   integrity sha512-Syu5Xc7tZzeUAM/y4fETkT0zgGr48rDG+w4U38bPwSIUr+L9S/7w2wDE1WGNzjaZPz12F6gb1gxWiSTg9ocLow==
 
-"@codemirror/view@^0.19.0":
+"@codemirror/view@0.19.29", "@codemirror/view@^0.19.0":
   version "0.19.29"
   resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-0.19.29.tgz#0e2063c107fa0704b212d5f339f18831a6135738"
   integrity sha512-rET2Ogs0M8NsH29t5R+bC/zevfHrjs1aaMV23mdbOtrebxwvANic1s4PtNofAU2dFiuK3x2vdTHPVtVg4dokBA==
@@ -1211,13 +1218,6 @@ object.values@^1.1.1:
     es-abstract "^1.17.0-next.1"
     function-bind "^1.1.1"
     has "^1.0.3"
-
-"obsidian@https://github.com/obsidianmd/obsidian-api/archive/5687a75ecfdb78b6a832127cf6f9229e27e196a0.tar.gz":
-  version "0.12.17"
-  resolved "https://github.com/obsidianmd/obsidian-api/archive/5687a75ecfdb78b6a832127cf6f9229e27e196a0.tar.gz#6fb726b645507fbe9ee25edd765e45c42cf8836a"
-  dependencies:
-    "@types/codemirror" "0.0.108"
-    moment "2.29.1"
 
 "obsidian@https://github.com/obsidianmd/obsidian-api/archive/fac5e67f5d83829a4e0126905494c8cbca27765b.tar.gz":
   version "0.13.8"
