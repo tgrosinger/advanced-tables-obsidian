@@ -66,11 +66,23 @@ export class ObsidianTextEditor {
 
   public deleteLine = (row: number): void => {
     console.debug(`deleteLine was called on line ${row}`);
-    this.editor.replaceRange(
-      '',
-      { line: row, ch: 0 },
-      { line: row + 1, ch: 0 },
-    );
+
+    // If on the last line of the file, we cannot replace to the next row.
+    // Instead, replace all the contents of this line.
+    if (row === this.getLastRow()) {
+      const rowContents = this.getLine(row);
+      this.editor.replaceRange(
+        '',
+        { line: row, ch: 0 },
+        { line: row, ch: rowContents.length },
+      );
+    } else {
+      this.editor.replaceRange(
+        '',
+        { line: row, ch: 0 },
+        { line: row + 1, ch: 0 },
+      );
+    }
   };
 
   public replaceLines = (
