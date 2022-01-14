@@ -6,7 +6,7 @@ import {
 } from './table-controls-view';
 import { TableEditor } from './table-editor';
 import { Extension, Prec } from '@codemirror/state';
-import { keymap } from '@codemirror/view';
+import { KeyBinding, keymap } from '@codemirror/view';
 import { FormatType } from '@tgrosinger/md-advanced-tables';
 import {
   App,
@@ -282,27 +282,33 @@ export default class TableEditorPlugin extends Plugin {
   }
 
   // makeEditorExtension is used to bind Tab and Enter in the new CM6 Live Preview editor.
-  private readonly makeEditorExtension = (): Extension =>
-    Prec.high(
-      keymap.of([
-        {
-          key: 'Tab',
-          run: (): boolean =>
-            this.newPerformTableActionCM6((te: TableEditor) => te.nextCell())(),
-          shift: (): boolean =>
-            this.newPerformTableActionCM6((te: TableEditor) =>
-              te.previousCell(),
-            )(),
-          preventDefault: true,
-        },
-        {
-          key: 'Enter',
-          run: (): boolean =>
-            this.newPerformTableActionCM6((te: TableEditor) => te.nextRow())(),
-          preventDefault: true,
-        },
-      ]),
-    );
+  private readonly makeEditorExtension = (): Extension => {
+    const keymaps: KeyBinding[] = [];
+
+    if (this.settings.bindEnter) {
+      keymaps.push({
+        key: 'Enter',
+        run: (): boolean =>
+          this.newPerformTableActionCM6((te: TableEditor) => te.nextRow())(),
+        preventDefault: true,
+      });
+    }
+
+    if (this.settings.bindTab) {
+      keymaps.push({
+        key: 'Tab',
+        run: (): boolean =>
+          this.newPerformTableActionCM6((te: TableEditor) => te.nextCell())(),
+        shift: (): boolean =>
+          this.newPerformTableActionCM6((te: TableEditor) =>
+            te.previousCell(),
+          )(),
+        preventDefault: true,
+      });
+    }
+
+    return Prec.override(keymap.of(keymaps));
+  };
 
   private readonly newPerformTableActionCM6 =
     (fn: (te: TableEditor) => void): (() => boolean) =>
@@ -426,7 +432,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName('Bind enter to table navigation')
       .setDesc(
-        'If enabled, when the cursor is in a table, enter advances to the next ' +
+        'Requires restart of Obsidian. If enabled, when the cursor is in a table, enter advances to the next ' +
           'row. Disabling this can help avoid conflicting with tag or CJK ' +
           'autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
       )
@@ -441,7 +447,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName('Bind tab to table navigation')
       .setDesc(
-        'If enabled, when the cursor is in a table, tab/shift+tab navigate ' +
+        'Requires restart of Obsidian. If enabled, when the cursor is in a table, tab/shift+tab navigate ' +
           'between cells. Disabling this can help avoid conflicting with tag ' +
           'or CJK autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
       )
