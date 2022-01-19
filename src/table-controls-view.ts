@@ -138,7 +138,7 @@ export class TableControlsView extends ItemView {
       return;
     }
 
-    const te = new TableEditor(this.app, editor, this.settings);
+    const te = new TableEditor(this.app, leaf.view.file, editor, this.settings);
     if (!cursorCheck(te)) {
       if (alertOnNoTable) {
         new Notice('Advanced Tables: Cursor must be in a table.');

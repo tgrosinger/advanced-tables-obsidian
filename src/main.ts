@@ -248,7 +248,7 @@ export default class TableEditorPlugin extends Plugin {
         editor: Editor,
         view: MarkdownView,
       ): boolean | void => {
-        const te = new TableEditor(this.app, editor, this.settings);
+        const te = new TableEditor(this.app, view.file, editor, this.settings);
         if (checking) {
           return te.cursorIsInTable() || te.cursorIsInTableFormula();
         }
@@ -315,7 +315,12 @@ export default class TableEditorPlugin extends Plugin {
     (): boolean => {
       const leaf = this.app.workspace.activeLeaf;
       if (leaf.view instanceof MarkdownView) {
-        const te = new TableEditor(this.app, leaf.view.editor, this.settings);
+        const te = new TableEditor(
+          this.app,
+          leaf.view.file,
+          leaf.view.editor,
+          this.settings,
+        );
 
         if (te.cursorIsInTable()) {
           fn(te);
@@ -328,7 +333,7 @@ export default class TableEditorPlugin extends Plugin {
   private readonly newPerformTableAction =
     (fn: (te: TableEditor) => void, alertOnNoTable = true) =>
     (checking: boolean, editor: Editor, view: MarkdownView): boolean | void => {
-      const te = new TableEditor(this.app, editor, this.settings);
+      const te = new TableEditor(this.app, view.file, editor, this.settings);
 
       if (checking) {
         return te.cursorIsInTable();

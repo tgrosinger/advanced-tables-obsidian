@@ -1,5 +1,5 @@
 import { Point, Range } from '@tgrosinger/md-advanced-tables';
-import { Editor, MarkdownView } from 'obsidian';
+import { App, Editor, TFile } from 'obsidian';
 
 /**
  * ObsidianTextEditor is an implementation of the ITextEditor interface from
@@ -7,11 +7,14 @@ import { Editor, MarkdownView } from 'obsidian';
  * with Obsidian.
  */
 export class ObsidianTextEditor {
+  private readonly app: App;
+  private readonly file: TFile;
   private readonly editor: Editor;
 
-  constructor(editor: Editor);
-  constructor(obj: Editor) {
-    this.editor = obj;
+  constructor(app: App, file: TFile, editor: Editor) {
+    this.app = app;
+    this.file = file;
+    this.editor = editor;
   }
 
   public getCursorPosition = (): Point => {
@@ -44,7 +47,34 @@ export class ObsidianTextEditor {
 
   public acceptsTableEdit = (row: number): boolean => {
     console.debug(`acceptsTableEdit was called on row ${row}`);
-    // TODO: What does this function want?
+
+    const cache = this.app.metadataCache.getFileCache(this.file);
+    if (!cache.sections) {
+      return true;
+    }
+
+    const table = cache.sections.find(
+      (section): boolean =>
+        section.position.start.line <= row &&
+        section.position.end.line >= row &&
+        section.type === 'table',
+    );
+    if (table === undefined) {
+      console.debug('acceptsTableEdit returning false, table not found');
+      return false;
+    }
+
+    // Check that the text `-tx-` is not on the line immediately preceeding the
+    // table found in the previous check.
+    // https://github.com/tgrosinger/advanced-tables-obsidian/issues/133
+    const preceedingLineNum = table.position.start.line - 1;
+    if (preceedingLineNum >= 0) {
+      const preceedingLine = this.getLine(preceedingLineNum);
+      if (preceedingLine === '-tx-') {
+        return false;
+      }
+    }
+
     return true;
   };
 
