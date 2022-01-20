@@ -57,7 +57,8 @@ export class ObsidianTextEditor {
       (section): boolean =>
         section.position.start.line <= row &&
         section.position.end.line >= row &&
-        section.type === 'table',
+        section.type !== 'code' &&
+        section.type !== 'math',
     );
     if (table === undefined) {
       console.debug('acceptsTableEdit returning false, table not found');
