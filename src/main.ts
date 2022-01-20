@@ -349,9 +349,11 @@ export default class TableEditorPlugin extends Plugin {
   ): void => {
     if (['Tab', 'Enter'].contains(event.key)) {
       let editor: Editor;
+      let view: MarkdownView;
       const activeLeaf = this.app.workspace.activeLeaf;
       if (activeLeaf.view instanceof MarkdownView) {
         editor = activeLeaf.view.editor;
+        view = activeLeaf.view;
       }
 
       const action = this.newPerformTableAction((te: TableEditor) => {
@@ -385,8 +387,8 @@ export default class TableEditorPlugin extends Plugin {
       }, false);
 
       // Check first if we are in a table, if so, then execute.
-      if (action(true, editor, null)) {
-        action(false, editor, null);
+      if (action(true, editor, view)) {
+        action(false, editor, view);
       }
     }
   };
