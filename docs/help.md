@@ -6,6 +6,11 @@ with Markdown.
 
 As commonly ask questions arise they will be added below:
 
+## Using the Advanced Tables toolbar
+The toolbar can be used to perform various table manipulations. The default shortcut for opening the toolbar is `cmd/ctrl + shift + d`. This shortcut can be customized in the Obsidian Hotkey settings.
+
+Most functionality within the toolbar can be assigned specific hotkeys in the Obsidian Hotkey settings.
+
 ## Using Formulas in Markdown Tables
 
 Formulas are written on the line immediately following the table. For more
