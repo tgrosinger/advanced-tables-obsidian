@@ -68,9 +68,9 @@ export class ObsidianTextEditor {
     // Check that the text `-tx-` is not on the line immediately preceeding the
     // table found in the previous check.
     // https://github.com/tgrosinger/advanced-tables-obsidian/issues/133
-    const preceedingLineNum = table.position.start.line - 1;
-    if (preceedingLineNum >= 0) {
-      const preceedingLine = this.getLine(preceedingLineNum);
+    const preceedingLineIndex = table.position.start.line;
+    if (preceedingLineIndex >= 0) {
+      const preceedingLine = this.getLine(preceedingLineIndex);
       if (preceedingLine === '-tx-') {
         return false;
       }
