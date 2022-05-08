@@ -1,7 +1,5 @@
 # Advanced Tables for Obsidian
 
-⚠️ **Note:** This plugin works in **Live Preview** mode, however will appear to be rendering incorrectly. See [this issue](https://github.com/tgrosinger/advanced-tables-obsidian/issues/145) for more details.
-
 Add improved navigation, formatting, and manipulation to markdown tables in Obsidian:
 
 - Auto formatting
