@@ -66,10 +66,12 @@ export class TableControlsView extends ItemView {
     this.drawBtn(rowTwoBtns, 'moveColumnLeft', 'move column left', (te) =>
       te.moveColumnLeft(),
     );
-
     const rowThreeBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
     this.drawBtn(rowThreeBtns, 'insertRow', 'insert row above', (te) =>
       te.insertRow(),
+    );
+    this.drawBtn(rowThreeBtns, 'insertRowBelow', 'insert row below', (te) =>
+    te.insertRowBelow(),
     );
     this.drawBtn(rowThreeBtns, 'insertColumn', 'insert column left', (te) =>
       te.insertColumn(),
