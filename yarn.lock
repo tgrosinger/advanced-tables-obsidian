@@ -63,7 +63,7 @@
   resolved "https://registry.yarnpkg.com/@codemirror/text/-/text-0.19.5.tgz#75033af2476214e79eae22b81ada618815441c18"
   integrity sha512-Syu5Xc7tZzeUAM/y4fETkT0zgGr48rDG+w4U38bPwSIUr+L9S/7w2wDE1WGNzjaZPz12F6gb1gxWiSTg9ocLow==
 
-"@codemirror/view@0.19.29", "@codemirror/view@^0.19.0":
+"@codemirror/view@0.19.29":
   version "0.19.29"
   resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-0.19.29.tgz#0e2063c107fa0704b212d5f339f18831a6135738"
   integrity sha512-rET2Ogs0M8NsH29t5R+bC/zevfHrjs1aaMV23mdbOtrebxwvANic1s4PtNofAU2dFiuK3x2vdTHPVtVg4dokBA==
@@ -1189,6 +1189,11 @@ moment@2.29.1:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
 
+moment@2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -1244,14 +1249,12 @@ object.values@^1.1.1:
     function-bind "^1.1.1"
     has "^1.0.3"
 
-"obsidian@https://github.com/obsidianmd/obsidian-api/archive/fac5e67f5d83829a4e0126905494c8cbca27765b.tar.gz":
-  version "0.13.8"
-  resolved "https://github.com/obsidianmd/obsidian-api/archive/fac5e67f5d83829a4e0126905494c8cbca27765b.tar.gz#122949f19dca4c4f18e9ec47af03c39fa1899a47"
+"obsidian@https://github.com/obsidianmd/obsidian-api/archive/902badd38ba907689f0917d7b193f7e33d1284fe.tar.gz":
+  version "0.16.3"
+  resolved "https://github.com/obsidianmd/obsidian-api/archive/902badd38ba907689f0917d7b193f7e33d1284fe.tar.gz#3dededcc872920fac04bfe41f2964dbc1be9a82c"
   dependencies:
-    "@codemirror/state" "^0.19.0"
-    "@codemirror/view" "^0.19.0"
     "@types/codemirror" "0.0.108"
-    moment "2.29.1"
+    moment "2.29.4"
 
 "obsidian@https://github.com/obsidianmd/obsidian-api/archive/fc616fa86533d31b1d68b45887f4c9c46da389bf.tar.gz":
   version "0.14.4"
