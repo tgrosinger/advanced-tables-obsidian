@@ -40,6 +40,7 @@ export class TableControlsView extends ItemView {
     const container = this.containerEl.children[1];
 
     const rootEl = document.createElement('div');
+    rootEl.addClass("advanced-tables-buttons");
 
     const navHeader = rootEl.createDiv({ cls: 'nav-header' });
     const rowOneBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
@@ -119,7 +120,7 @@ export class TableControlsView extends ItemView {
       return te.cursorIsInTable();
     };
 
-    const button = parent.createDiv({ cls: 'nav-action-button', title });
+    const button = parent.createDiv({ cls: 'advanced-tables-button nav-action-button', title });
     button.onClickEvent(() => this.withTE(fn, cursorCheck));
     button.appendChild(Element(icons[iconName]));
   };
