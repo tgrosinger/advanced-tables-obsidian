@@ -469,7 +469,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName('Pad cell width using spaces')
       .setDesc(
-        'If enabled, table cells will have spaces added to match the with of the ' +
+        'If enabled, table cells will have spaces added to match the width of the ' +
           'longest cell in the column.',
       )
       .addToggle((toggle) =>
