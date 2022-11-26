@@ -42,8 +42,13 @@ export class TableControlsView extends ItemView {
     const rootEl = document.createElement('div');
     rootEl.addClass("advanced-tables-buttons");
 
+    rootEl.createDiv().
+      createSpan({ cls: 'title' }).
+      setText("Advanced Tables")
+
     const navHeader = rootEl.createDiv({ cls: 'nav-header' });
     const rowOneBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
+    rowOneBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText("Align:");
     this.drawBtn(rowOneBtns, 'alignLeft', 'left align column', (te) =>
       te.leftAlignColumn(),
     );
@@ -55,6 +60,7 @@ export class TableControlsView extends ItemView {
     );
 
     const rowTwoBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
+    rowTwoBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText("Move:");
     this.drawBtn(rowTwoBtns, 'moveRowDown', 'move row down', (te) =>
       te.moveRowDown(),
     );
@@ -69,6 +75,7 @@ export class TableControlsView extends ItemView {
     );
 
     const rowThreeBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
+    rowThreeBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText("Edit:");
     this.drawBtn(rowThreeBtns, 'insertRow', 'insert row above', (te) =>
       te.insertRow(),
     );
@@ -83,6 +90,7 @@ export class TableControlsView extends ItemView {
     );
 
     const rowFourBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
+    rowFourBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText("Sort/F:");
     this.drawBtn(rowFourBtns, 'sortAsc', 'sort by column ascending', (te) =>
       te.sortRowsAsc(),
     );
@@ -94,6 +102,7 @@ export class TableControlsView extends ItemView {
     );
 
     const rowFiveBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
+    rowFiveBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText("Misc:");
     this.drawBtn(rowFiveBtns, 'csv', 'export as csv', (te) =>
       te.exportCSVModal(),
     );
