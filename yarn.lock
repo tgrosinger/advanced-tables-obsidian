@@ -30,13 +30,6 @@
   dependencies:
     "@codemirror/state" "^0.19.0"
 
-"@codemirror/rangeset@^0.19.5":
-  version "0.19.9"
-  resolved "https://registry.yarnpkg.com/@codemirror/rangeset/-/rangeset-0.19.9.tgz#e80895de93c39dc7899f5be31d368c9d88aa4efc"
-  integrity sha512-V8YUuOvK+ew87Xem+71nKcqu1SXd5QROMRLMS/ljT5/3MCxtgrRie1Cvild0G/Z2f1fpWxzX78V0U4jjXBorBQ==
-  dependencies:
-    "@codemirror/state" "^0.19.0"
-
 "@codemirror/state@0.19.0":
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/@codemirror/state/-/state-0.19.0.tgz#db3b111fbbab1bd4d7bb74b4c85f131b7004925c"
@@ -51,13 +44,6 @@
   dependencies:
     "@codemirror/text" "^0.19.0"
 
-"@codemirror/state@^0.19.6":
-  version "0.19.9"
-  resolved "https://registry.yarnpkg.com/@codemirror/state/-/state-0.19.9.tgz#b797f9fbc204d6dc7975485e231693c09001b0dd"
-  integrity sha512-psOzDolKTZkx4CgUqhBQ8T8gBc0xN5z4gzed109aF6x7D7umpDRoimacI/O6d9UGuyl4eYuDCZmDFr2Rq7aGOw==
-  dependencies:
-    "@codemirror/text" "^0.19.0"
-
 "@codemirror/text@^0.19.0":
   version "0.19.5"
   resolved "https://registry.yarnpkg.com/@codemirror/text/-/text-0.19.5.tgz#75033af2476214e79eae22b81ada618815441c18"
@@ -69,17 +55,6 @@
   integrity sha512-rET2Ogs0M8NsH29t5R+bC/zevfHrjs1aaMV23mdbOtrebxwvANic1s4PtNofAU2dFiuK3x2vdTHPVtVg4dokBA==
   dependencies:
     "@codemirror/rangeset" "^0.19.0"
-    "@codemirror/state" "^0.19.3"
-    "@codemirror/text" "^0.19.0"
-    style-mod "^4.0.0"
-    w3c-keyname "^2.2.4"
-
-"@codemirror/view@^0.19.31":
-  version "0.19.48"
-  resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-0.19.48.tgz#1c657e2b0f8ed896ac6448d6e2215ab115e2a0fc"
-  integrity sha512-0eg7D2Nz4S8/caetCTz61rK0tkHI17V/d15Jy0kLOT8dTLGGNJUponDnW28h2B6bERmPlVHKh8MJIr5OCp1nGw==
-  dependencies:
-    "@codemirror/rangeset" "^0.19.5"
     "@codemirror/state" "^0.19.3"
     "@codemirror/text" "^0.19.0"
     style-mod "^4.0.0"
@@ -164,11 +139,12 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@tgrosinger/md-advanced-tables@3.8.0":
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.8.0.tgz#3ae491dfcbb7080418cb2b659da86279e9faacdc"
-  integrity sha512-xUFR+1GMZrI0QRSMPU7L/R+UOLMAfcxtPzE1PQd7BgF/7QlrxafcTd+YG0czfRZoUYJa+wqa5+dNHvSPklALEA==
+"@tgrosinger/md-advanced-tables@3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.9.0.tgz#699cf44b475cfb8d8582576ef15c875c847eda61"
+  integrity sha512-5OMFk4zibpkTTuTDqc5hB2aU7GXPH8YfVQiG8li727vKTHVny0viJNWXD2iRBxIvQW6DKB8tqutz///41zN7/A==
   dependencies:
+    decimal.js "10.4.3"
     ebnf "1.9.0"
     lodash "4.17.20"
     meaw "5.0.0"
@@ -485,6 +461,11 @@ debug@^4.0.1, debug@^4.1.1, debug@^4.2.0:
   integrity sha512-IX2ncY78vDTjZMFUdmsvIRFY2Cf4FnD0wRs+nQwJU8Lu99/tPFdb0VybiiMTPe3I6rQmwsqQqRBvxU+bZ/I8sg==
   dependencies:
     ms "2.1.2"
+
+decimal.js@10.4.3:
+  version "10.4.3"
+  resolved "https://registry.yarnpkg.com/decimal.js/-/decimal.js-10.4.3.tgz#1044092884d245d1b7f65725fa4ad4c6f781cc23"
+  integrity sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==
 
 deep-is@^0.1.3:
   version "0.1.3"
@@ -1184,11 +1165,6 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-moment@2.29.1:
-  version "2.29.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
-  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
-
 moment@2.29.4:
   version "2.29.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
@@ -1255,15 +1231,6 @@ object.values@^1.1.1:
   dependencies:
     "@types/codemirror" "0.0.108"
     moment "2.29.4"
-
-"obsidian@https://github.com/obsidianmd/obsidian-api/archive/fc616fa86533d31b1d68b45887f4c9c46da389bf.tar.gz":
-  version "0.14.4"
-  resolved "https://github.com/obsidianmd/obsidian-api/archive/fc616fa86533d31b1d68b45887f4c9c46da389bf.tar.gz#3edc48ea4c12682301fdc7d750388b8237451129"
-  dependencies:
-    "@codemirror/state" "^0.19.6"
-    "@codemirror/view" "^0.19.31"
-    "@types/codemirror" "0.0.108"
-    moment "2.29.1"
 
 once@^1.3.0:
   version "1.4.0"
