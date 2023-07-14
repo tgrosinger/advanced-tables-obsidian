@@ -139,10 +139,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@tgrosinger/md-advanced-tables@3.9.0":
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.9.0.tgz#699cf44b475cfb8d8582576ef15c875c847eda61"
-  integrity sha512-5OMFk4zibpkTTuTDqc5hB2aU7GXPH8YfVQiG8li727vKTHVny0viJNWXD2iRBxIvQW6DKB8tqutz///41zN7/A==
+"@tgrosinger/md-advanced-tables@3.9.1":
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/@tgrosinger/md-advanced-tables/-/md-advanced-tables-3.9.1.tgz#c3e7a9915cfa62686462578c60dfc32ae371ff63"
+  integrity sha512-97RRnl5pXAHiYypJ/Jwm0UCvXQt3hkOy8ST2bdExQ02Xo+5b2t+swRJvuDGrWnY2jn1b1iKcgYUvZ/uJuByJzQ==
   dependencies:
     decimal.js "10.4.3"
     ebnf "1.9.0"
