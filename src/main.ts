@@ -109,9 +109,10 @@ export default class TableEditorPlugin extends Plugin {
     this.addCommand({
       id: 'format-all-tables',
       name: 'Format all tables in this file',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
+      editorCallback: (editor: Editor, view: MarkdownView) => {
+        const te = new TableEditor(this.app, view.file, editor, this.settings); 
         te.formatAllTables();
-      }),
+      }
     });
 
     this.addCommand({
