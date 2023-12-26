@@ -21,11 +21,6 @@ import {
 export default class TableEditorPlugin extends Plugin {
   public settings: TableEditorPluginSettings;
 
-  // cmEditors is used during unload to remove our event handlers.
-  private cmEditors: CodeMirror.Editor[];
-
-  private tableControlsView: TableControlsView;
-
   public async onload(): Promise<void> {
     console.log('loading markdown-table-editor plugin');
 
@@ -33,8 +28,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.registerView(
       TableControlsViewType,
-      (leaf) =>
-        (this.tableControlsView = new TableControlsView(leaf, this.settings)),
+      (leaf) => new TableControlsView(leaf, this.settings),
     );
 
     addIcons();
@@ -44,12 +38,6 @@ export default class TableEditorPlugin extends Plugin {
         this.toggleTableControlsView();
       });
     }
-
-    this.cmEditors = [];
-    this.registerCodeMirror((cm) => {
-      this.cmEditors.push(cm);
-      cm.on('keydown', this.handleKeyDown);
-    });
 
     // CM6 editor extension for remapping keys
     this.registerEditorExtension(this.makeEditorExtension());
@@ -272,14 +260,6 @@ export default class TableEditorPlugin extends Plugin {
     });
 
     this.addSettingTab(new TableEditorSettingsTab(this.app, this));
-  }
-
-  public onunload(): void {
-    console.log('unloading markdown-table-editor plugin');
-
-    this.cmEditors.forEach((cm) => {
-      cm.off('keydown', this.handleKeyDown);
-    });
   }
 
   // makeEditorExtension is used to bind Tab and Enter in the new CM6 Live Preview editor.
