@@ -19,35 +19,23 @@ export class ObsidianTextEditor {
 
   public getCursorPosition = (): Point => {
     const position = this.editor.getCursor();
-    console.debug(
-      `getCursorPosition was called: line ${position.line}, ch ${position.ch}`,
-    );
     return new Point(position.line, position.ch);
   };
 
   public setCursorPosition = (pos: Point): void => {
-    console.debug(
-      `setCursorPosition was called: line ${pos.row}, ch ${pos.column}`,
-    );
     this.editor.setCursor({ line: pos.row, ch: pos.column });
   };
 
   public setSelectionRange = (range: Range): void => {
-    console.debug('setSelectionRange was called');
     this.editor.setSelection(
       { line: range.start.row, ch: range.start.column },
       { line: range.end.row, ch: range.end.column },
     );
   };
 
-  public getLastRow = (): number => {
-    console.debug('getLastRow was called');
-    return this.editor.lastLine();
-  };
+  public getLastRow = (): number => this.editor.lastLine();
 
   public acceptsTableEdit = (row: number): boolean => {
-    console.debug(`acceptsTableEdit was called on row ${row}`);
-
     const cache = this.app.metadataCache.getFileCache(this.file);
     if (!cache.sections) {
       return true;
@@ -61,7 +49,6 @@ export class ObsidianTextEditor {
         section.type !== 'math',
     );
     if (table === undefined) {
-      console.debug('acceptsTableEdit returning false, table not found');
       return false;
     }
 
@@ -79,15 +66,9 @@ export class ObsidianTextEditor {
     return true;
   };
 
-  public getLine = (row: number): string => {
-    console.debug(`getLine was called on line ${row}`);
-    return this.editor.getLine(row);
-  };
+  public getLine = (row: number): string => this.editor.getLine(row);
 
   public insertLine = (row: number, line: string): void => {
-    console.debug(`insertLine was called at line ${row}`);
-    console.debug(`New line: ${line}`);
-
     if (row > this.getLastRow()) {
       this.editor.replaceRange('\n' + line, { line: row, ch: 0 });
     } else {
@@ -96,8 +77,6 @@ export class ObsidianTextEditor {
   };
 
   public deleteLine = (row: number): void => {
-    console.debug(`deleteLine was called on line ${row}`);
-
     // If on the last line of the file, we cannot replace to the next row.
     // Instead, replace all the contents of this line.
     if (row === this.getLastRow()) {
