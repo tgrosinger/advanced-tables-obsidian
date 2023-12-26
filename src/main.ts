@@ -294,12 +294,18 @@ export default class TableEditorPlugin extends Plugin {
   private readonly newPerformTableActionCM6 =
     (fn: (te: TableEditor) => void): (() => boolean) =>
     (): boolean => {
-      const leaf = this.app.workspace.activeLeaf;
-      if (leaf.view instanceof MarkdownView) {
+      const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+      if (view) {
+        const currentMode = view.currentMode;
+        if ('sourceMode' in currentMode && !currentMode.sourceMode) {
+          // Avoid conflicting with WYSIWYG tables in live preview mode.
+          return false;
+        }
+
         const te = new TableEditor(
           this.app,
-          leaf.view.file,
-          leaf.view.editor,
+          view.file,
+          view.editor,
           this.settings,
         );
 
