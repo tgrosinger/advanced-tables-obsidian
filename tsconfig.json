@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "inlineSourceMap": true,
     "inlineSources": true,
-    "module": "ESNext",
+    "module": "es6",
     "target": "es5",
     "allowJs": true,
     "noImplicitAny": true,
@@ -12,8 +12,8 @@
     "lib": [
       "dom",
       "es5",
-      "scripthost",
-      "es2015"
+      "es6",
+      "es7",
     ]
   },
   "include": [
