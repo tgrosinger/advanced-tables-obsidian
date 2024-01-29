@@ -33,6 +33,6 @@
     "typescript": "5.3.3"
   },
   "dependencies": {
-    "@tgrosinger/md-advanced-tables": "3.9.1"
+    "@tgrosinger/md-advanced-tables": "3.10.1"
   }
 }

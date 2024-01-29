@@ -98,9 +98,9 @@ export default class TableEditorPlugin extends Plugin {
       id: 'format-all-tables',
       name: 'Format all tables in this file',
       editorCallback: (editor: Editor, view: MarkdownView) => {
-        const te = new TableEditor(this.app, view.file, editor, this.settings); 
+        const te = new TableEditor(this.app, view.file, editor, this.settings);
         te.formatAllTables();
-      }
+      },
     });
 
     this.addCommand({
@@ -288,7 +288,7 @@ export default class TableEditorPlugin extends Plugin {
       });
     }
 
-    return Prec.override(keymap.of(keymaps));
+    return Prec.highest(keymap.of(keymaps));
   };
 
   private readonly newPerformTableActionCM6 =
