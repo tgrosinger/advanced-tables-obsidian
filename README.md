@@ -48,9 +48,9 @@ For more information on using formulas, visit the
 
 From Obsidian v0.9.8+, you can activate this plugin within Obsidian by doing the following:
 
-- Open Settings > Third-party plugin
-- Make sure Safe mode is **off**
-- Click Browse community plugins
+- Open Settings > Community plugin
+- Make sure Restricted mode is **off**
+- Click Browse next to community plugins
 - Search for "Advanced Tables"
 - Click Install
 - Once installed, close the community plugins window and activate the newly installed plugin
