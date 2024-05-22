@@ -50,7 +50,7 @@ export default class TableEditorPlugin extends Plugin {
         if (this.settings.bindEnter && !this.isMobile) {
           new Notice(
             'Advanced Tables: Next row also bound to enter. ' +
-              'Possibly producing double actions. See Advanced Tables settings.',
+            'Possibly producing double actions. See Advanced Tables settings.',
           );
         }
         te.nextRow();
@@ -65,7 +65,7 @@ export default class TableEditorPlugin extends Plugin {
         if (this.settings.bindTab && !this.isMobile) {
           new Notice(
             'Advanced Tables: Next cell also bound to tab. ' +
-              'Possibly producing double actions. See Advanced Tables settings.',
+            'Possibly producing double actions. See Advanced Tables settings.',
           );
         }
         te.nextCell();
@@ -79,7 +79,7 @@ export default class TableEditorPlugin extends Plugin {
         if (this.settings.bindTab && !this.isMobile) {
           new Notice(
             'Advanced Tables: Previous cell also bound to shift+tab. ' +
-              'Possibly producing double actions. See Advanced Tables settings.',
+            'Possibly producing double actions. See Advanced Tables settings.',
           );
         }
         te.previousCell();
@@ -293,41 +293,41 @@ export default class TableEditorPlugin extends Plugin {
 
   private readonly newPerformTableActionCM6 =
     (fn: (te: TableEditor) => void): (() => boolean) =>
-    (): boolean => {
-      const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-      if (view) {
-        const currentMode = view.currentMode;
-        if ('sourceMode' in currentMode && !currentMode.sourceMode) {
-          // Avoid conflicting with WYSIWYG tables in live preview mode.
-          return false;
-        }
+      (): boolean => {
+        const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+        if (view) {
+          const currentMode = view.currentMode;
+          if ('sourceMode' in currentMode && !currentMode.sourceMode) {
+            // Avoid conflicting with WYSIWYG tables in live preview mode.
+            return false;
+          }
 
-        const te = new TableEditor(
-          this.app,
-          view.file,
-          view.editor,
-          this.settings,
-        );
+          const te = new TableEditor(
+            this.app,
+            view.file,
+            view.editor,
+            this.settings,
+          );
 
-        if (te.cursorIsInTable()) {
-          fn(te);
-          return true;
+          if (te.cursorIsInTable()) {
+            fn(te);
+            return true;
+          }
         }
-      }
-      return false;
-    };
+        return false;
+      };
 
   private readonly newPerformTableAction =
     (fn: (te: TableEditor) => void, alertOnNoTable = true) =>
-    (checking: boolean, editor: Editor, view: MarkdownView): boolean | void => {
-      const te = new TableEditor(this.app, view.file, editor, this.settings);
+      (checking: boolean, editor: Editor, view: MarkdownView): boolean | void => {
+        const te = new TableEditor(this.app, view.file, editor, this.settings);
 
-      if (checking) {
-        return te.cursorIsInTable();
-      }
+        if (checking) {
+          return te.cursorIsInTable();
+        }
 
-      fn(te);
-    };
+        fn(te);
+      };
 
   // handleKeyDown is used to bind the tab and enter keys in the legacy CM5 editor.
   private readonly handleKeyDown = (
@@ -427,8 +427,8 @@ class TableEditorSettingsTab extends PluginSettingTab {
       .setName('Bind enter to table navigation')
       .setDesc(
         'Requires restart of Obsidian. If enabled, when the cursor is in a table, enter advances to the next ' +
-          'row. Disabling this can help avoid conflicting with tag or CJK ' +
-          'autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
+        'row. Disabling this can help avoid conflicting with tag or CJK ' +
+        'autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
       )
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.bindEnter).onChange((value) => {
@@ -442,8 +442,8 @@ class TableEditorSettingsTab extends PluginSettingTab {
       .setName('Bind tab to table navigation')
       .setDesc(
         'Requires restart of Obsidian. If enabled, when the cursor is in a table, tab/shift+tab navigate ' +
-          'between cells. Disabling this can help avoid conflicting with tag ' +
-          'or CJK autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
+        'between cells. Disabling this can help avoid conflicting with tag ' +
+        'or CJK autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
       )
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.bindTab).onChange((value) => {
@@ -457,7 +457,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
       .setName('Pad cell width using spaces')
       .setDesc(
         'If enabled, table cells will have spaces added to match the width of the ' +
-          'longest cell in the column.',
+        'longest cell in the column.',
       )
       .addToggle((toggle) =>
         toggle
@@ -475,7 +475,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
       .setName('Show icon in sidebar')
       .setDesc(
         'If enabled, a button which opens the table controls toolbar will be added to the Obsidian sidebar. ' +
-          'The toolbar can also be opened with a Hotkey. Changes only take effect on reload.',
+        'The toolbar can also be opened with a Hotkey. Changes only take effect on reload.',
       )
       .addToggle((toggle) =>
         toggle
@@ -494,7 +494,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
     const donateText = document.createElement('p');
     donateText.appendText(
       'If this plugin adds value for you and you would like to help support ' +
-        'continued development, please use the buttons below:',
+      'continued development, please use the buttons below:',
     );
     div.appendChild(donateText);
 
