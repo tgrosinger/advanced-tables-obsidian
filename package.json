@@ -4,8 +4,8 @@
   "description": "Improved table navigation, formatting, manipulation, and formulas",
   "main": "main.js",
   "scripts": {
-    "dev": "rollup --config rollup.config.js -w",
-    "build": "rollup --config rollup.config.mjs",
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
     "prettier": "prettier --write 'src/**/*.+(ts|tsx|json|html|css)'",
     "eslint": "eslint . --ext .ts,.tsx --fix"
   },
@@ -15,12 +15,11 @@
   "devDependencies": {
     "@codemirror/state": "6.4.0",
     "@codemirror/view": "6.23.1",
-    "@rollup/plugin-commonjs": "25.0.7",
-    "@rollup/plugin-node-resolve": "15.2.3",
-    "@rollup/plugin-typescript": "11.1.6",
     "@types/node": "20.11.6",
     "@typescript-eslint/eslint-plugin": "6.19.1",
     "@typescript-eslint/parser": "6.19.1",
+    "builtin-modules": "3.3.0",
+    "esbuild": "0.21.3",
     "eslint": "8.56.0",
     "eslint-plugin-babel": "5.3.1",
     "eslint-plugin-import": "2.29.1",
@@ -28,7 +27,6 @@
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-simple-import-sort": "10.0.0",
     "obsidian": "https://github.com/obsidianmd/obsidian-api/archive/da7309d0f22c073ca6eb0fe95c0eeee055a235a7.tar.gz",
-    "rollup": "4.9.6",
     "tslib": "2.6.2",
     "typescript": "5.3.3"
   },
