@@ -34,6 +34,9 @@ export class TableEditorPluginSettings implements ISettings {
   }
 
   public asOptions(): Options {
-    return optionsWithDefaults({ formatType: this.formatType });
+    return optionsWithDefaults({
+      formatType: this.formatType,
+      leftMarginChars: new Set(['>']),
+    });
   }
 }
