@@ -73,6 +73,9 @@ export class TableControlsView extends ItemView {
     this.drawBtn(rowTwoBtns, 'moveColumnLeft', 'move column left', (te) =>
       te.moveColumnLeft(),
     );
+    this.drawBtn(rowTwoBtns, 'transpose', 'transpose', (te) =>
+      te.transpose(),
+    );
 
     const rowThreeBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
     rowThreeBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText('Edit:');

@@ -229,6 +229,15 @@ export default class TableEditorPlugin extends Plugin {
     });
 
     this.addCommand({
+      id: 'transpose',
+      name: 'Transpose',
+       icon: 'transpose',
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
+        te.transpose();
+      }),
+    });
+
+    this.addCommand({
       id: 'evaluate-formulas',
       name: 'Evaluate table formulas',
       icon: 'formula',

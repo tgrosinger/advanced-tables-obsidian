@@ -103,6 +103,10 @@ export class TableEditor {
     this.mte.sortRows(SortOrder.Descending, this.settings.asOptions());
   };
 
+  public readonly transpose = (): void => {
+    this.mte.transpose(this.settings.asOptions());
+  };
+
   public readonly escape = (): void => {
     this.mte.escape(this.settings.asOptions());
   };

@@ -26,11 +26,11 @@
     "eslint-plugin-jsdoc": "48.0.2",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-simple-import-sort": "10.0.0",
-    "obsidian": "https://github.com/obsidianmd/obsidian-api/archive/da7309d0f22c073ca6eb0fe95c0eeee055a235a7.tar.gz",
+    "obsidian": "https://github.com/obsidianmd/obsidian-api/archive/df9434bec6883bd32727f61b1ed1336f7663d0e4.tar.gz",
     "tslib": "2.6.2",
     "typescript": "5.3.3"
   },
   "dependencies": {
-    "@tgrosinger/md-advanced-tables": "3.10.1"
+    "@tgrosinger/md-advanced-tables": "3.11.0"
   }
 }
