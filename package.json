@@ -1,6 +1,6 @@
 {
   "name": "advanced-tables-obsidian",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "description": "Improved table navigation, formatting, manipulation, and formulas",
   "main": "main.js",
   "scripts": {
