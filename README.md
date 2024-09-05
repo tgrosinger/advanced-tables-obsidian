@@ -1,12 +1,14 @@
 # Advanced Tables for Obsidian
 
+> [!NOTE]
+> With the addition of table editing features in Obsidian Live Preview, this plugin has been updated to remove duplicate functionality.
+> You may not need this plugin unless you are using it to sort tables, or using the [Spreadsheet formulas](https://github.com/tgrosinger/advanced-tables-obsidian/blob/main/docs/help.md#using-formulas-in-markdown-tables)
+
 Add improved navigation, formatting, and manipulation to markdown tables in Obsidian:
 
 - Auto formatting
 - Excel-like table navigation (tab/enter between cells and rows)
 - [Spreadsheet formulas!](https://github.com/tgrosinger/advanced-tables-obsidian/blob/main/docs/help.md#using-formulas-in-markdown-tables)
-- Add, remove, and move columns and rows
-- Set column alignment (left, center, right)
 - Sort rows by a specified column
 - Export to CSV
 - Works on Obsidian Mobile (See notes below)
@@ -76,3 +78,4 @@ my way through one of the following methods:
 
 This is experimental and may have instability. It is possible that there are
 bugs which may delete data in the current note. Please make backups!
+

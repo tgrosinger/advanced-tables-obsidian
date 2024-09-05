@@ -104,109 +104,10 @@ export default class TableEditorPlugin extends Plugin {
     });
 
     this.addCommand({
-      id: 'insert-column',
-      name: 'Insert column before current',
-      icon: 'insertColumn',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
-        te.insertColumn();
-      }),
-    });
-
-    this.addCommand({
-      id: 'insert-row',
-      name: 'Insert row before current',
-      icon: 'insertRow',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
-        te.insertRow();
-      }),
-    });
-
-    this.addCommand({
       id: 'escape-table',
       name: 'Move cursor out of table',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.escape();
-      }),
-    });
-
-    this.addCommand({
-      id: 'left-align-column',
-      name: 'Left align column',
-      icon: 'alignLeft',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
-        te.leftAlignColumn();
-      }),
-    });
-
-    this.addCommand({
-      id: 'center-align-column',
-      name: 'Center align column',
-      icon: 'alignCenter',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
-        te.centerAlignColumn();
-      }),
-    });
-
-    this.addCommand({
-      id: 'right-align-column',
-      name: 'Right align column',
-      icon: 'alignRight',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
-        te.rightAlignColumn();
-      }),
-    });
-
-    this.addCommand({
-      id: 'move-column-left',
-      name: 'Move column left',
-      icon: 'moveColumnLeft',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
-        te.moveColumnLeft();
-      }),
-    });
-
-    this.addCommand({
-      id: 'move-column-right',
-      name: 'Move column right',
-      icon: 'moveColumnRight',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
-        te.moveColumnRight();
-      }),
-    });
-
-    this.addCommand({
-      id: 'move-row-up',
-      name: 'Move row up',
-      icon: 'moveRowUp',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
-        te.moveRowUp();
-      }),
-    });
-
-    this.addCommand({
-      id: 'move-row-down',
-      name: 'Move row down',
-      icon: 'moveRowDown',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
-        te.moveRowDown();
-      }),
-    });
-
-    this.addCommand({
-      id: 'delete-column',
-      name: 'Delete column',
-      icon: 'deleteColumn',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
-        te.deleteColumn();
-      }),
-    });
-
-    this.addCommand({
-      id: 'delete-row',
-      name: 'Delete row',
-      icon: 'deleteRow',
-      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
-        te.deleteRow();
       }),
     });
 

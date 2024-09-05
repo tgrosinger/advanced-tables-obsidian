@@ -51,50 +51,6 @@ export class TableEditor {
     this.mte.formatAll(this.settings.asOptions());
   };
 
-  public readonly insertColumn = (): void => {
-    this.mte.insertColumn(this.settings.asOptions());
-  };
-
-  public readonly insertRow = (): void => {
-    this.mte.insertRow(this.settings.asOptions());
-  };
-
-  public readonly leftAlignColumn = (): void => {
-    this.mte.alignColumn(Alignment.LEFT, this.settings.asOptions());
-  };
-
-  public readonly centerAlignColumn = (): void => {
-    this.mte.alignColumn(Alignment.CENTER, this.settings.asOptions());
-  };
-
-  public readonly rightAlignColumn = (): void => {
-    this.mte.alignColumn(Alignment.RIGHT, this.settings.asOptions());
-  };
-
-  public readonly moveColumnLeft = (): void => {
-    this.mte.moveColumn(-1, this.settings.asOptions());
-  };
-
-  public readonly moveColumnRight = (): void => {
-    this.mte.moveColumn(1, this.settings.asOptions());
-  };
-
-  public readonly moveRowUp = (): void => {
-    this.mte.moveRow(-1, this.settings.asOptions());
-  };
-
-  public readonly moveRowDown = (): void => {
-    this.mte.moveRow(1, this.settings.asOptions());
-  };
-
-  public readonly deleteColumn = (): void => {
-    this.mte.deleteColumn(this.settings.asOptions());
-  };
-
-  public readonly deleteRow = (): void => {
-    this.mte.deleteRow(this.settings.asOptions());
-  };
-
   public readonly sortRowsAsc = (): void => {
     this.mte.sortRows(SortOrder.Ascending, this.settings.asOptions());
   };

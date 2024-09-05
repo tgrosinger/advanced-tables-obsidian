@@ -47,69 +47,28 @@ export class TableControlsView extends ItemView {
       setText('Advanced Tables')
 
     const navHeader = rootEl.createDiv({ cls: 'nav-header' });
+
     const rowOneBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
-    rowOneBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText('Align:');
-    this.drawBtn(rowOneBtns, 'alignLeft', 'left align column', (te) =>
-      te.leftAlignColumn(),
-    );
-    this.drawBtn(rowOneBtns, 'alignCenter', 'center align column', (te) =>
-      te.centerAlignColumn(),
-    );
-    this.drawBtn(rowOneBtns, 'alignRight', 'right align column', (te) =>
-      te.rightAlignColumn(),
-    );
-
-    const rowTwoBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
-    rowTwoBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText('Move:');
-    this.drawBtn(rowTwoBtns, 'moveRowDown', 'move row down', (te) =>
-      te.moveRowDown(),
-    );
-    this.drawBtn(rowTwoBtns, 'moveRowUp', 'move row up', (te) =>
-      te.moveRowUp(),
-    );
-    this.drawBtn(rowTwoBtns, 'moveColumnRight', 'move column right', (te) =>
-      te.moveColumnRight(),
-    );
-    this.drawBtn(rowTwoBtns, 'moveColumnLeft', 'move column left', (te) =>
-      te.moveColumnLeft(),
-    );
-    this.drawBtn(rowTwoBtns, 'transpose', 'transpose', (te) =>
-      te.transpose(),
-    );
-
-    const rowThreeBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
-    rowThreeBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText('Edit:');
-    this.drawBtn(rowThreeBtns, 'insertRow', 'insert row above', (te) =>
-      te.insertRow(),
-    );
-    this.drawBtn(rowThreeBtns, 'insertColumn', 'insert column left', (te) =>
-      te.insertColumn(),
-    );
-    this.drawBtn(rowThreeBtns, 'deleteRow', 'delete row', (te) =>
-      te.deleteRow(),
-    );
-    this.drawBtn(rowThreeBtns, 'deleteColumn', 'delete column', (te) =>
-      te.deleteColumn(),
-    );
-
-    const rowFourBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
-    rowFourBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText('Sort/F:');
-    this.drawBtn(rowFourBtns, 'sortAsc', 'sort by column ascending', (te) =>
+    rowOneBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText('Sort/F:');
+    this.drawBtn(rowOneBtns, 'sortAsc', 'sort by column ascending', (te) =>
       te.sortRowsAsc(),
     );
-    this.drawBtn(rowFourBtns, 'sortDesc', 'sort by column descending', (te) =>
+    this.drawBtn(rowOneBtns, 'sortDesc', 'sort by column descending', (te) =>
       te.sortRowsDesc(),
     );
-    this.drawBtn(rowFourBtns, 'formula', 'evaluate formulas', (te) =>
+    this.drawBtn(rowOneBtns, 'transpose', 'transpose', (te) =>
+      te.transpose(),
+    );
+    this.drawBtn(rowOneBtns, 'formula', 'evaluate formulas', (te) =>
       te.evaluateFormulas(),
     );
 
-    const rowFiveBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
-    rowFiveBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText('Misc:');
-    this.drawBtn(rowFiveBtns, 'csv', 'export as csv', (te) =>
+    const rowTwoBtns = navHeader.createDiv({ cls: 'nav-buttons-container' });
+    rowTwoBtns.createSpan({ cls: 'advanced-tables-row-label' }).setText('Misc:');
+    this.drawBtn(rowTwoBtns, 'csv', 'export as csv', (te) =>
       te.exportCSVModal(),
     );
-    this.drawBtn(rowFiveBtns, 'help', 'help', () =>
+    this.drawBtn(rowTwoBtns, 'help', 'help', () =>
       window.open(
         'https://github.com/tgrosinger/advanced-tables-obsidian/blob/main/docs/help.md',
       ),
