@@ -335,13 +335,8 @@ export default class TableEditorPlugin extends Plugin {
     event: KeyboardEvent,
   ): void => {
     if (['Tab', 'Enter'].contains(event.key)) {
-      let editor: Editor;
-      let view: MarkdownView;
-      const activeLeaf = this.app.workspace.activeLeaf;
-      if (activeLeaf.view instanceof MarkdownView) {
-        editor = activeLeaf.view.editor;
-        view = activeLeaf.view;
-      }
+      const view  = this.app.workspace.getActiveViewOfType(MarkdownView)
+      const editor = view ? view.editor : null;
 
       const action = this.newPerformTableAction((te: TableEditor) => {
         switch (event.key) {
