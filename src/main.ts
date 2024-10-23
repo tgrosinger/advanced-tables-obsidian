@@ -425,8 +425,6 @@ class TableEditorSettingsTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    containerEl.createEl('h2', { text: 'Advanced Tables Plugin - Settings' });
-
     new Setting(containerEl)
       .setName('Bind enter to table navigation')
       .setDesc(
