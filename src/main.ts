@@ -122,6 +122,15 @@ export default class TableEditorPlugin extends Plugin {
     });
 
     this.addCommand({
+      id: 'insert-row-below',
+      name: 'Insert row after current',
+      icon: 'insertRowBelow',
+      editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
+        te.insertRowBelow();
+      }),
+    });
+
+    this.addCommand({
       id: 'escape-table',
       name: 'Move cursor out of table',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
