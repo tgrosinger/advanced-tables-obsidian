@@ -37,7 +37,7 @@ export class ObsidianTextEditor {
 
   public acceptsTableEdit = (row: number): boolean => {
     const cache = this.app.metadataCache.getFileCache(this.file);
-    if (!cache.sections) {
+    if (!cache?.sections) {
       return true;
     }
 
