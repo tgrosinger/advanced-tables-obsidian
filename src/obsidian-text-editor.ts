@@ -112,7 +112,7 @@ export class ObsidianTextEditor {
     );
   };
 
-  public transact = (func: Function): void => {
+  public transact = (func: () => void): void => {
     /*
     this.editor.operation(() => {
       func();

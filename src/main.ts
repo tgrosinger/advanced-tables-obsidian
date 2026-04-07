@@ -505,20 +505,24 @@ class TableEditorSettingsTab extends PluginSettingTab {
     div.appendChild(
       createDonateButton(
         'https://paypal.me/tgrosinger',
-        parser.parseFromString(paypal, 'text/xml').documentElement,
+        parser.parseFromString(paypal, 'image/svg+xml')
+          .documentElement as unknown as SVGElement,
       ),
     );
 
     div.appendChild(
       createDonateButton(
         'https://www.buymeacoffee.com/tgrosinger',
-        parser.parseFromString(buyMeACoffee, 'text/xml').documentElement,
+        parser.parseFromString(
+          buyMeACoffee,
+          'image/svg+xml',
+        ).documentElement as unknown as SVGElement,
       ),
     );
   }
 }
 
-const createDonateButton = (link: string, img: HTMLElement): HTMLElement => {
+const createDonateButton = (link: string, img: SVGElement): HTMLElement => {
   const a = document.createElement('a');
   a.setAttribute('href', link);
   a.addClass('advanced-tables-donate-button');

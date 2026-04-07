@@ -164,11 +164,12 @@ export class TableControlsView extends ItemView {
 }
 
 /**
- * Convert an svg string into an HTML element.
+ * Convert an svg string into an SVG element.
  *
  * @param svgText svg image as a string
  */
-const Element = (svgText: string): HTMLElement => {
+const Element = (svgText: string): SVGElement => {
   const parser = new DOMParser();
-  return parser.parseFromString(svgText, 'text/xml').documentElement;
+  return parser.parseFromString(svgText, 'image/svg+xml')
+    .documentElement as unknown as SVGElement;
 };
