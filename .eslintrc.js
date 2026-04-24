@@ -68,12 +68,10 @@ module.exports = {
     "@typescript-eslint/no-namespace": "error",
     "@typescript-eslint/no-non-null-assertion": "error",
     "@typescript-eslint/no-this-alias": ["error", { allowDestructuring: true }],
-    "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
     "@typescript-eslint/no-unnecessary-type-assertion": "error",
     "@typescript-eslint/no-unused-expressions": "error",
     "@typescript-eslint/prefer-function-type": "error",
     "@typescript-eslint/prefer-readonly": "error",
-    "@typescript-eslint/quotes": ["error", "single", { avoidEscape: true }],
     "arrow-body-style": ["error", "as-needed"],
     "babel/no-invalid-this": "error",
     "constructor-super": "error",
@@ -130,7 +128,7 @@ module.exports = {
     "prefer-object-spread": "error",
     "prefer-rest-params": "error",
     radix: "error",
-    "simple-import-sort/sort": [
+    "simple-import-sort/imports": [
       "error",
       {
         groups: [
