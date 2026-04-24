@@ -2,8 +2,6 @@ name: Release
 on:
   push:
     tags: ["*"]
-env:
-  PLUGIN_NAME: table-editor-obsidian
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,13 +15,6 @@ jobs:
       - name: Run build
         run: yarn run build
 
-      - name: Package
-        run: |
-          mkdir ${{ env.PLUGIN_NAME }}
-          cp main.js manifest.json styles.css ${{ env.PLUGIN_NAME }}
-          zip -r ${{ env.PLUGIN_NAME}}.zip ${{ env.PLUGIN_NAME }}
-          echo "::set-output name=tag_name::$(git tag --sort version:refname | tail -n 1)"
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -35,17 +26,6 @@ jobs:
           release_name: ${{ github.ref }}
           draft: true
           prerelease: false
-
-      - name: Upload artifacts
-        id: upload-artifacts
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${{ env.PLUGIN_NAME }}.zip
-          asset_name: ${{ env.PLUGIN_NAME }}-${{ github.ref }}.zip
-          asset_content_type: application/zip
 
       - name: Upload main.js
         id: upload-main
