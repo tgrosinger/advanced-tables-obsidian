@@ -35,7 +35,7 @@ export default class TableEditorPlugin extends Plugin {
 
     if (this.settings.showRibbonIcon) {
       this.addRibbonIcon('spreadsheet', 'Advanced Tables Toolbar', () => {
-        this.toggleTableControlsView();
+        void this.toggleTableControlsView();
       });
     }
 
@@ -264,7 +264,7 @@ export default class TableEditorPlugin extends Plugin {
         },
       ],
       callback: () => {
-        this.toggleTableControlsView();
+        void this.toggleTableControlsView();
       },
     });
 
@@ -407,7 +407,7 @@ export default class TableEditorPlugin extends Plugin {
       await this.loadData(),
     );
     this.settings = new TableEditorPluginSettings(settingsOptions);
-    this.saveData(this.settings);
+    await this.saveData(this.settings);
   }
 
   private readonly isMobile = (): boolean => (this.app as any).isMobile;
@@ -435,7 +435,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.bindEnter).onChange((value) => {
           this.plugin.settings.bindEnter = value;
-          this.plugin.saveData(this.plugin.settings);
+          void this.plugin.saveData(this.plugin.settings);
           this.display();
         }),
       );
@@ -450,7 +450,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.bindTab).onChange((value) => {
           this.plugin.settings.bindTab = value;
-          this.plugin.saveData(this.plugin.settings);
+          void this.plugin.saveData(this.plugin.settings);
           this.display();
         }),
       );
@@ -468,7 +468,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
             this.plugin.settings.formatType = value
               ? FormatType.NORMAL
               : FormatType.WEAK;
-            this.plugin.saveData(this.plugin.settings);
+            void this.plugin.saveData(this.plugin.settings);
             this.display();
           }),
       );
@@ -484,7 +484,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
           .setValue(this.plugin.settings.showRibbonIcon)
           .onChange((value) => {
             this.plugin.settings.showRibbonIcon = value;
-            this.plugin.saveData(this.plugin.settings);
+            void this.plugin.saveData(this.plugin.settings);
             this.display();
           }),
       );
