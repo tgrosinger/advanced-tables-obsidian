@@ -39,7 +39,7 @@ export class TableControlsView extends ItemView {
   private readonly draw = (): void => {
     const container = this.containerEl.children[1];
 
-    const rootEl = document.createElement('div');
+    const rootEl = activeDocument.createElement('div');
     rootEl.addClass('advanced-tables-buttons');
 
     rootEl.createDiv().
@@ -110,7 +110,7 @@ export class TableControlsView extends ItemView {
       te.exportCSVModal(),
     );
     this.drawBtn(rowFiveBtns, 'help', 'help', () =>
-      window.open(
+      activeWindow.open(
         'https://github.com/tgrosinger/advanced-tables-obsidian/blob/main/docs/help.md',
       ),
     );

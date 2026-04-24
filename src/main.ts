@@ -493,7 +493,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
       cls: 'advanced-tables-donation',
     });
 
-    const donateText = document.createElement('p');
+    const donateText = activeDocument.createElement('p');
     donateText.appendText(
       'If this plugin adds value for you and you would like to help support ' +
       'continued development, please use the buttons below:',
@@ -519,7 +519,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
 }
 
 const createDonateButton = (link: string, img: HTMLElement): HTMLElement => {
-  const a = document.createElement('a');
+  const a = activeDocument.createElement('a');
   a.setAttribute('href', link);
   a.addClass('advanced-tables-donate-button');
   a.appendChild(img);
