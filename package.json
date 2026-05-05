@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-    "cli-build": "node openclaw-advanced-tables-cli.cjs help > /dev/null",
+    "postbuild": "npm run cli-build",
+    "cli-build": "mkdir -p dist && cp openclaw-advanced-tables-cli.cjs openclaw-plugin-cli.cjs dist/ && node openclaw-advanced-tables-cli.cjs help > /dev/null",
     "prettier": "prettier --write 'src/**/*.+(ts|tsx|json|html|css)'",
     "eslint": "eslint . --ext .ts,.tsx --fix"
   },

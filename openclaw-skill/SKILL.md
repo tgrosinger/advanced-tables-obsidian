@@ -5,21 +5,21 @@ description: Use this skill when an OpenClaw agent needs to detect or normalize 
 
 # Advanced Tables CLI
 
-Use this repo's CLI to inspect or lightly format markdown tables. Always pass `--vault <vault>`.
+Use the CLI shipped in the installed plugin folder. Always pass `--vault <vault>`.
 
 ```bash
-PLUGIN_REPO=/path/to/advanced-tables-obsidian
-npm --prefix "$PLUGIN_REPO" run cli-build
-node "$PLUGIN_REPO/openclaw-advanced-tables-cli.cjs" list --vault <vault> --path "Notes/Table.md"
+VAULT=/path/to/vault
+CLI="$VAULT/.obsidian/plugins/table-editor-obsidian/openclaw-advanced-tables-cli.cjs"
+node "$CLI" list --vault "$VAULT" --path "Notes/Table.md"
 ```
 
 Format a note's markdown tables:
 
 ```bash
-node "$PLUGIN_REPO/openclaw-advanced-tables-cli.cjs" format --vault <vault> --path "Notes/Table.md"
+node "$CLI" format --vault "$VAULT" --path "Notes/Table.md"
 ```
 
-If installed or linked, `advanced-tables-cli ...` may be used instead.
+If the installed plugin does not include the CLI yet, use `advanced-tables-cli` from `PATH` or `node "$PLUGIN_REPO/openclaw-advanced-tables-cli.cjs"` from a checkout.
 
 ## Safety
 
