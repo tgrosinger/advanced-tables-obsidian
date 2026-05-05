@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "cli-build": "node openclaw-advanced-tables-cli.cjs help > /dev/null",
     "prettier": "prettier --write 'src/**/*.+(ts|tsx|json|html|css)'",
     "eslint": "eslint . --ext .ts,.tsx --fix"
+  },
+  "bin": {
+    "advanced-tables-cli": "./openclaw-advanced-tables-cli.cjs"
   },
   "keywords": [],
   "author": "Tony Grosinger",
