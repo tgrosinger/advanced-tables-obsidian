@@ -13,6 +13,7 @@ import {
   Editor,
   MarkdownView,
   Notice,
+  Platform,
   Plugin,
   PluginSettingTab,
   Setting,
@@ -360,7 +361,7 @@ export default class TableEditorPlugin extends Plugin {
     await this.saveData(this.settings);
   }
 
-  private readonly isMobile = (): boolean => (this.app as any).isMobile;
+  private readonly isMobile = (): boolean => Platform.isMobile;
 }
 
 class TableEditorSettingsTab extends PluginSettingTab {
