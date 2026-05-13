@@ -9,7 +9,7 @@ module.exports = {
   plugins: [
     "@typescript-eslint",
     "babel",
-    "import",
+    "import-x",
     "jsdoc",
     "prefer-arrow",
     "simple-import-sort",
@@ -77,7 +77,7 @@ module.exports = {
     "constructor-super": "error",
     curly: ["error", "multi-line"],
     eqeqeq: "error",
-    "import/no-duplicates": "error",
+    "import-x/no-duplicates": "error",
     "jsdoc/check-alignment": "error",
     "new-parens": "error",
     "no-caller": "error",
