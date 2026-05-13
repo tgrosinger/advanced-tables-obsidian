@@ -1,0 +1,4 @@
+allowBuilds:
+  esbuild: true
+overrides:
+  lodash: ^4.18.0

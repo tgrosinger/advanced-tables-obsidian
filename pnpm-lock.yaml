@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  lodash: ^4.18.0
+
 importers:
 
   .:
@@ -792,8 +795,8 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+  lodash@4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
   meaw@5.0.0:
     resolution: {integrity: sha512-yaK9Pnj6JrLcQGEqDUS0WGUEiaFg9Q215isi8mzcDVOjeGr5oS863hu+/ZS49g+azKPo5Wbpk3tgkP2+YOyZZw==}
@@ -1160,7 +1163,7 @@ snapshots:
     dependencies:
       decimal.js: 10.4.3
       ebnf: 1.9.1
-      lodash: 4.17.21
+      lodash: 4.18.1
       meaw: 5.0.0
 
   '@tybys/wasm-util@0.10.2':
@@ -1682,7 +1685,7 @@ snapshots:
 
   lodash.merge@4.6.2: {}
 
-  lodash@4.17.21: {}
+  lodash@4.18.1: {}
 
   meaw@5.0.0: {}
 
