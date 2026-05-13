@@ -352,10 +352,10 @@ export default class TableEditorPlugin extends Plugin {
   };
 
   private async loadSettings(): Promise<void> {
-    const settingsOptions = Object.assign(
-      defaultSettings,
-      await this.loadData(),
-    );
+    const settingsOptions = {
+      ...defaultSettings,
+      ...(await this.loadData()),
+    };
     this.settings = new TableEditorPluginSettings(settingsOptions);
     await this.saveData(this.settings);
   }
