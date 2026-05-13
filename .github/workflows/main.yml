@@ -8,14 +8,16 @@ jobs:
   eslint:
     runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
 
       - name: Install modules
-        run: yarn
+        run: pnpm install --frozen-lockfile
 
       - name: Run build
-        run: yarn run build
+        run: pnpm run build
 
       - name: Run ESLint
-        run: yarn run eslint
+        run: pnpm run eslint
