@@ -22,8 +22,6 @@ export default class TableEditorPlugin extends Plugin {
   public settings: TableEditorPluginSettings;
 
   public async onload(): Promise<void> {
-    console.log('loading markdown-table-editor plugin');
-
     await this.loadSettings();
 
     this.registerView(
