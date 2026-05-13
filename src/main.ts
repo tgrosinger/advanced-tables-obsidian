@@ -21,7 +21,11 @@ import {
 export default class TableEditorPlugin extends Plugin {
   public settings: TableEditorPluginSettings;
 
-  public async onload(): Promise<void> {
+  public onload(): void {
+    void this.asyncOnload();
+  }
+
+  private async asyncOnload(): Promise<void> {
     await this.loadSettings();
 
     this.registerView(
