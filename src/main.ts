@@ -440,7 +440,7 @@ class TableEditorSettingsTab extends PluginSettingTab {
           }),
       );
 
-    const div = containerEl.createEl('div', {
+    const div = containerEl.createDiv({
       cls: 'advanced-tables-donation',
     });
 
