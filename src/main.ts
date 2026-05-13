@@ -323,7 +323,7 @@ export default class TableEditorPlugin extends Plugin {
       };
 
   private readonly newPerformTableAction =
-    (fn: (te: TableEditor) => void, alertOnNoTable = true) =>
+    (fn: (te: TableEditor) => void) =>
       (checking: boolean, editor: Editor, view: MarkdownView): boolean | void => {
         const te = new TableEditor(this.app, view.file, editor, this.settings);
 
@@ -333,52 +333,6 @@ export default class TableEditorPlugin extends Plugin {
 
         fn(te);
       };
-
-  // handleKeyDown is used to bind the tab and enter keys in the legacy CM5 editor.
-  private readonly handleKeyDown = (
-    cm: CodeMirror.Editor,
-    event: KeyboardEvent,
-  ): void => {
-    if (['Tab', 'Enter'].contains(event.key)) {
-      const view  = this.app.workspace.getActiveViewOfType(MarkdownView)
-      const editor = view ? view.editor : null;
-
-      const action = this.newPerformTableAction((te: TableEditor) => {
-        switch (event.key) {
-          case 'Tab':
-            if (!this.settings.bindTab) {
-              return;
-            }
-
-            if (event.shiftKey) {
-              te.previousCell();
-            } else {
-              te.nextCell();
-            }
-            break;
-          case 'Enter':
-            if (!this.settings.bindEnter) {
-              return;
-            }
-
-            if (event.shiftKey) {
-              te.escape();
-            } else if (event.ctrlKey || event.metaKey || event.altKey) {
-              return;
-            } else {
-              te.nextRow();
-            }
-            break;
-        }
-        event.preventDefault();
-      }, false);
-
-      // Check first if we are in a table, if so, then execute.
-      if (action(true, editor, view)) {
-        action(false, editor, view);
-      }
-    }
-  };
 
   private readonly toggleTableControlsView = async (): Promise<void> => {
     const existing = this.app.workspace.getLeavesOfType(TableControlsViewType);
