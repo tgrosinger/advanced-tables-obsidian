@@ -52,8 +52,8 @@ importers:
         specifier: 10.0.0
         version: 10.0.0(eslint@8.57.1)
       obsidian:
-        specifier: https://github.com/obsidianmd/obsidian-api/archive/df9434bec6883bd32727f61b1ed1336f7663d0e4.tar.gz
-        version: https://github.com/obsidianmd/obsidian-api/archive/df9434bec6883bd32727f61b1ed1336f7663d0e4.tar.gz(@codemirror/state@6.4.0)(@codemirror/view@6.23.1)
+        specifier: ^1.13.1
+        version: 1.13.1(@codemirror/state@6.4.0)(@codemirror/view@6.23.1)
       tslib:
         specifier: 2.6.2
         version: 2.6.2
@@ -823,12 +823,11 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  obsidian@https://github.com/obsidianmd/obsidian-api/archive/df9434bec6883bd32727f61b1ed1336f7663d0e4.tar.gz:
-    resolution: {tarball: https://github.com/obsidianmd/obsidian-api/archive/df9434bec6883bd32727f61b1ed1336f7663d0e4.tar.gz}
-    version: 1.6.6
+  obsidian@1.13.1:
+    resolution: {integrity: sha512-qtTEA2pmhJzhuhJqzbBFRYhpIOqvW+krDYjtFynv66KbxBbumHBlsJfWw3I4jtnK/6fZwbQhCrmmDdRwXmX56w==}
     peerDependencies:
-      '@codemirror/state': ^6.0.0
-      '@codemirror/view': ^6.0.0
+      '@codemirror/state': 6.5.0
+      '@codemirror/view': 6.38.6
 
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
@@ -1705,7 +1704,7 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  obsidian@https://github.com/obsidianmd/obsidian-api/archive/df9434bec6883bd32727f61b1ed1336f7663d0e4.tar.gz(@codemirror/state@6.4.0)(@codemirror/view@6.23.1):
+  obsidian@1.13.1(@codemirror/state@6.4.0)(@codemirror/view@6.23.1):
     dependencies:
       '@codemirror/state': 6.4.0
       '@codemirror/view': 6.23.1

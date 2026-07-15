@@ -16,7 +16,9 @@ import {
   Platform,
   Plugin,
   PluginSettingTab,
+  requireApiVersion,
   Setting,
+  type SettingDefinitionItem,
 } from 'obsidian';
 
 export default class TableEditorPlugin extends Plugin {
@@ -372,6 +374,77 @@ class TableEditorSettingsTab extends PluginSettingTab {
     this.plugin = plugin;
   }
 
+  public getSettingDefinitions(): SettingDefinitionItem<
+    keyof TableEditorPluginSettings & string
+  >[] {
+    if (!requireApiVersion('1.13.0')) return [];
+
+    return [
+      {
+        name: 'Bind enter to table navigation',
+        desc:
+          'Requires restart of Obsidian. If enabled, when the cursor is in a table, enter advances to the next ' +
+          'row. Disabling this can help avoid conflicting with tag or CJK ' +
+          'autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
+        control: {
+          type: 'toggle',
+          key: 'bindEnter',
+          defaultValue: defaultSettings.bindEnter,
+        },
+      },
+      {
+        name: 'Bind tab to table navigation',
+        desc:
+          'Requires restart of Obsidian. If enabled, when the cursor is in a table, tab/shift+tab navigate ' +
+          'between cells. Disabling this can help avoid conflicting with tag ' +
+          'or CJK autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
+        control: {
+          type: 'toggle',
+          key: 'bindTab',
+          defaultValue: defaultSettings.bindTab,
+        },
+      },
+      {
+        name: 'Pad cell width using spaces',
+        desc:
+          'If enabled, table cells will have spaces added to match the width of the ' +
+          'longest cell in the column.',
+        render: (setting) => {
+          setting.addToggle((toggle) =>
+            toggle
+              .setValue(this.plugin.settings.formatType === FormatType.NORMAL)
+              .onChange((value) => {
+                this.plugin.settings.formatType = value
+                  ? FormatType.NORMAL
+                  : FormatType.WEAK;
+                void this.plugin.saveData(this.plugin.settings);
+                this.update();
+              }),
+          );
+        },
+      },
+      {
+        name: 'Show icon in sidebar',
+        desc:
+          'If enabled, a button which opens the table controls toolbar will be added to the Obsidian sidebar. ' +
+          'The toolbar can also be opened with a Hotkey. Changes only take effect on reload.',
+        control: {
+          type: 'toggle',
+          key: 'showRibbonIcon',
+          defaultValue: defaultSettings.showRibbonIcon,
+        },
+      },
+      {
+        name: 'Support Advanced Tables',
+        searchable: false,
+        render: (setting) => {
+          setting.settingEl.empty();
+          renderDonation(setting.settingEl);
+        },
+      },
+    ];
+  }
+
   public display(): void {
     const { containerEl } = this;
     containerEl.empty();
@@ -440,34 +513,38 @@ class TableEditorSettingsTab extends PluginSettingTab {
           }),
       );
 
-    const div = containerEl.createDiv({
-      cls: 'advanced-tables-donation',
-    });
-
-    const donateText = activeDocument.createElement('p');
-    donateText.appendText(
-      'If this plugin adds value for you and you would like to help support ' +
-      'continued development, please use the buttons below:',
-    );
-    div.appendChild(donateText);
-
-    const parser = new DOMParser();
-
-    div.appendChild(
-      createDonateButton(
-        'https://paypal.me/tgrosinger',
-        parser.parseFromString(paypal, 'text/xml').documentElement,
-      ),
-    );
-
-    div.appendChild(
-      createDonateButton(
-        'https://www.buymeacoffee.com/tgrosinger',
-        parser.parseFromString(buyMeACoffee, 'text/xml').documentElement,
-      ),
-    );
+    renderDonation(containerEl);
   }
 }
+
+const renderDonation = (containerEl: HTMLElement): void => {
+  const div = containerEl.createDiv({
+    cls: 'advanced-tables-donation',
+  });
+
+  const donateText = activeDocument.createElement('p');
+  donateText.appendText(
+    'If this plugin adds value for you and you would like to help support ' +
+      'continued development, please use the buttons below:',
+  );
+  div.appendChild(donateText);
+
+  const parser = new DOMParser();
+
+  div.appendChild(
+    createDonateButton(
+      'https://paypal.me/tgrosinger',
+      parser.parseFromString(paypal, 'text/xml').documentElement,
+    ),
+  );
+
+  div.appendChild(
+    createDonateButton(
+      'https://www.buymeacoffee.com/tgrosinger',
+      parser.parseFromString(buyMeACoffee, 'text/xml').documentElement,
+    ),
+  );
+};
 
 const createDonateButton = (link: string, img: HTMLElement): HTMLElement => {
   const a = activeDocument.createElement('a');
