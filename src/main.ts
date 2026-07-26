@@ -413,11 +413,11 @@ class TableEditorSettingsTab extends PluginSettingTab {
           setting.addToggle((toggle) =>
             toggle
               .setValue(this.plugin.settings.formatType === FormatType.NORMAL)
-              .onChange((value) => {
+              .onChange(async (value) => {
                 this.plugin.settings.formatType = value
                   ? FormatType.NORMAL
                   : FormatType.WEAK;
-                void this.plugin.saveData(this.plugin.settings);
+                await this.plugin.saveData(this.plugin.settings);
                 this.update();
               }),
           );
