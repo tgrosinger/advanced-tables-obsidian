@@ -127,7 +127,7 @@ export class TableControlsView extends ItemView {
     fn: (te: TableEditor) => void,
   ): void => {
     const cursorCheck = (te: TableEditor): boolean => {
-      if (title === t('formulaTooltip')) {
+      if (iconName === 'formula') {
         return te.cursorIsInTable() || te.cursorIsInTableFormula();
       }
       return te.cursorIsInTable();

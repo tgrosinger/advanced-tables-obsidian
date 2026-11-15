@@ -1,5 +1,3 @@
-import { moment } from 'obsidian';
-
 const en = {
   toolbar: 'Advanced Tables Toolbar',
   goNextRow: 'Go to next row',
@@ -25,13 +23,19 @@ const en = {
   evaluate: 'Evaluate table formulas',
   openToolbar: 'Open table controls toolbar',
   bindEnter: 'Bind enter to table navigation',
-  bindEnterDesc: 'Pressing enter will move to the next row.',
+  bindEnterDesc: 'Requires restart of Obsidian. If enabled, when the cursor is in a table, enter advances to the next ' +
+    'row. Disabling this can help avoid conflicting with tag or CJK ' +
+    'autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
   bindTab: 'Bind tab to table navigation',
-  bindTabDesc: 'Pressing tab will move to the next cell.',
+  bindTabDesc: 'Requires restart of Obsidian. If enabled, when the cursor is in a table, tab/shift+tab navigate ' +
+    'between cells. Disabling this can help avoid conflicting with tag ' +
+    'or CJK autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
   padCell: 'Pad cell width using spaces',
-  padCellDesc: 'Use spaces to make all cells in a column the same width.',
+  padCellDesc: 'If enabled, table cells will have spaces added to match the width of the ' +
+    'longest cell in the column.',
   showRibbon: 'Show icon in sidebar',
-  showRibbonDesc: 'Add a button to the sidebar to open the table controls toolbar.',
+  showRibbonDesc: 'If enabled, a button which opens the table controls toolbar will be added to the Obsidian sidebar. ' +
+    'The toolbar can also be opened with a Hotkey. Changes only take effect on reload.',
   alignLabel: 'Align:',
   moveLabel: 'Move:',
   editLabel: 'Edit:',
@@ -89,13 +93,13 @@ const zh: Record<Key, string> = {
   evaluate: '计算表格公式',
   openToolbar: '打开表格控制工具栏',
   bindEnter: '将 Enter 绑定到表格导航',
-  bindEnterDesc: '按 Enter 时移动到下一行。',
+  bindEnterDesc: '需要重启 Obsidian 后生效。启用后，当光标位于表格中时，按 Enter 会移动到下一行。禁用此项可避免与标签或中日韩文字（CJK）自动补全冲突。禁用后，请在 Obsidian 的“快捷键”设置中为“转到……”命令绑定快捷键。',
   bindTab: '将 Tab 绑定到表格导航',
-  bindTabDesc: '按 Tab 时移动到下一个单元格。',
+  bindTabDesc: '需要重启 Obsidian 后生效。启用后，当光标位于表格中时，按 Tab/Shift+Tab 可在单元格之间向后/向前移动。禁用此项可避免与标签或中日韩文字（CJK）自动补全冲突。禁用后，请在 Obsidian 的“快捷键”设置中为“转到……”命令绑定快捷键。',
   padCell: '用空格填充单元格宽度',
-  padCellDesc: '使用空格使同一列的所有单元格等宽。',
+  padCellDesc: '启用后，会为单元格添加空格，使其宽度与同一列中最长的单元格一致。',
   showRibbon: '在侧边栏显示图标',
-  showRibbonDesc: '在侧边栏添加按钮以打开表格控制工具栏。',
+  showRibbonDesc: '启用后，会在 Obsidian 侧边栏添加用于打开表格控制工具栏的按钮。也可以通过快捷键打开工具栏。更改仅在重新加载后生效。',
   alignLabel: '对齐：',
   moveLabel: '移动：',
   editLabel: '编辑：',
@@ -126,8 +130,22 @@ const zh: Record<Key, string> = {
   helpTooltip: '帮助'
 };
 
+function getObsidianLanguage (): string {
+  // getLanguage() is absent in older apps and the pinned Obsidian API typings.
+  const obsidian = require('obsidian') as { getLanguage?: () => string };
+  const language = obsidian.getLanguage?.();
+  if (language) return language;
+
+  // Obsidian stores its UI language here; Moment's locale is for dates only.
+  try {
+    return typeof localStorage === 'undefined' ? 'en' : localStorage.getItem('language') || 'en';
+  } catch {
+    return 'en';
+  }
+}
+
 function hasChineseLanguage (): boolean {
-  const locale = (moment.locale() || 'en').replace('_', '-').toLowerCase();
+  const locale = getObsidianLanguage().replace('_', '-').toLowerCase();
   return locale === 'zh' || locale.startsWith('zh-');
 }
 

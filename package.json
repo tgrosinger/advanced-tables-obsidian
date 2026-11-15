@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "test": "node --test tests/i18n.test.cjs",
     "prettier": "prettier --write 'src/**/*.+(ts|tsx|json|html|css)'",
     "eslint": "eslint . --ext .ts,.tsx --fix"
   },
