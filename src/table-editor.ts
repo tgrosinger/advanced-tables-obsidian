@@ -1,4 +1,5 @@
 import { ObsidianTextEditor } from './obsidian-text-editor';
+import { t } from './i18n';
 import { TableEditorPluginSettings } from './settings';
 import {
   Alignment,
@@ -154,7 +155,7 @@ class CSVModal extends Modal {
         checked: true,
       },
     });
-    lb.createSpan().setText('Include table headers');
+    lb.createSpan().setText(t('includeHeaders'));
     cb.onClickEvent(() => {
       ta.value = this.mte.exportCSV(cb.checked, this.settings.asOptions());
     });
