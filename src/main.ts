@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import { addIcons } from './icons';
 import { defaultSettings, TableEditorPluginSettings } from './settings';
 import {
@@ -37,7 +38,7 @@ export default class TableEditorPlugin extends Plugin {
     addIcons();
 
     if (this.settings.showRibbonIcon) {
-      this.addRibbonIcon('spreadsheet', 'Advanced Tables Toolbar', () => {
+      this.addRibbonIcon('spreadsheet', t('toolbar'), () => {
         void this.toggleTableControlsView();
       });
     }
@@ -47,14 +48,11 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'next-row',
-      name: 'Go to next row',
+      name: t('goNextRow'),
       icon: 'arrowenter',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         if (this.settings.bindEnter && !this.isMobile) {
-          new Notice(
-            'Advanced Tables: Next row also bound to enter. ' +
-            'Possibly producing double actions. See Advanced Tables settings.',
-          );
+          new Notice(t('enterConflict'));
         }
         te.nextRow();
       }),
@@ -62,14 +60,11 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'next-cell',
-      name: 'Go to next cell',
+      name: t('goNextCell'),
       icon: 'arrowtab',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         if (this.settings.bindTab && !this.isMobile) {
-          new Notice(
-            'Advanced Tables: Next cell also bound to tab. ' +
-            'Possibly producing double actions. See Advanced Tables settings.',
-          );
+          new Notice(t('tabConflict'));
         }
         te.nextCell();
       }),
@@ -77,13 +72,10 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'previous-cell',
-      name: 'Go to previous cell',
+      name: t('goPreviousCell'),
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         if (this.settings.bindTab && !this.isMobile) {
-          new Notice(
-            'Advanced Tables: Previous cell also bound to shift+tab. ' +
-            'Possibly producing double actions. See Advanced Tables settings.',
-          );
+          new Notice(t('shiftTabConflict'));
         }
         te.previousCell();
       }),
@@ -91,7 +83,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'format-table',
-      name: 'Format table at the cursor',
+      name: t('formatTable'),
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.formatTable();
       }),
@@ -99,7 +91,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'format-all-tables',
-      name: 'Format all tables in this file',
+      name: t('formatAllTables'),
       editorCallback: (editor: Editor, view: MarkdownView) => {
         const te = new TableEditor(this.app, view.file, editor, this.settings);
         te.formatAllTables();
@@ -108,7 +100,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'insert-column',
-      name: 'Insert column before current',
+      name: t('insertColumn'),
       icon: 'insertColumn',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.insertColumn();
@@ -117,7 +109,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'insert-row',
-      name: 'Insert row before current',
+      name: t('insertRow'),
       icon: 'insertRow',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.insertRow();
@@ -126,7 +118,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'escape-table',
-      name: 'Move cursor out of table',
+      name: t('moveOut'),
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.escape();
       }),
@@ -134,7 +126,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'left-align-column',
-      name: 'Left align column',
+      name: t('leftAlign'),
       icon: 'alignLeft',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.leftAlignColumn();
@@ -143,7 +135,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'center-align-column',
-      name: 'Center align column',
+      name: t('centerAlign'),
       icon: 'alignCenter',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.centerAlignColumn();
@@ -152,7 +144,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'right-align-column',
-      name: 'Right align column',
+      name: t('rightAlign'),
       icon: 'alignRight',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.rightAlignColumn();
@@ -161,7 +153,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'move-column-left',
-      name: 'Move column left',
+      name: t('moveColumnLeft'),
       icon: 'moveColumnLeft',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveColumnLeft();
@@ -170,7 +162,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'move-column-right',
-      name: 'Move column right',
+      name: t('moveColumnRight'),
       icon: 'moveColumnRight',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveColumnRight();
@@ -179,7 +171,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'move-row-up',
-      name: 'Move row up',
+      name: t('moveRowUp'),
       icon: 'moveRowUp',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveRowUp();
@@ -188,7 +180,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'move-row-down',
-      name: 'Move row down',
+      name: t('moveRowDown'),
       icon: 'moveRowDown',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.moveRowDown();
@@ -197,7 +189,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'delete-column',
-      name: 'Delete column',
+      name: t('deleteColumn'),
       icon: 'deleteColumn',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.deleteColumn();
@@ -206,7 +198,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'delete-row',
-      name: 'Delete row',
+      name: t('deleteRow'),
       icon: 'deleteRow',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.deleteRow();
@@ -215,7 +207,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'sort-rows-ascending',
-      name: 'Sort rows ascending',
+      name: t('sortAsc'),
       icon: 'sortAsc',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.sortRowsAsc();
@@ -224,7 +216,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'sort-rows-descending',
-      name: 'Sort rows descending',
+      name: t('sortDesc'),
       icon: 'sortDesc',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.sortRowsDesc();
@@ -233,7 +225,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'transpose',
-      name: 'Transpose',
+      name: t('transpose'),
        icon: 'transpose',
       editorCheckCallback: this.newPerformTableAction((te: TableEditor) => {
         te.transpose();
@@ -242,7 +234,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'evaluate-formulas',
-      name: 'Evaluate table formulas',
+      name: t('evaluate'),
       icon: 'formula',
       editorCheckCallback: (
         checking: boolean,
@@ -259,7 +251,7 @@ export default class TableEditorPlugin extends Plugin {
 
     this.addCommand({
       id: 'table-control-bar',
-      name: 'Open table controls toolbar',
+      name: t('openToolbar'),
       callback: () => {
         void this.toggleTableControlsView();
       },
@@ -377,12 +369,8 @@ class TableEditorSettingsTab extends PluginSettingTab {
     containerEl.empty();
 
     new Setting(containerEl)
-      .setName('Bind enter to table navigation')
-      .setDesc(
-        'Requires restart of Obsidian. If enabled, when the cursor is in a table, enter advances to the next ' +
-        'row. Disabling this can help avoid conflicting with tag or CJK ' +
-        'autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
-      )
+      .setName(t('bindEnter'))
+      .setDesc(t('bindEnterDesc'))
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.bindEnter).onChange((value) => {
           this.plugin.settings.bindEnter = value;
@@ -392,12 +380,8 @@ class TableEditorSettingsTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Bind tab to table navigation')
-      .setDesc(
-        'Requires restart of Obsidian. If enabled, when the cursor is in a table, tab/shift+tab navigate ' +
-        'between cells. Disabling this can help avoid conflicting with tag ' +
-        'or CJK autocompletion. If disabling, bind "Go to ..." in the Obsidian Hotkeys settings.',
-      )
+      .setName(t('bindTab'))
+      .setDesc(t('bindTabDesc'))
       .addToggle((toggle) =>
         toggle.setValue(this.plugin.settings.bindTab).onChange((value) => {
           this.plugin.settings.bindTab = value;
@@ -407,11 +391,8 @@ class TableEditorSettingsTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Pad cell width using spaces')
-      .setDesc(
-        'If enabled, table cells will have spaces added to match the width of the ' +
-        'longest cell in the column.',
-      )
+      .setName(t('padCell'))
+      .setDesc(t('padCellDesc'))
       .addToggle((toggle) =>
         toggle
           .setValue(this.plugin.settings.formatType === FormatType.NORMAL)
@@ -425,11 +406,8 @@ class TableEditorSettingsTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Show icon in sidebar')
-      .setDesc(
-        'If enabled, a button which opens the table controls toolbar will be added to the Obsidian sidebar. ' +
-        'The toolbar can also be opened with a Hotkey. Changes only take effect on reload.',
-      )
+      .setName(t('showRibbon'))
+      .setDesc(t('showRibbonDesc'))
       .addToggle((toggle) =>
         toggle
           .setValue(this.plugin.settings.showRibbonIcon)
