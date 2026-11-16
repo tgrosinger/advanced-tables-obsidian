@@ -1,5 +1,5 @@
-import { addIcons } from './icons';
 import { t } from './i18n';
+import { addIcons } from './icons';
 import { defaultSettings, TableEditorPluginSettings } from './settings';
 import {
   TableControlsView,

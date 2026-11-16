@@ -130,7 +130,7 @@ const zh: Record<Key, string> = {
   helpTooltip: '帮助'
 };
 
-function getObsidianLanguage (): string {
+const getObsidianLanguage = (): string => {
   // getLanguage() is absent in older apps and the pinned Obsidian API typings.
   const obsidian = require('obsidian') as { getLanguage?: () => string };
   const language = obsidian.getLanguage?.();
@@ -142,13 +142,11 @@ function getObsidianLanguage (): string {
   } catch {
     return 'en';
   }
-}
+};
 
-function hasChineseLanguage (): boolean {
+const hasChineseLanguage = (): boolean => {
   const locale = getObsidianLanguage().replace('_', '-').toLowerCase();
   return locale === 'zh' || locale.startsWith('zh-');
-}
+};
 
-export function t (key: Key): string {
-  return (hasChineseLanguage() ? zh : en)[key];
-}
+export const t = (key: Key): string => (hasChineseLanguage() ? zh : en)[key];

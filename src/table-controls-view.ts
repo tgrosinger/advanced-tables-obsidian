@@ -1,5 +1,5 @@
-import { icons } from './icons';
 import { t } from './i18n';
+import { icons } from './icons';
 import { TableEditorPluginSettings } from './settings';
 import { TableEditor } from './table-editor';
 import {

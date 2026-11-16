@@ -1,5 +1,5 @@
-import { ObsidianTextEditor } from './obsidian-text-editor';
 import { t } from './i18n';
+import { ObsidianTextEditor } from './obsidian-text-editor';
 import { TableEditorPluginSettings } from './settings';
 import {
   Alignment,
